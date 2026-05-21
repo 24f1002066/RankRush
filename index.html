@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> RANKRUSH </title>
+    <title>RANKRUSH - Premium Exam Preparation</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -19,25 +19,16 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'Noto Sans Devanagari', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
                         serif: ['Cinzel', 'serif'],
+                        mono: ['Space Mono', 'monospace'],
                     },
                     colors: {
-                        brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            200: '#b9defe',
-                            500: '#0284c7',
-                            600: '#025a9c',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        },
-                        accent: {
-                            gold: '#d97706',
-                            emerald: '#059669',
-                            rose: '#e11d48'
-                        }
+                        'premium-dark': '#0B0F19',
+                        'premium-darker': '#1A2333',
+                        'neon-orange': '#FF6B35',
+                        'metal-gold': '#D4AF37',
+                        'teal-sea': '#0F7B8E',
                     }
                 }
             }
@@ -45,33 +36,70 @@
     </script>
 
     <style>
-        /* Custom scrollbars */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        .dark ::-webkit-scrollbar-track {
-            background: #1e293b;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        .dark ::-webkit-scrollbar-thumb {
-            background: #475569;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        .dark ::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Cool animations */
-        @keyframes slideInUp {
+        body {
+            background: linear-gradient(135deg, #0B0F19 0%, #1A2333 50%, #0B0F19 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        /* Premium scrollbars */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #D4AF37, #FF6B35);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #FFD700, #FF8C42);
+        }
+
+        /* Glassmorphism base */
+        .glass {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .glass-gold {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1), inset 0 0 20px rgba(212, 175, 55, 0.05);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 40px rgba(255, 107, 53, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 0 60px rgba(255, 107, 53, 0.2);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes slide-up {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -82,390 +110,299 @@
             }
         }
 
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        @keyframes pulse-glow {
-            0%, 100% {
-                box-shadow: 0 0 10px rgba(217, 119, 6, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 20px rgba(217, 119, 6, 0.6);
-            }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
         }
 
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .animate-glow-pulse {
+            animation: glow-pulse 3s ease-in-out infinite;
         }
 
-        .animate-slideInUp {
-            animation: slideInUp 0.6s ease-out;
+        .animate-slide-up {
+            animation: slide-up 0.6s ease-out;
         }
 
-        .animate-slideInLeft {
-            animation: slideInLeft 0.6s ease-out;
+        .animate-fade-in {
+            animation: fade-in 0.8s ease-out;
         }
 
-        .animate-pulse-glow {
-            animation: pulse-glow 2s ease-in-out infinite;
+        /* Premium badges */
+        .badge-neon {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 107, 53, 0.1));
+            border: 1px solid rgba(255, 107, 53, 0.6);
+            color: #FF6B35;
         }
 
-        .animate-fadeInScale {
-            animation: fadeInScale 0.5s ease-out;
+        .icon-gradient {
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .pdf-card-hover {
-            transition: all 0.3s ease;
+        /* Text gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #D4AF37, #FFD700, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+            background-size: 200% 200%;
         }
 
-        .pdf-card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        .text-gradient-orange {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .announcement-card {
-            border-left: 4px solid #d97706;
-        }
-
-        .announcement-card:hover {
-            border-left-color: #f59e0b;
-        }
-
-        /* Header Animations & Styles */
-        @keyframes logoGlow {
-            0%, 100% {
-                box-shadow: 0 0 25px rgba(217, 119, 6, 0.6), 0 0 50px rgba(251, 191, 36, 0.3), inset 0 0 25px rgba(217, 119, 6, 0.2);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(217, 119, 6, 1), 0 0 80px rgba(251, 191, 36, 0.5), inset 0 0 40px rgba(217, 119, 6, 0.4);
-            }
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: -1000px 0;
-            }
-            100% {
-                background-position: 1000px 0;
-            }
-        }
-
-        @keyframes floatLogo {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        @keyframes pulse-ring {
-            0% {
-                box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(217, 119, 6, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
-            }
-        }
-
-        .logo-container {
-            animation: logoGlow 3s ease-in-out infinite, floatLogo 4s ease-in-out infinite;
-            background: linear-gradient(135deg, #ffffff, #f8fafc);
-        }
-
-        .logo-pulse {
-            animation: pulse-ring 2s infinite;
-        }
-
-        .header-shimmer {
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-            background-size: 1000px 100%;
-            animation: shimmer 4s infinite;
-        }
-
-        .nav-link {
+        /* Navigation hover effect */
+        .nav-item {
             position: relative;
+            padding: 8px 0;
             transition: all 0.3s ease;
-            padding-bottom: 4px;
         }
 
-        .nav-link::after {
+        .nav-item::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+            height: 2px;
+            background: linear-gradient(90deg, #D4AF37, #FF6B35);
             transition: width 0.4s ease;
         }
 
-        .nav-link:hover {
-            color: #fbbf24;
-            transform: translateY(-2px);
-        }
-
-        .nav-link:hover::after {
+        .nav-item:hover::after {
             width: 100%;
         }
 
-        .stat-badge {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(251, 191, 36, 0.1));
-            border: 1.5px solid rgba(251, 191, 36, 0.5);
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
+        .nav-item:hover {
+            color: #D4AF37;
         }
 
-        .stat-badge:hover {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(217, 119, 6, 0.2));
-            border-color: rgba(251, 191, 36, 1);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(217, 119, 6, 0.2);
+        /* Card hover effects */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.6);
+        }
+
+        /* Premium header line */
+        .header-divider {
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+            height: 1px;
         }
     </style>
 </head>
-<body class="font-sans bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
-    <!-- Header Section -->
-    <header class="bg-gradient-to-br from-slate-950 via-blue-900 to-amber-900 text-white shadow-2xl py-8 px-6 relative overflow-hidden" style="background-image: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,58,138,0.9)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 120%22><path d=%22M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z%22 fill=%22rgba(217,119,6,0.1)%22/></svg>'); background-size: cover; background-attachment: fixed;">
-        <!-- Decorative Elements -->
-        <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-amber-500/20 to-transparent rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-blue-500/15 to-transparent rounded-full blur-3xl pointer-events-none"></div>
-        
-        <!-- Animated Background Shimmer -->
-        <div class="absolute inset-0 header-shimmer opacity-30 pointer-events-none"></div>
-        
-        <div class="max-w-7xl mx-auto relative z-10">
+<body class="text-white font-sans">
+
+    <!-- Premium Header -->
+    <header class="relative overflow-hidden pt-8 pb-12">
+        <!-- Background glow effects -->
+        <div class="absolute top-0 left-10 w-72 h-72 bg-gradient-to-br from-blue-600/20 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute top-20 right-10 w-96 h-96 bg-gradient-to-bl from-orange-600/10 to-transparent rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
             <!-- Top Section: Logo & Title -->
-            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
-                <!-- Logo & Portal Info -->
-                <div class="flex items-center gap-6 animate-slideInLeft">
-                    <div class="logo-container logo-pulse w-24 h-24 bg-gradient-to-br from-white to-amber-50 dark:from-slate-100 dark:to-amber-50 rounded-3xl flex items-center justify-center shadow-2xl border-4 border-amber-400 flex-shrink-0 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-amber-200 to-transparent opacity-30 animate-pulse"></div>
-                        <img src="Rankrush.png" alt="RANKRUSH Logo" class="w-16 h-16 object-cover relative z-10" />
-                    </div>
-                    <div>
-                        <div class="flex items-baseline gap-3 flex-wrap">
-                            <h1 class="font-serif text-4xl md:text-5xl tracking-widest font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-300 drop-shadow-lg">
-                                RANKRUSH
-                            </h1>
-                            <span class="text-xs font-extrabold px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 border border-amber-300 text-white shadow-lg">PREMIUM 2026</span>
-                        </div>
-                        <p class="text-base md:text-lg font-bold text-amber-100 tracking-wider mt-2 flex items-center gap-2">
-                            <i class="fas fa-rocket text-amber-300 text-xl animate-bounce"></i>
-                            Beat The Exam Before The Exam
-                        </p>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12 mb-12">
+                <!-- Left: Premium Icon -->
+                <div class="flex-shrink-0 animate-float">
+                    <div class="w-32 h-32 glass-gold rounded-2xl flex items-center justify-center relative group">
+                        <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-yellow-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <svg class="w-20 h-20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Student reaching for stars over book -->
+                            <defs>
+                                <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Book -->
+                            <path d="M 20 50 L 20 85 Q 20 90 25 90 L 75 90 Q 80 90 80 85 L 80 50" stroke="url(#starGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <path d="M 50 50 L 50 90" stroke="url(#starGrad)" stroke-width="2" opacity="0.5"/>
+                            <!-- Pages -->
+                            <path d="M 30 55 L 70 55" stroke="url(#starGrad)" stroke-width="1.5" opacity="0.4"/>
+                            <path d="M 30 65 L 70 65" stroke="url(#starGrad)" stroke-width="1.5" opacity="0.4"/>
+                            <!-- Student head -->
+                            <circle cx="50" cy="28" r="8" stroke="url(#starGrad)" stroke-width="2" fill="none"/>
+                            <!-- Student arm reaching -->
+                            <path d="M 56 35 Q 65 25 70 15" stroke="url(#starGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <!-- Stars -->
+                            <circle cx="72" cy="10" r="2.5" fill="url(#starGrad)" opacity="0.9"/>
+                            <circle cx="78" cy="8" r="1.8" fill="url(#starGrad)" opacity="0.7"/>
+                            <circle cx="82" cy="14" r="1.5" fill="url(#starGrad)" opacity="0.6"/>
+                        </svg>
                     </div>
                 </div>
 
-                <!-- Stats & Quick Info -->
-                <div class="flex gap-4 flex-wrap justify-center md:justify-end animate-slideInUp">
-                    <div class="stat-badge px-5 py-3 rounded-2xl text-center">
-                        <p class="text-xs text-amber-200 uppercase tracking-widest font-bold">Exams</p>
-                        <p class="text-2xl font-black text-white mt-1">3</p>
+                <!-- Right: Brand Info -->
+                <div class="flex-1 text-center md:text-left">
+                    <div class="mb-4">
+                        <h1 class="text-6xl md:text-7xl font-black font-serif tracking-tighter mb-3">
+                            <span class="text-gradient">RANKRUSH</span>
+                        </h1>
                     </div>
-                    <div class="stat-badge px-5 py-3 rounded-2xl text-center">
-                        <p class="text-xs text-amber-200 uppercase tracking-widest font-bold">Questions</p>
-                        <p class="text-2xl font-black text-white mt-1">200+</p>
+                    
+                    <div class="flex flex-col md:flex-row items-center md:items-center gap-4 mb-4">
+                        <span class="badge-neon px-6 py-2 rounded-full font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                            <i class="fas fa-rocket"></i> PREMIUM 2026
+                        </span>
                     </div>
-                    <div class="stat-badge px-5 py-3 rounded-2xl text-center">
-                        <p class="text-xs text-amber-200 uppercase tracking-widest font-bold">Categories</p>
-                        <p class="text-2xl font-black text-white mt-1">4</p>
-                    </div>
+
+                    <p class="text-lg md:text-xl font-light text-gray-300 flex items-center justify-center md:justify-start gap-2">
+                        <i class="fas fa-zap text-yellow-400"></i>
+                        Beat The Exam Before The Exam
+                    </p>
                 </div>
             </div>
 
-            <!-- Divider with gradient -->
-            <div class="h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mb-6 opacity-60"></div>
+            <!-- Metrics Row with Glassmorphism -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- Exams Card -->
+                <div class="glass-gold rounded-2xl px-8 py-6 text-center card-hover animate-slide-up" style="animation-delay: 0.1s">
+                    <div class="text-5xl font-black text-gradient mb-2">3</div>
+                    <p class="text-gray-400 text-sm font-semibold uppercase tracking-widest">Exams</p>
+                </div>
 
-            <!-- Bottom Section: Navigation & Actions -->
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <!-- Navigation -->
-                <nav class="block w-full md:w-auto">
-                    <ul class="flex flex-row space-x-2 md:space-x-6 items-center justify-center md:justify-start flex-wrap gap-2">
-                        <li><a href="ssc.html" class="nav-link text-slate-100 font-bold uppercase text-sm tracking-wider hover:text-amber-300 transition-all px-4 py-2 rounded-lg hover:bg-white/10"><i class="fas fa-file-lines mr-2"></i>SSC</a></li>
-                        <li class="text-amber-400/50">•</li>
-                        <li><a href="netarhat.html" class="nav-link text-slate-100 font-bold uppercase text-sm tracking-wider hover:text-amber-300 transition-all px-4 py-2 rounded-lg hover:bg-white/10"><i class="fas fa-book mr-2"></i>Netarhat</a></li>
-                        <li class="text-amber-400/50">•</li>
-                        <li><a href="igbv.html" class="nav-link text-slate-100 font-bold uppercase text-sm tracking-wider hover:text-amber-300 transition-all px-4 py-2 rounded-lg hover:bg-white/10"><i class="fas fa-graduation-cap mr-2"></i>IGBV</a></li>
+                <!-- Questions Card -->
+                <div class="glass-gold rounded-2xl px-8 py-6 text-center card-hover animate-slide-up" style="animation-delay: 0.2s">
+                    <div class="text-5xl font-black text-gradient mb-2">200+</div>
+                    <p class="text-gray-400 text-sm font-semibold uppercase tracking-widest">Questions</p>
+                </div>
+
+                <!-- Categories Card -->
+                <div class="glass-gold rounded-2xl px-8 py-6 text-center card-hover animate-slide-up" style="animation-delay: 0.3s">
+                    <div class="text-5xl font-black text-gradient mb-2">4</div>
+                    <p class="text-gray-400 text-sm font-semibold uppercase tracking-widest">Categories</p>
+                </div>
+            </div>
+
+            <!-- Header Divider -->
+            <div class="header-divider mb-12"></div>
+
+            <!-- Navigation Bar - Single Horizontal Line -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <nav class="w-full md:w-auto">
+                    <ul class="flex items-center justify-center md:justify-start gap-8 flex-wrap">
+                        <li><a href="index.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-home text-metal-gold"></i>Home</a></li>
+                        <li class="text-metal-gold/40 text-2xl">•</li>
+                        <li><a href="ssc.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-file-lines text-metal-gold"></i>SSC</a></li>
+                        <li class="text-metal-gold/40 text-2xl">•</li>
+                        <li><a href="netarhat.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-book text-metal-gold"></i>Netarhat</a></li>
+                        <li class="text-metal-gold/40 text-2xl">•</li>
+                        <li><a href="igbv.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-graduation-cap text-metal-gold"></i>IGBV</a></li>
                     </ul>
                 </nav>
 
-                <!-- Operations Bar -->
+                <!-- Utility Toggles -->
                 <div class="flex items-center gap-4">
-                    <button onclick="toggleTheme()" class="bg-white/15 hover:bg-white/25 border border-white/40 text-amber-300 px-5 py-2.5 rounded-xl transition-all text-sm font-semibold flex items-center gap-2 backdrop-blur-md hover:shadow-lg shadow-md">
-                        <i id="themeIcon" class="fas fa-moon text-lg"></i>
-                        <span id="themeText" class="hidden sm:inline">Dark</span>
+                    <button onclick="toggleTheme()" class="glass rounded-2xl p-4 hover:glass-gold transition-all duration-300 hover:scale-110 group">
+                        <i id="themeIcon" class="fas fa-moon text-metal-gold text-xl group-hover:text-yellow-300 transition-colors"></i>
                     </button>
-                    <button id="soundToggleBtn" onclick="toggleSound()" class="bg-white/15 hover:bg-white/25 border border-white/40 text-emerald-300 px-5 py-2.5 rounded-xl transition-all text-sm font-semibold flex items-center gap-2 backdrop-blur-md hover:shadow-lg shadow-md">
-                        <i id="soundIcon" class="fas fa-volume-up text-lg"></i>
-                        <span class="hidden sm:inline">Sound</span>
+                    <button id="soundToggleBtn" onclick="toggleSound()" class="glass rounded-2xl p-4 hover:glass-gold transition-all duration-300 hover:scale-110 group">
+                        <i id="soundIcon" class="fas fa-volume-up text-emerald-400 text-xl group-hover:text-emerald-300 transition-colors"></i>
                     </button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col justify-start">
-
-        <section id="lobbyScreen" class="w-full max-w-4xl mx-auto my-auto space-y-6 py-6 animate-fade-in">
-
-            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-2xl rounded-2xl overflow-hidden">
-                <div class="p-6 md:p-8 bg-gradient-to-br from-brand-800 to-brand-900 text-white flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div class="space-y-3 max-w-xl">
-                        <span class="bg-amber-400/30 text-amber-300 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-widest border border-amber-400/40">
-                            HOME
+    <!-- Featured Content Section -->
+    <main class="max-w-7xl mx-auto px-4 py-16 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- IGBV Featured Card -->
+            <div class="glass-gold rounded-3xl overflow-hidden card-hover animate-slide-up" style="animation-delay: 0.4s">
+                <div class="bg-gradient-to-br from-teal-sea/40 to-cyan-900/20 p-8">
+                    <div class="mb-6">
+                        <span class="badge-neon px-5 py-2 rounded-full font-bold text-xs uppercase tracking-widest inline-block">
+                            <i class="fas fa-star mr-2"></i>IGBV
                         </span>
-                        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">RANKRUSH</h2>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Your ultimate portal for comprehensive preparation for SSC, Netarhat, and IGBV entrance exams. Explore tailored resources, practice tests, and expert guidance to ace your exams with confidence.
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black font-serif mb-4 text-white">
+                        Full-Length Standard Entrance Practice
+                    </h2>
+                    <p class="text-gray-300 text-base leading-relaxed mb-8">
+                        Master the IGBV examination with our comprehensive question bank featuring 50 mathematics problems, challenging reasoning sections, and specialized Hindi and GK categories. Prepare with confidence using our advanced exam simulator.
+                    </p>
+                    <a href="igbv.html" class="inline-block bg-gradient-to-r from-neon-orange to-orange-500 text-white font-bold px-8 py-3 rounded-xl hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300 uppercase text-sm tracking-wider">
+                        <i class="fas fa-arrow-right mr-2"></i>Start Exam
+                    </a>
+                </div>
+            </div>
+
+            <!-- SSC Featured Card -->
+            <div class="glass-gold rounded-3xl overflow-hidden card-hover animate-slide-up" style="animation-delay: 0.5s">
+                <div class="bg-gradient-to-br from-blue-900/40 to-indigo-900/20 p-8">
+                    <div class="mb-6">
+                        <span class="badge-neon px-5 py-2 rounded-full font-bold text-xs uppercase tracking-widest inline-block">
+                            <i class="fas fa-books mr-2"></i>SSC
+                        </span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black font-serif mb-4 text-white">
+                        Staff Selection Commission Prep
+                    </h2>
+                    <p class="text-gray-300 text-base leading-relaxed mb-8">
+                        Prepare for SSC examinations with curated question sets covering all essential topics. Practice with timed mock tests, detailed analytics, and performance tracking to maximize your exam score.
+                    </p>
+                    <a href="ssc.html" class="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold px-8 py-3 rounded-xl hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 uppercase text-sm tracking-wider">
+                        <i class="fas fa-arrow-right mr-2"></i>Explore
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Netarhat Section -->
+        <div class="mt-8 glass-gold rounded-3xl overflow-hidden card-hover animate-slide-up" style="animation-delay: 0.6s">
+            <div class="bg-gradient-to-r from-emerald-900/40 to-teal-900/20 p-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="flex-1">
+                        <div class="mb-6">
+                            <span class="badge-neon px-5 py-2 rounded-full font-bold text-xs uppercase tracking-widest inline-block">
+                                <i class="fas fa-landmark mr-2"></i>Netarhat
+                            </span>
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-black font-serif mb-4 text-white">
+                            Netarhat Ashram School Entrance
+                        </h2>
+                        <p class="text-gray-300 text-base leading-relaxed mb-6">
+                            Ace the Netarhat Ashram School entrance exam with specialized study materials, mock tests, and expert guidance. Build your foundation with our comprehensive learning modules.
                         </p>
+                        <a href="netarhat.html" class="inline-block bg-gradient-to-r from-emerald-600 to-green-500 text-white font-bold px-8 py-3 rounded-xl hover:shadow-lg hover:shadow-emerald-500/50 transition-all duration-300 uppercase text-sm tracking-wider">
+                            <i class="fas fa-arrow-right mr-2"></i>Begin Preparation
+                        </a>
+                    </div>
+                    <div class="flex-shrink-0 hidden md:block">
+                        <i class="fas fa-book-open text-6xl text-emerald-400 opacity-30"></i>
                     </div>
                 </div>
             </div>
-
-            <!-- Important Announcements Section -->
-            <div class="w-full animate-slideInUp" style="animation-delay: 0.2s">
-                <div class="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-950/20 dark:to-orange-950/20 border-2 border-orange-200 dark:border-orange-800 rounded-2xl p-6 md:p-8">
-                    <div class="flex items-center gap-3 mb-4">
-                        <i class="fas fa-megaphone text-2xl text-orange-600 dark:text-orange-400 animate-pulse"></i>
-                        <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white">Important Announcements</h3>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="announcement-card bg-white dark:bg-slate-800 p-4 rounded-lg shadow-md transition-all hover:shadow-lg">
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-star text-amber-500 mt-1 flex-shrink-0"></i>
-                                <div>
-                                    <p class="font-semibold text-slate-800 dark:text-white">Mock Exam Series 2026</p>
-                                    <p class="text-sm text-slate-600 dark:text-slate-300">New full-length mock exams are now live. Test your preparation with realistic exam conditions.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="announcement-card bg-white dark:bg-slate-800 p-4 rounded-lg shadow-md transition-all hover:shadow-lg">
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-emerald-500 mt-1 flex-shrink-0"></i>
-                                <div>
-                                    <p class="font-semibold text-slate-800 dark:text-white">Updated Question Bank</p>
-                                    <p class="text-sm text-slate-600 dark:text-slate-300">Latest questions from previous year papers have been added to all sections.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="announcement-card bg-white dark:bg-slate-800 p-4 rounded-lg shadow-md transition-all hover:shadow-lg">
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-calendar-alt text-brand-500 mt-1 flex-shrink-0"></i>
-                                <div>
-                                    <p class="font-semibold text-slate-800 dark:text-white">Exam Dates Released</p>
-                                    <p class="text-sm text-slate-600 dark:text-slate-300">Official exam dates for SSC and IGBV is yet to announce.Till Then Start your preparations.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Previous Year Questions (PYQ) Section -->
-            <div class="w-full animate-slideInUp" style="animation-delay: 0.4s">
-                <div class="space-y-4">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-file-pdf text-2xl text-rose-500"></i>
-                        <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white">Previous Year Questions (PYQ)</h3>
-                    </div>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Download previous year question papers to practice and familiarize yourself with exam patterns.</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- SSC PYQ Card -->
-                        <div class="pdf-card-hover bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all animate-fadeInScale" style="animation-delay: 0.5s">
-                            <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 text-white">
-                                <i class="fas fa-book text-4xl mb-3"></i>
-                                <h4 class="text-lg font-bold">SSC PYQ</h4>
-                                <p class="text-xs text-blue-100">Previous Year Questions</p>
-                            </div>
-                            <div class="p-6 space-y-4">
-                                <div>
-                                    <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-2">Available Papers</p>
-                                    <p class="text-sm text-slate-700 dark:text-slate-300">2023 • 2022 • 2021 • 2020</p>
-                                </div>
-                                <a href="https://drive.google.com/drive/folders/1iCJW7Hm0PhLu6qwuSosrntFGtZQcUfQE?usp=drive_link" target="_blank" class="w-full inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl transition-all transform hover:scale-105">
-                                    <i class="fas fa-download"></i> Download
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Netarhat PYQ Card -->
-                        <div class="pdf-card-hover bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all animate-fadeInScale" style="animation-delay: 0.6s">
-                            <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 p-6 text-white">
-                                <i class="fas fa-book text-4xl mb-3"></i>
-                                <h4 class="text-lg font-bold">Netarhat PYQ</h4>
-                                <p class="text-xs text-emerald-100">Previous Year Questions</p>
-                            </div>
-                            <div class="p-6 space-y-4">
-                                <div>
-                                    <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-2">Available Papers</p>
-                                    <p class="text-sm text-slate-700 dark:text-slate-300">2023 • 2022 • 2021 • 2020</p>
-                                </div>
-                                <a href="https://drive.google.com/drive/folders/1RaD5boxEfuqWOGnuL0NgCX3e_8ZPkipS?usp=drive_link" target="_blank" class="w-full inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-xl transition-all transform hover:scale-105">
-                                    <i class="fas fa-download"></i> Download
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- IGBV PYQ Card -->
-                        <div class="pdf-card-hover bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all animate-fadeInScale" style="animation-delay: 0.7s">
-                            <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 text-white">
-                                <i class="fas fa-book text-4xl mb-3"></i>
-                                <h4 class="text-lg font-bold">IGBV PYQ</h4>
-                                <p class="text-xs text-purple-100">Previous Year Questions</p>
-                            </div>
-                            <div class="p-6 space-y-4">
-                                <div>
-                                    <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-2">Available Papers</p>
-                                    <p class="text-sm text-slate-700 dark:text-slate-300">2023 • 2022 • 2021 • 2020</p>
-                                </div>
-                                <a href="https://drive.google.com/drive/folders/1hIOqMG0NYWKBpVulyWni7pli3FqFnuTx?usp=drive_link" target="_blank"  class="w-full inline-flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-xl transition-all transform hover:scale-105">
-                                    <i class="fas fa-download"></i> Download
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-        
+        </div>
     </main>
 
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 border-t border-slate-800 text-slate-500 text-center py-6 px-4 text-xs mt-auto">
-        <div class="max-w-7xl mx-auto space-y-2">
-            <p>© 2026 RANKRUSH all rights reserved.</p>
-            <p>Designed for candidate prepararing for competitive exams.</p>
+    <!-- Premium Footer -->
+    <footer class="border-t border-white/5 mt-20 py-8 px-4 text-center text-gray-500 text-sm">
+        <div class="max-w-7xl mx-auto">
+            <p class="mb-2">© 2026 RANKRUSH • Premium Exam Preparation Platform</p>
+            <p>Engineered for Excellence | Designed for Success</p>
         </div>
     </footer>
 
     <script>
-
         let soundOn = true;
         let audioContext = null;
-        // Custom Sound Effects Synthesizer using Web Audio API
+
         function playChime(chimeType) {
             if (!soundOn) return;
             try {
@@ -478,68 +415,37 @@
                 gainNode.connect(audioContext.destination);
 
                 if (chimeType === 'click') {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(550, audioContext.currentTime);
-                    gainNode.gain.setValueAtTime(0.04, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
-                    osc.start();
-                    osc.stop(audioContext.currentTime + 0.1);
-                } else if (chimeType === 'success') {
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
-                    osc.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
-                    osc.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
-                    gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.4);
-                    osc.start();
-                    osc.stop(audioContext.currentTime + 0.4);
-                } else if (chimeType === 'alert') {
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(300, audioContext.currentTime);
-                    osc.frequency.setValueAtTime(250, audioContext.currentTime + 0.15);
-                    gainNode.gain.setValueAtTime(0.06, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
-                    osc.start();
-                    osc.stop(audioContext.currentTime + 0.3);
+                    osc.frequency.setValueAtTime(800, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    osc.start(audioContext.currentTime);
+                    osc.stop(audioContext.currentTime + 0.1);
                 }
             } catch (e) {
-                console.warn("Chime block:", e);
-            }
-        }
-
-        function toggleSound() {
-            soundOn = !soundOn;
-            const btn = document.getElementById('soundToggleBtn');
-            const icon = document.getElementById('soundIcon');
-            const label = btn.querySelector('span');
-
-            if (soundOn) {
-                icon.className = "fas fa-volume-up";
-                btn.className = "bg-slate-800/85 hover:bg-slate-700/85 border border-slate-700 text-emerald-400 px-3 py-2 rounded-lg transition-all text-sm flex items-center gap-2";
-                label.innerText = "Chimes On";
-                playChime('click');
-            } else {
-                icon.className = "fas fa-volume-mute";
-                btn.className = "bg-slate-800/85 hover:bg-slate-700/85 border border-slate-700 text-slate-400 px-3 py-2 rounded-lg transition-all text-sm flex items-center gap-2";
-                label.innerText = "Chimes Off";
+                console.log('Audio not available');
             }
         }
 
         function toggleTheme() {
-            const isDark = document.documentElement.classList.contains('dark');
-            const icon = document.getElementById('themeIcon');
-            const text = document.getElementById('themeText');
-            if (isDark) {
-                document.documentElement.classList.remove('dark');
-                icon.className = "fas fa-moon";
-                text.innerText = "Dark Mode";
-            } else {
-                document.documentElement.classList.add('dark');
-                icon.className = "fas fa-sun";
-                text.innerText = "Light Mode";
-            }
+            document.documentElement.classList.toggle('dark');
+            playChime('click');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        function toggleSound() {
+            soundOn = !soundOn;
+            const icon = document.getElementById('soundIcon');
+            icon.classList.toggle('fa-volume-up');
+            icon.classList.toggle('fa-volume-mute');
             playChime('click');
         }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
     </script>
+
 </body>
 </html>
