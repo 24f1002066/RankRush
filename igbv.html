@@ -406,19 +406,14 @@
                     <ul class="flex items-center justify-center md:justify-start gap-8 flex-wrap">
                         <li><a href="index.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-home text-metal-gold"></i>Home</a></li>
                         <li class="text-metal-gold/40 text-2xl">•</li>
-                        <li><a href="ssc.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-file-lines text-metal-gold"></i>SSC</a></li>
+                        <li><a href="jnvst.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-file-lines text-metal-gold"></i>JNV</a></li>
                         <li class="text-metal-gold/40 text-2xl">•</li>
                         <li><a href="netarhat.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-book text-metal-gold"></i>Netarhat</a></li>
-                        <li class="text-metal-gold/40 text-2xl">•</li>
-                        <li><a href="igbv.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-graduation-cap text-metal-gold"></i>IGBV</a></li>
                     </ul>
                 </nav>
 
                 <!-- Utility Toggles -->
                 <div class="flex items-center gap-4">
-                    <button onclick="toggleTheme()" class="glass rounded-2xl p-4 hover:glass-gold transition-all duration-300 hover:scale-110 group">
-                        <i id="themeIcon" class="fas fa-moon text-metal-gold text-xl group-hover:text-yellow-300 transition-colors"></i>
-                    </button>
                     <button id="soundToggleBtn" onclick="toggleSound()" class="glass rounded-2xl p-4 hover:glass-gold transition-all duration-300 hover:scale-110 group">
                         <i id="soundIcon" class="fas fa-volume-up text-emerald-400 text-xl group-hover:text-emerald-300 transition-colors"></i>
                     </button>
@@ -442,9 +437,9 @@
                         <span class="bg-amber-400/30 text-amber-300 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-widest border border-amber-400/40">
                             IGBV
                         </span>
-                        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Full-Length Standard Entrance Practice</h2>
+                        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">IGBV MOCK QUESTIONS</h2>
                         <p class="text-slate-300 text-sm leading-relaxed">
-                            Includes all 50 Mathematics questions from the official booklet, complete Hindi Language Samas questions, and Mental Ability reasoning patterns, balanced with Science, SST, and GK to replicate the true 200-question matrix!
+                            Prepare for the IGBV entrance exam with our comprehensive question bank featuring 50 mathematics problems, challenging reasoning sections, and specialized Hindi and GK categories. Practice with confidence using our advanced exam simulator.
                         </p>
                     </div>
                     <div class="bg-white/10 p-5 rounded-2xl border border-white/20 text-center flex-shrink-0">
@@ -458,7 +453,7 @@
 
                 <!-- Setup & Configuration form -->
                 <div class="p-6 md:p-8 space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         
                         <!-- Candidate Setup Form -->
                         <div class="space-y-4">
@@ -477,6 +472,16 @@
                                         <i class="fas fa-sync-alt"></i>
                                     </button>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Practice Set Selection -->
+                        <div id="setSelectionContainer" class="space-y-4">
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b pb-2 border-slate-100 dark:border-slate-700/50 flex items-center gap-2">
+                                <i class="fas fa-database text-brand-500"></i> Question Sets
+                            </h3>
+                            <div class="space-y-2" id="setButtonsGrid">
+                                <!-- Rendered dynamically by renderSetSelectionButtons() -->
                             </div>
                         </div>
 
@@ -891,49 +896,1655 @@
         ];
 
         const REASONING_DATA_FROM_PDF = [
-            { id: 50, category: "mental", qEng: "Curd: Milk :: Shoe : ?", qHin: "दही : दूध :: जूता : ?", options: [{key:"A",val:"Leather / चमड़ा"},{key:"B",val:"Jute / जूट"},{key:"C",val:"Silver / चांदी"},{key:"D",val:"Cloth / कपड़ा"}], correct: "A", explain: "Milk is the raw material used to produce Curd. Similarly, Leather is the primary raw material for a Shoe." },
-            { id: 51, category: "mental", qEng: "Malaria: Mosquito :: Cholera : ?", qHin: "मलेरिया : मच्छर :: हैजा : ?", options: [{key:"A",val:"Air / वायु"},{key:"B",val:"Soil / मिट्टी"},{key:"C",val:"Water / पानी"},{key:"D",val:"Bacteria / जीवाणु"}], correct: "C", explain: "Malaria is a disease spread by mosquitoes. Cholera is a waterborne disease spread through contaminated water." },
-            { id: 52, category: "mental", qEng: "Letter Pattern Mapping: ABC: XYZ :: DBA : ?", qHin: "अक्षर पैटर्न मैपिंग: ABC: XYZ :: DBA : ?", options: [{key:"A",val:"XYZ"},{key:"B",val:"ABC"},{key:"C",val:"WZY"},{key:"D",val:"ZYX"}], correct: "C", explain: "The mapping follows opposite alphabet letters: A (1st) <-> Z (last), B (2nd) <-> Y, C (3rd) <-> X. Therefore, D (4th) <-> W, B <-> Y, A <-> Z. So DBA becomes WZY." },
-            { id: 53, category: "mental", qEng: "Complete the numerical mapping analogy: 6: 18 :: 4 : ?", qHin: "संख्यात्मक मैपिंग सादृश्य पूरा करें: 6: 18 :: 4 : ?", options: [{key:"A",val:"10"},{key:"B",val:"12"},{key:"C",val:"16"},{key:"D",val:"8"}], correct: "B", explain: "The relationship is $6 \\times 3 = 18$. Applying same logic: $4 \\times 3 = 12$." },
-            { id: 54, category: "mental", qEng: "Ornithologist: Bird :: Archaeologist : ?", qHin: "पक्षी विज्ञानी : पक्षी :: पुरातत्वविद् : ?", options: [{key:"A",val:"Insects / कीट"},{key:"B",val:"Humans / मानव"},{key:"C",val:"Archaeology / पुरातत्व"},{key:"D",val:"Islands / द्वीप"}], correct: "C", explain: "An Ornithologist is a specialist who studies birds. An Archaeologist is a specialist who studies ancient history and artifacts (Archaeology)." },
-            { id: 55, category: "mental", qEng: "Victory: Joy :: Defeat : ?", qHin: "विजय : हर्ष :: पराजय : ?", options: [{key:"A",val:"Sorrow / शोक"},{key:"B",val:"Anger / क्रोध"},{key:"C",val:"Depression / अवसाद"},{key:"D",val:"Excitement / उत्साह"}], correct: "A", explain: "This is a cause-and-effect relationship. Victory results in the emotion of Joy. Defeat results in the emotion of Sorrow." },
-            { id: 56, category: "mental", qEng: "Complete the mathematical sequence: 11, 21, 31, 41, ?", qHin: "गणितीय श्रृंखला को पूरा करें: 11, 21, 31, 41, ?", options: [{key:"A",val:"42"},{key:"B",val:"51"},{key:"C",val:"61"},{key:"D",val:"50"}], correct: "B", explain: "The series increases by a constant increment of +10. Next term is $41 + 10 = 51$." },
-            { id: 57, category: "mental", qEng: "Complete the series: 20, 30, 42, ?", qHin: "श्रृंखला को पूरा करें: 20, 30, 42, ?", options: [{key:"A",val:"54"},{key:"B",val:"56"},{key:"C",val:"60"},{key:"D",val:"48"}], correct: "B", explain: "The series follows the pattern $x^2 + x$ for consecutive integers: $4^2+4=20$, $5^2+5=30$, $6^2+6=42$. The next step is $7^2+7 = 49+7 = 56$." },
-            { id: 58, category: "mental", qEng: "13: 169 :: 17 : ?", qHin: "13: 169 :: 17 : ?", options: [{key:"A",val:"256"},{key:"B",val:"272"},{key:"C",val:"289"},{key:"D",val:"324"}], correct: "C", explain: "The relationship is based on squares of numbers. $13^2 = 169$. Similarly, $17^2 = 289$." },
-            { id: 59, category: "mental", qEng: "Complete the letter series: T, R, P, N, ?", qHin: "अक्षर श्रृंखला को पूरा करें: T, R, P, N, ?", options: [{key:"A",val:"K"},{key:"B",val:"M"},{key:"C",val:"L"},{key:"D",val:"J"}], correct: "C", explain: "The series goes backward with step -2: T(20) -> R(18) -> P(16) -> N(14) -> L(12)." },
-            { id: 60, category: "mental", qEng: "Complete the Prime Number series: 2, 3, 5, 7, 11, 13, ?", qHin: "अभाज्य संख्या श्रृंखला को पूरा करें: 2, 3, 5, 7, 11, 13, ?", options: [{key:"A",val:"14"},{key:"B",val:"15"},{key:"C",val:"17"},{key:"D",val:"19"}], correct: "C", explain: "The series consists of consecutive prime numbers. The next prime number following 13 is 17." },
-            { id: 61, category: "mental", qEng: "Dictionary Order: Plain, Player, Plane, Place. Which is second?", qHin: "शब्दकोश क्रम: Plain, Player, Plane, Place. दूसरे स्थान पर कौन सा है?", options: [{key:"A",val:"Place"},{key:"B",val:"Plain"},{key:"C",val:"Plane"},{key:"D",val:"Player"}], correct: "B", explain: "Sorting alphabetically: 1. Place, 2. Plain, 3. Plane, 4. Player." },
-            { id: 62, category: "mental", qEng: "If 'A1M3B' is reflected in a horizontal water plane, what is the correct water image?", qHin: "यदि 'A1M3B' को क्षैतिज जल समतल में प्रतिबिंबित किया जाता है, तो सही जल छवि क्या है?", options: [{key:"A",val:"V1W3B inverted"},{key:"B",val:"A1M3B reversed"},{key:"C",val:"B3W1A"},{key:"D",val:"None"}], correct: "A", explain: "A water image flips vertically: 'A' points down, 'M' becomes 'W', 'B' flips its loops, and digits undergo vertical inversion." },
-            { id: 63, category: "mental", qEng: "A man points to a person and says to a woman, 'His mother is the only daughter of your father.' How is the woman related to that person?", qHin: "एक आदमी किसी व्यक्ति की ओर इशारा करते हुए एक महिला से कहता है, 'उसकी माँ आपके पिता की इकलौती बेटी है।' वह महिला उस व्यक्ति से किस प्रकार संबंधित है?", options: [{key:"A",val:"Aunt / चाची"},{key:"B",val:"Mother / माता"},{key:"C",val:"Sister / बहन"},{key:"D",val:"Grandmother / दादी"}], correct: "B", explain: "'The only daughter of your father' refers to the woman herself. Since she is his mother, she is related to the person as Mother." },
-            { id: 64, category: "mental", qEng: "Hospital, Patient, Nurse. Which Venn diagram best represents this?", qHin: "अस्पताल, रोगी, नर्स। कौन सा वेन आरेख इसे सबसे अच्छी तरह दर्शाता है?", options: [{key:"A",val:"Three overlapping circles"},{key:"B",val:"Two overlapping circles inside a large one"},{key:"C",val:"Three separate circles"},{key:"D",val:"Two non-overlapping circles inside a large circle"}], correct: "D", explain: "A Hospital (large outer circle) contains both Patients and Nurses (two non-overlapping internal circles, as patients cannot be nurses)." }
+            { id: 51, category: "mental", qEng: "Curd: Milk :: Shoe : ?", qHin: "दही : दूध :: जूता : ?", options: [{key:"A",val:"Leather / चमड़ा"},{key:"B",val:"Jute / जूट"},{key:"C",val:"Silver / चांदी"},{key:"D",val:"Cloth / कपड़ा"}], correct: "A", explain: "Milk is the raw material used to produce Curd. Similarly, Leather is the primary raw material for a Shoe." },
+            { id: 52, category: "mental", qEng: "Malaria: Mosquito :: Cholera : ?", qHin: "मलेरिया : मच्छर :: हैजा : ?", options: [{key:"A",val:"Air / वायु"},{key:"B",val:"Soil / मिट्टी"},{key:"C",val:"Water / पानी"},{key:"D",val:"Bacteria / जीवाणु"}], correct: "C", explain: "Malaria is a disease spread by mosquitoes. Cholera is a waterborne disease spread through contaminated water." },
+            { id: 53, category: "mental", qEng: "Letter Pattern Mapping: ABC: XYZ :: DBA : ?", qHin: "अक्षर पैटर्न मैपिंग: ABC: XYZ :: DBA : ?", options: [{key:"A",val:"XYZ"},{key:"B",val:"ABC"},{key:"C",val:"WZY"},{key:"D",val:"ZYX"}], correct: "C", explain: "The mapping follows opposite alphabet letters: A (1st) <-> Z (last), B (2nd) <-> Y, C (3rd) <-> X. Therefore, D (4th) <-> W, B <-> Y, A <-> Z. So DBA becomes WZY." },
+            { id: 54, category: "mental", qEng: "Complete the numerical mapping analogy: 6: 18 :: 4 : ?", qHin: "संख्यात्मक मैपिंग सादृश्य पूरा करें: 6: 18 :: 4 : ?", options: [{key:"A",val:"10"},{key:"B",val:"12"},{key:"C",val:"16"},{key:"D",val:"8"}], correct: "B", explain: "The relationship is $6 \\times 3 = 18$. Applying same logic: $4 \\times 3 = 12$." },
+            { id: 55, category: "mental", qEng: "Ornithologist: Bird :: Archaeologist : ?", qHin: "पक्षी विज्ञानी : पक्षी :: पुरातत्वविद् : ?", options: [{key:"A",val:"Insects / कीट"},{key:"B",val:"Humans / मानव"},{key:"C",val:"Archaeology / पुरातत्व"},{key:"D",val:"Islands / द्वीप"}], correct: "C", explain: "An Ornithologist is a specialist who studies birds. An Archaeologist is a specialist who studies ancient history and artifacts (Archaeology)." },
+            { id: 56, category: "mental", qEng: "Victory: Joy :: Defeat : ?", qHin: "विजय : हर्ष :: पराजय : ?", options: [{key:"A",val:"Sorrow / शोक"},{key:"B",val:"Anger / क्रोध"},{key:"C",val:"Depression / अवसाद"},{key:"D",val:"Excitement / उत्साह"}], correct: "A", explain: "This is a cause-and-effect relationship. Victory results in the emotion of Joy. Defeat results in the emotion of Sorrow." },
+            { id: 57, category: "mental", qEng: "Complete the mathematical sequence: 11, 21, 31, 41, ?", qHin: "गणितीय श्रृंखला को पूरा करें: 11, 21, 31, 41, ?", options: [{key:"A",val:"42"},{key:"B",val:"51"},{key:"C",val:"61"},{key:"D",val:"50"}], correct: "B", explain: "The series increases by a constant increment of +10. Next term is $41 + 10 = 51$." },
+            { id: 58, category: "mental", qEng: "Complete the series: 20, 30, 42, ?", qHin: "श्रृंखला को पूरा करें: 20, 30, 42, ?", options: [{key:"A",val:"54"},{key:"B",val:"56"},{key:"C",val:"60"},{key:"D",val:"48"}], correct: "B", explain: "The series follows the pattern $x^2 + x$ for consecutive integers: $4^2+4=20$, $5^2+5=30$, $6^2+6=42$. The next step is $7^2+7 = 49+7 = 56$." },
+            { id: 59, category: "mental", qEng: "13: 169 :: 17 : ?", qHin: "13: 169 :: 17 : ?", options: [{key:"A",val:"256"},{key:"B",val:"272"},{key:"C",val:"289"},{key:"D",val:"324"}], correct: "C", explain: "The relationship is based on squares of numbers. $13^2 = 169$. Similarly, $17^2 = 289$." },
+            { id: 60, category: "mental", qEng: "Complete the letter series: T, R, P, N, ?", qHin: "अक्षर श्रृंखला को पूरा करें: T, R, P, N, ?", options: [{key:"A",val:"K"},{key:"B",val:"M"},{key:"C",val:"L"},{key:"D",val:"J"}], correct: "C", explain: "The series goes backward with step -2: T(20) -> R(18) -> P(16) -> N(14) -> L(12)." },
+            { id: 61, category: "mental", qEng: "Complete the Prime Number series: 2, 3, 5, 7, 11, 13, ?", qHin: "अभाज्य संख्या श्रृंखला को पूरा करें: 2, 3, 5, 7, 11, 13, ?", options: [{key:"A",val:"14"},{key:"B",val:"15"},{key:"C",val:"17"},{key:"D",val:"19"}], correct: "C", explain: "The series consists of consecutive prime numbers. The next prime number following 13 is 17." },
+            { id: 62, category: "mental", qEng: "Dictionary Order: Plain, Player, Plane, Place. Which is second?", qHin: "शब्दकोश क्रम: Plain, Player, Plane, Place. दूसरे स्थान पर कौन सा है?", options: [{key:"A",val:"Place"},{key:"B",val:"Plain"},{key:"C",val:"Plane"},{key:"D",val:"Player"}], correct: "B", explain: "Sorting alphabetically: 1. Place, 2. Plain, 3. Plane, 4. Player." },
+            { id: 63, category: "mental", qEng: "If 'A1M3B' is reflected in a horizontal water plane, what is the correct water image?", qHin: "यदि 'A1M3B' को क्षैतिज जल समतल में प्रतिबिंबित किया जाता है, तो सही जल छवि क्या है?", options: [{key:"A",val:"V1W3B inverted"},{key:"B",val:"A1M3B reversed"},{key:"C",val:"B3W1A"},{key:"D",val:"None"}], correct: "A", explain: "A water image flips vertically: 'A' points down, 'M' becomes 'W', 'B' flips its loops, and digits undergo vertical inversion." },
+            { id: 64, category: "mental", qEng: "A man points to a person and says to a woman, 'His mother is the only daughter of your father.' How is the woman related to that person?", qHin: "एक आदमी किसी व्यक्ति की ओर इशारा करते हुए एक महिला से कहता है, 'उसकी माँ आपके पिता की इकलौती बेटी है।' वह महिला उस व्यक्ति से किस प्रकार संबंधित है?", options: [{key:"A",val:"Aunt / चाची"},{key:"B",val:"Mother / माता"},{key:"C",val:"Sister / बहन"},{key:"D",val:"Grandmother / दादी"}], correct: "B", explain: "'The only daughter of your father' refers to the woman herself. Since she is his mother, she is related to the person as Mother." },
+            { id: 65, category: "mental", qEng: "Hospital, Patient, Nurse. Which Venn diagram best represents this?", qHin: "अस्पताल, रोगी, नर्स। कौन सा वेन आरेख इसे सबसे अच्छी तरह दर्शाता है?", options: [{key:"A",val:"Three overlapping circles"},{key:"B",val:"Two overlapping circles inside a large one"},{key:"C",val:"Three separate circles"},{key:"D",val:"Two non-overlapping circles inside a large circle"}], correct: "D", explain: "A Hospital (large outer circle) contains both Patients and Nurses (two non-overlapping internal circles, as patients cannot be nurses)." }
+            , {id:66, category: "mental", qEng:"If the word 'CAT' is coded as 'XZG', how would the word 'DOG' be coded?", qHin:"यदि शब्द 'CAT' को 'XZG' के रूप में कोडित किया जाता है, तो शब्द 'DOG' को कैसे कोडित किया जाएगा?", options: [{key:"A",val:"WLT"},{key:"B",val:"WLF"},{key:"C",val:"WLE"},{key:"D",val:"WLH"}], correct: "B", explain: "The coding pattern is based on the reverse position of letters in the alphabet. C (3rd) -> X (24th), A (1st) -> Z (26th), T (20th) -> G (7th). Applying same logic: D (4th) -> W (23rd), O (15th) -> L (12th), G (7th) -> F (6th). So 'DOG' is coded as 'WLF'." },
+            {
+                id: 67,
+                category: "mental",
+                qEng: "Find the missing number in the series: $3, 7, 15, 31, 63, ?$",
+                qHin: "श्रृंखला में लुप्त संख्या ज्ञात कीजिए: $3, 7, 15, 31, 63, ?$",
+                options: [
+                    {key: "A", val: "95"},
+                    {key: "B", val: "111"},
+                    {key: "C", val: "123"},
+                    {key: "D", val: "127"}
+                ],
+                correct: "D",
+                explain: "The pattern is $\\text{Previous Number} \\times 2 + 1$. So, $63 \\times 2 + 1 = 126 + 1 = 127$. / पैटर्न $\\text{पिछली संख्या} \\times 2 + 1$ है। इसलिए, $63 \\times 2 + 1 = 126 + 1 = 127$।"
+            },
+            {
+                id: 68,
+                category: "mental",
+                qEng: "Doctor : Hospital :: Teacher : ?",
+                qHin: "डॉक्टर : अस्पताल :: शिक्षक : ?",
+                options: [
+                    {key: "A", val: "Office / कार्यालय"},
+                    {key: "B", val: "School / विद्यालय"},
+                    {key: "C", val: "House / घर"},
+                    {key: "D", val: "Field / मैदान"}
+                ],
+                correct: "B",
+                explain: "A doctor's workplace is a hospital. Similarly, a teacher's workplace is a school. / डॉक्टर का कार्यस्थल अस्पताल होता है। उसी प्रकार, शिक्षक का कार्यस्थल विद्यालय होता है।"
+            },
+            {
+                id: 69,
+                category: "mental",
+                qEng: "Choose the word which is least like the other words in the group.",
+                qHin: "वह शब्द चुनें जो समूह के अन्य शब्दों से सबसे कम मिलता-जुलता हो।",
+                options: [
+                    {key: "A", val: "Cow / गाय"},
+                    {key: "B", val: "Goat / बकरी"},
+                    {key: "C", val: "Lion / शेर"},
+                    {key: "D", val: "Deer / हिरण"}
+                ],
+                correct: "C",
+                explain: "Lion is a carnivorous animal, while Cow, Goat, and Deer are herbivorous animals. / शेर एक मांसाहारी पशु है, जबकि गाय, बकरी और हिरण शाकाहारी पशु हैं।"
+            },
+            {
+                id: 70,
+                category: "mental",
+                qEng: "If in a certain code language, 'ROSE' is written as 'TQUG', how will 'BISCUIT' be written in that code?",
+                qHin: "यदि एक निश्चित कूट भाषा में 'ROSE' को 'TQUG' लिखा जाता है, तो उसी कूट में 'BISCUIT' को कैसे लिखा जाएगा?",
+                options: [
+                    {key: "A", val: "DKUEWKV"},
+                    {key: "B", val: "DKVFXJV"},
+                    {key: "C", val: "DKUEWKW"},
+                    {key: "D", val: "CJTDFJU"}
+                ],
+                correct: "A",
+                explain: "Each letter is shifted by $+2$ places in the alphabetical order ($R \\rightarrow T$, $O \\rightarrow Q$, etc.). Following this, $B(+2) \\rightarrow D$, $I(+2) \\rightarrow K$, $S(+2) \\rightarrow U$, and so on. / प्रत्येक अक्षर वर्णमाला क्रम में $+2$ स्थान आगे बढ़ता है। इसी नियम के अनुसार 'BISCUIT' बदलकर 'DKUEWKV' हो जाएगा।"
+            },
+            {
+                id: 71,
+                category: "mental",
+                qEng: "Pointing to a photograph, Rohan said, 'His brother is the father of my only son.' How is the man in the photograph related to Rohan?",
+                qHin: "एक तस्वीर की ओर इशारा करते हुए रोहन ने कहा, 'इसका भाई मेरे इकलौते बेटे का पिता है।' तस्वीर वाले व्यक्ति का रोहन से क्या संबंध है?",
+                options: [
+                    {key: "A", val: "Brother / भाई"},
+                    {key: "B", val: "Father / पिता"},
+                    {key: "C", val: "Uncle / चाचा/ताऊ"},
+                    {key: "D", val: "Grandfather / दादा"}
+                ],
+                correct: "A",
+                explain: "The father of Rohan's only son is Rohan himself. So, the man's brother is Rohan, which means the man is Rohan's brother. / रोहन के इकलौते बेटे का पिता खुद रोहन है। अतः, तस्वीर वाले व्यक्ति का भाई रोहन है, जिसका अर्थ है कि वह व्यक्ति रोहन का भाई है।"
+            },
+            {
+                id: 72,
+                category: "mental",
+                qEng: "If 'North' becomes 'West' and 'South' becomes 'East', what will 'East' become?",
+                qHin: "यदि 'उत्तर' बदलकर 'पश्चिम' हो जाए और 'दक्षिण' बदलकर 'पूर्व' हो जाए, तो 'पूर्व' क्या बन जाएगा?",
+                options: [
+                    {key: "A", val: "North / उत्तर"},
+                    {key: "B", val: "South / दक्षिण"},
+                    {key: "C", val: "East / पूर्व"},
+                    {key: "D", val: "North-West / उत्तर-पश्चिम"}
+                ],
+                correct: "A",
+                explain: "The entire directional grid is rotated $90^\\circ$ counter-clockwise. Therefore, East will rotate to the position of North. / पूरे दिशा चक्र को घड़ी की विपरीत दिशा में $90^\\circ$ घुमाया गया है। इसलिए, पूर्व घूमकर उत्तर की स्थिति में आ जाएगा।"
+            },
+            {
+                id: 73,
+                category: "mental",
+                qEng: "Which number replaces the question mark in the following pattern?\n$4 \\quad 9 \\quad 16$\n$25 \\quad 36 \\quad 49$\n$64 \\quad 81 \\quad ?$",
+                qHin: "निम्नलिखित पैटर्न में कौन सी संख्या प्रश्नवाचक चिह्न के स्थान पर आएगी?\n$4 \\quad 9 \\quad 16$\n$25 \\quad 36 \\quad 49$\n$64 \\quad 81 \\quad ?$",
+                options: [
+                    {key: "A", val: "90"},
+                    {key: "B", val: "100"},
+                    {key: "C", val: "121"},
+                    {key: "D", val: "144"}
+                ],
+                correct: "B",
+                explain: "The pattern consists of consecutive perfect squares: $2^2, 3^2, 4^2, 5^2, 6^2, 7^2, 8^2, 9^2$. The next number is $10^2 = 100$. / यह पैटर्न लगातार पूर्ण वर्ग संख्याओं का है: $2^2, 3^2, 4^2, 5^2, 6^2, 7^2, 8^2, 9^2$। अगला पद $10^2 = 100$ होगा।"
+            },
+            {
+                id: 74,
+                category: "mental",
+                qEng: "Arrange the following words in a meaningful logical sequence: 1. Population, 2. Disease, 3. Death, 4. Poverty, 5. Unemployment",
+                qHin: "निम्नलिखित शब्दों को एक सार्थक तार्किक क्रम में व्यवस्थित करें: 1. जनसंख्या, 2. बीमारी, 3. मृत्यु, 4. गरीबी, 5. बेरोजगारी",
+                options: [
+                    {key: "A", val: "1, 5, 4, 2, 3"},
+                    {key: "B", val: "1, 3, 2, 5, 4"},
+                    {key: "C", val: "2, 4, 3, 1, 5"},
+                    {key: "D", val: "5, 4, 1, 2, 3"}
+                ],
+                correct: "A",
+                explain: "The correct cause-and-effect sequence is: High Population (1) leads to Unemployment (5), which creates Poverty (4), causing Disease (2), and ultimately resulting in Death (3). / सही कार्य-कारण क्रम है: अधिक जनसंख्या (1) से बेरोजगारी (5) होती है, जिससे गरीबी (4) पैदा होती है, जो बीमारी (2) का कारण बनती है, और अंततः मृत्यु (3) होती है।"
+            },
+            {
+                id: 75,
+                category: "mental",
+                qEng: "If a clock shows $4:30$, and its minute hand points East, in which direction does the hour hand point?",
+                qHin: "यदि एक घड़ी में $4:30$ बजे हैं, और उसकी मिनट की सुई पूर्व की ओर इशारा करती है, तो घंटे की सुई किस दिशा में इशारा करेगी?",
+                options: [
+                    {key: "A", val: "North-East / उत्तर-पूर्व"},
+                    {key: "B", val: "North-West / उत्तर-पश्चिम"},
+                    {key: "C", val: "South-East / दक्षिण-पूर्व"},
+                    {key: "D", val: "South-West / दक्षिण-पश्चिम"}
+                ],
+                correct: "A",
+                explain: "At $4:30$, the minute hand normally points South (at 6). If South is treated as East (a $90^\\circ$ counter-clockwise shift), the hour hand (normally pointing South-East between 4 and 5) will also shift $90^\\circ$ counter-clockwise to point North-East. / $4:30$ बजे मिनट की सुई सामान्यतः दक्षिण (6 पर) होती है। यदि दक्षिण को पूर्व माना जाए ($90^\\circ$ वामावर्त घुमाव), तो घंटे की सुई (जो सामान्यतः दक्षिण-पूर्व में होती है) भी घूमकर उत्तर-पूर्व दिशा में आ जाएगी।"
+            },
+            {
+                id: 76,
+                category: "mental",
+                qEng: "Find the odd one out from the given options.",
+                qHin: "दिए गए विकल्पों में से विषम (अलग) विकल्प को चुनिए।",
+                options: [
+                    {key: "A", val: "January / जनवरी"},
+                    {key: "B", val: "March / मार्च"},
+                    {key: "C", val: "June / जून"},
+                    {key: "D", val: "August / अगस्त"}
+                ],
+                correct: "C",
+                explain: "January, March, and August all have 31 days, whereas June contains exactly 30 days. / जनवरी, मार्च और अगस्त सभी में 31 दिन होते हैं, जबकि जून में केवल 30 दिन होते हैं।"
+            },
+            {
+                id: 77,
+                category: "mental",
+                qEng: "Complete the following letter sequence: $AZ, CX, EV, GT, ?$",
+                qHin: "निम्नलिखित अक्षर श्रृंखला को पूरा कीजिए: $AZ, CX, EV, GT, ?$",
+                options: [
+                    {key: "A", val: "HS"},
+                    {key: "B", val: "IR"},
+                    {key: "C", val: "KP"},
+                    {key: "D", val: "LO"}
+                ],
+                correct: "B",
+                explain: "The first letters follow $+2$ steps ($A \\rightarrow C \\rightarrow E \\rightarrow G \\rightarrow I$). The second letters represent the exact reverse pairs ($Z \\leftrightarrow A, X \\leftrightarrow C, R \\leftrightarrow I$). / पहले अक्षर $+2$ के क्रम में आगे बढ़ रहे हैं और दूसरे अक्षर वर्णमाला के विपरीत जोड़े को दर्शाते हैं। अतः अगला पद IR होगा।"
+            },
+            {
+                id: 78,
+                category: "mental",
+                qEng: "In a row of 25 girls, when Aaradhya shifted three places to her right, she became 14th from the left end. What was her original position from the right end of the row?",
+                qHin: "25 लड़कियों की एक पंक्ति में, जब आराध्या अपने दाहिने ओर तीन स्थान खिसकती है, तो वह बाईं ओर से 14वीं हो जाती है। पंक्ति के दाहिने छोर से उसकी मूल स्थिति क्या थी?",
+                options: [
+                    {key: "A", val: "13th"},
+                    {key: "B", val: "14th"},
+                    {key: "C", val: "15th"},
+                    {key: "D", val: "16th"}
+                ],
+                correct: "C",
+                explain: "New left position = 14. Original left position = $14 - 3 = 11$. Position from right end = $(\\text{Total} - \\text{Left Position}) + 1 = (25 - 11) + 1 = 15\\text{th}$. / नई बाईं स्थिति 14 है, इसलिए मूल बाईं स्थिति $14-3 = 11$ थी। दाईं ओर से स्थिति = $(25 - 11) + 1 = 15$वीं होगी।"
+            },
+            {
+                id: 79,
+                category: "mental",
+                qEng: "If $+$ means $\\times$, $-$ means $+$, $\\times$ means $\\div$, and $\\div$ means $-$, solve the expression: $20 \\times 4 - 6 + 2$.",
+                qHin: "यदि $+$ का अर्थ $\\times$, $-$ का अर्थ $+$, $\\times$ का अर्थ $\\div$, और $\\div$ का अर्थ $-$ है, तो व्यंजक को हल करें: $20 \\times 4 - 6 + 2$.",
+                options: [
+                    {key: "A", val: "11"},
+                    {key: "B", val: "17"},
+                    {key: "C", val: "22"},
+                    {key: "D", val: "28"}
+                ],
+                correct: "B",
+                explain: "Substitute signs using BODMAS rule: $20 \\div 4 + 6 \\times 2 = 5 + 12 = 17$. / चिह्नों को बदलकर बॉडमास (BODMAS) नियम से हल करने पर: $20 \\div 4 + 6 \\times 2 = 5 + 12 = 17$।"
+            },
+            {
+                id: 80,
+                category: "mental",
+                qEng: "Book : Pages :: Continent : ?",
+                qHin: "पुस्तक : पृष्ठ :: महाद्वीप : ?",
+                options: [
+                    {key: "A", val: "Water / जल"},
+                    {key: "B", val: "Forest / वन"},
+                    {key: "C", val: "Countries / देश"},
+                    {key: "D", val: "Sky / आकाश"}
+                ],
+                correct: "C",
+                explain: "A book is composed of multiple pages. Similarly, a continent is composed of multiple countries. / एक पुस्तक कई पृष्ठों से मिलकर बनती है। उसी प्रकार, एक महाद्वीप कई देशों से मिलकर बनता है।"
+            },
+            {
+                id: 81,
+                category: "mental",
+                qEng: "Find the missing number in the character matrix:\n$5 \\quad 4 \\quad 20$\n$8 \\quad 3 \\quad 24$\n$9 \\quad 7 \\quad ?$",
+                qHin: "अक्षर मैट्रिक्स में लुप्त संख्या ज्ञात कीजिए:\n$5 \\quad 4 \\quad 20$\n$8 \\quad 3 \\quad 24$\n$9 \\quad 7 \\quad ?$",
+                options: [
+                    {key: "A", val: "16"},
+                    {key: "B", val: "56"},
+                    {key: "C", val: "63"},
+                    {key: "D", val: "72"}
+                ],
+                correct: "C",
+                explain: "The pattern works horizontally: $\\text{Column 1} \\times \\text{Column 2} = \\text{Column 3}$. So, $9 \\times 7 = 63$. / पैटर्न क्षैतिज रूप से काम करता है: $\\text{कॉलम 1} \\times \\text{कॉलम 2} = \\text{कॉलम 3}$। अतः $9 \\times 7 = 63$।"
+            },
+            {
+                id: 82,
+                category: "mental",
+                qEng: "If you walk $10$ meters towards the East, then turn right and walk $5$ meters, and again turn right and walk $10$ meters, how far are you from your starting point?",
+                qHin: "यदि आप पूर्व की ओर $10$ मीटर चलते हैं, फिर दाहिने मुड़कर $5$ मीटर चलते हैं, और फिर से दाहिने मुड़कर $10$ मीटर चलते हैं, तो आप अपने प्रारंभिक बिंदु से कितनी दूरी पर हैं?",
+                options: [
+                    {key: "A", val: "5 meters"},
+                    {key: "B", val: "10 meters"},
+                    {key: "C", val: "15 meters"},
+                    {key: "D", val: "20 meters"}
+                ],
+                correct: "A",
+                explain: "The pathway outlines three sides of a rectangle. The open gap back to the start line matches the parallel lateral side, which evaluates to exactly $5$ meters. / यह मार्ग एक आयत की तीन भुजाओं की रूपरेखा बनाता है। शुरुआती बिंदु से दूरी समानांतर भुजा के बराबर होगी, जो कि $5$ मीटर है।"
+            },
+            {
+                id: 83,
+                category: "mental",
+                qEng: "Find the missing sequence terms: $BCD, EFI, HIj, ?, NOP$",
+                qHin: "लुप्त श्रृंखला पद ज्ञात कीजिए: $BCD, EFI, HIj, ?, NOP$",
+                options: [
+                    {key: "A", val: "KLM"},
+                    {key: "B", val: "KLN"},
+                    {key: "C", val: "KLO"},
+                    {key: "D", val: "KKM"}
+                ],
+                correct: "B",
+                explain: "The first letters increase by $+3$ ($B \\rightarrow E \\rightarrow H \\rightarrow K \\rightarrow N$). The second letters increase by $+2$, and the third letters increase by $+1$. / पहले अक्षरों में $+3$, दूसरे अक्षरों में $+2$ और तीसरे अक्षरों में $+1$ का अंतर चल रहा है। इस आधार पर अगला पद KLN होगा।"
+            },
+            {
+                id: 84,
+                category: "mental",
+                qEng: "Earth : Planet :: Moon : ?",
+                qHin: "पृथ्वी : ग्रह :: चंद्रमा : ?",
+                options: [
+                    {key: "A", val: "Sun / सूर्य"},
+                    {key: "B", val: "Star / तारा"},
+                    {key: "C", val: "Satellite / उपग्रह"},
+                    {key: "D", val: "Asteroid / क्षुद्रग्रह"}
+                ],
+                correct: "C",
+                explain: "Earth is categorized structurally as a planet. Similarly, the moon is categorized as a natural satellite. / पृथ्वी संरचनात्मक रूप से एक ग्रह है। उसी प्रकार, चंद्रमा एक प्राकृतिक उपग्रह है।"
+            },
+            {
+                id: 85,
+                category: "mental",
+                qEng: "Identify the alternative that contains a distinct structural property from the group.",
+                qHin: "उस विकल्प की पहचान करें जो समूह से भिन्न संरचनात्मक विशेषता रखता है।",
+                options: [
+                    {key: "A", val: "Square / वर्ग"},
+                    {key: "B", val: "Rectangle / आयत"},
+                    {key: "C", val: "Triangle / त्रिभुज"},
+                    {key: "D", val: "Cube / घन"}
+                ],
+                correct: "D",
+                explain: "Square, Rectangle, and Triangle are 2-Dimensional planar structures. A Cube is a 3-Dimensional solid figure. / वर्ग, आयत और त्रिभुज 2-आयामी (2D) आकृतियाँ हैं, जबकि घन एक 3-आयामी (3D) ठोस आकृति है।"
+            },
+            {
+                id: 86,
+                category: "mental",
+                qEng: "If 'SCHOOL' is coded as '$123445$' and 'TEAM' is coded as '$6789$', how will 'HOTEL' be coded based on standard symbol alignment rules?",
+                qHin: "यदि 'SCHOOL' का कूट '$123445$' है और 'TEAM' का कूट '$6789$' है, तो कूट नियमों के आधार पर 'HOTEL' को कैसे कोड किया जाएगा?",
+                options: [
+                    {key: "A", val: "34675"},
+                    {key: "B", val: "34678"},
+                    {key: "C", val: "24675"},
+                    {key: "D", val: "14675"}
+                ],
+                correct: "A",
+                explain: "Direct letter matching shows: $H=3, O=4, T=6, E=7, L=5$. Hence, HOTEL maps directly to $34675$. / प्रत्यक्ष अक्षर मिलान से ज्ञात होता है: $H=3, O=4, T=6, E=7, L=5$। इसलिए HOTEL का कूट $34675$ होगा।"
+            },
+            {
+                id: 87,
+                category: "mental",
+                qEng: "Find the next missing element link: $2, 6, 12, 20, 30, ?$",
+                qHin: "श्रृंखला की अगली लुप्त संख्या ज्ञात कीजिए: $2, 6, 12, 20, 30, ?$",
+                options: [
+                    {key: "A", val: "36"},
+                    {key: "B", val: "40"},
+                    {key: "C", val: "42"},
+                    {key: "D", val: "46"}
+                ],
+                correct: "C",
+                explain: "The pattern follows sequential dynamic additions of consecutive even values: $+4, +6, +8, +10, +12$. Thus, $30 + 12 = 42$. / श्रृंखला में क्रमशः क्रमिक सम संख्याएँ जोड़ी जा रही हैं: $+4, +6, +8, +10, +12$। अतः अगला पद $30 + 12 = 42$ होगा।"
+            },
+            {
+                id: 88,
+                category: "mental",
+                qEng: "A is the brother of B. B is the daughter of C. D is the father of C. How is A related to C?",
+                qHin: "A, B का भाई है। B, C की बेटी है। D, C का पिता है। A का C से क्या संबंध है?",
+                options: [
+                    {key: "A", val: "Father / पिता"},
+                    {key: "B", val: "Son / पुत्र"},
+                    {key: "C", val: "Brother / भाई"},
+                    {key: "D", val: "Grandson / पोता"}
+                ],
+                correct: "B",
+                explain: "Since B is the daughter of C, and A is B's brother, A must be the son of C. / चूँकि B, C की बेटी है और A, B का भाई है, इसलिए A निश्चित रूप से C का पुत्र होगा।"
+            },
+            {
+                id: 89,
+                category: "mental",
+                qEng: "Which of the following geometric Venn diagram configurations perfectly establishes the hierarchy for: 'Animals, Tigers, Lions'?",
+                qHin: "निम्नलिखित में से कौन सा वेन आरेख 'पशु, बाघ, शेर' के लिए सही पदानुक्रम स्थापित करता है?",
+                options: [
+                    {key: "A", val: "Three completely overlapping circles"},
+                    {key: "B", val: "Two intersecting circles inside a larger one"},
+                    {key: "C", val: "Two separate independent circles inside a larger outer circle"},
+                    {key: "D", val: "Three disconnected individual rings"}
+                ],
+                correct: "C",
+                explain: "The category 'Animals' forms the wide outer containing set. 'Tigers' and 'Lions' are individual sub-species that sit completely inside without any intersecting overlap. / 'पशु' वर्ग बाहरी बड़े सेट का निर्माण करता है। 'बाघ' और 'शेर' दोनों इसके भीतर बिना किसी ओवरलैप के दो अलग-अलग स्वतंत्र वृत्त होंगे।"
+            },
+            {
+                id: 90,
+                category: "mental",
+                qEng: "Find the odd mathematical element value from the selection profile below.",
+                qHin: "नीचे दिए गए चयन प्रोफाइल में से विषम गणितीय संख्यात्मक मान ज्ञात कीजिए।",
+                options: [
+                    {key: "A", val: "27"},
+                    {key: "B", val: "64"},
+                    {key: "C", val: "125"},
+                    {key: "D", val: "144"}
+                ],
+                correct: "D",
+                explain: "$27 = 3^3$, $64 = 4^3$, and $125 = 5^3$ are perfect cubes. $144 = 12^2$ represents a perfect square value. / $27, 64$ और $125$ पूर्ण घन संख्याएँ हैं, जबकि $144$ एक पूर्ण वर्ग संख्या ($12^2$) है।"
+            },
+            {
+                id: 91,
+                category: "mental",
+                qEng: "If standard alphabetical position mappings are applied, and $G = 7$, $GOD = 26$, evaluate the summation value for the word link $GIRL$.",
+                qHin: "यदि मानक वर्णमाला स्थिति मैपिंग लागू की जाती है, और $G = 7$, $GOD = 26$ है, तो शब्द $GIRL$ का कुल योग मान ज्ञात कीजिए।",
+                options: [
+                    {key: "A", val: "44"},
+                    {key: "B", val: "46"},
+                    {key: "C", val: "48"},
+                    {key: "D", val: "50"}
+                ],
+                correct: "B",
+                explain: "Sum the sequential alphabetical tracking positions: $G(7) + I(9) + R(18) + L(12) = 46$. / अक्षरों के वर्णमाला क्रम स्थानों को जोड़ने पर: $G(7) + I(9) + R(18) + L(12) = 46$।"
+            },
+            {
+                id: 92,
+                category: "mental",
+                qEng: "Identify the logical pair matrix match that replicates the relational flow: $8 : 64 :: 11 : ?$",
+                qHin: "उस तार्किक संबंध की पहचान करें जो संबंध प्रवाह को दोहराता है: $8 : 64 :: 11 : ?$",
+                options: [
+                    {key: "A", val: "111"},
+                    {key: "B", val: "121"},
+                    {key: "C", val: "131"},
+                    {key: "D", val: "144"}
+                ],
+                correct: "B",
+                explain: "The second item maps to the perfect square of the initial item node ($8^2 = 64$). Similarly, $11^2 = 121$. / दूसरा पद पहले पद का पूर्ण वर्ग है ($8^2 = 64$)। उसी प्रकार, $11^2 = 121$ होगा।"
+            },
+            {
+                id: 93,
+                category: "mental",
+                qEng: "If 'White' is called 'Black', 'Black' is called 'Red', 'Red' is called 'Blue', and 'Blue' is called 'Yellow', what is the color of human blood?",
+                qHin: "यदि 'सफेद' को 'काला' कहा जाए, 'काला' को 'लाल' कहा जाए, 'लाल' को 'नीला' कहा जाए, और 'लाल' को 'नीला' तथा 'नीला' को 'पीला' कहा जाए, तो मानव रक्त का रंग कैसा होगा?",
+                options: [
+                    {key: "A", val: "Red / लाल"},
+                    {key: "B", val: "Blue / नीला"},
+                    {key: "C", val: "Black / काला"},
+                    {key: "D", val: "Yellow / पीला"}
+                ],
+                correct: "B",
+                explain: "The actual color of human blood is Red, and according to the language code substitution map, 'Red' is systematically translated to 'Blue'. / मानव रक्त का वास्तविक रंग लाल होता है, और कूट भाषा प्रतिस्थापन के अनुसार 'लाल' को 'नीला' कहा गया है।"
+            },
+            {
+                id: 94,
+                category: "mental",
+                qEng: "Complete the ongoing mathematical balance line: $1, 4, 9, 16, 25, 36, ?$",
+                qHin: "चल रही गणितीय संतुलन श्रृंखला को पूरा करें: $1, 4, 9, 16, 25, 36, ?$",
+                options: [
+                    {key: "A", val: "45"},
+                    {key: "B", val: "48"},
+                    {key: "C", val: "49"},
+                    {key: "D", val: "50"}
+                ],
+                correct: "C",
+                explain: "The sequence displays consecutive perfect square tracking loops ($1^2, 2^2, 3^2, 4^2, 5^2, 6^2$). The next index maps to $7^2 = 49$. / यह श्रृंखला क्रमिक पूर्ण वर्ग संख्याओं की है ($1^2, 2^2, 3^2, 4^2, 5^2, 6^2$)। अतः अगला पद $7^2 = 49$ होगा।"
+            },
+            {
+                id: 95,
+                category: "mental",
+                qEng: "Pen : Write :: Knife : ?",
+                qHin: "पेन : लिखना :: चाकू : ?",
+                options: [
+                    {key: "A", val: "Shoot / मारना"},
+                    {key: "B", val: "Cut / काटना"},
+                    {key: "C", val: "Eat / खाना"},
+                    {key: "D", val: "Cook / पकाना"}
+                ],
+                correct: "B",
+                explain: "The functional purpose of a pen is writing. The functional purpose of a knife is cutting. / पेन का कार्यात्मक उद्देश्य लिखना है। चाकू का कार्यात्मक उद्देश्य काटना है।"
+            },
+            {
+                id: 96,
+                category: "mental",
+                qEng: "If you are standing in a field facing North, and you turn $180^\\circ$ around, which direction are you facing now?",
+                qHin: "यदि आप एक मैदान में उत्तर की ओर मुंह करके खड़े हैं, और आप $180^\\circ$ घूम जाते हैं, तो अब आपका मुंह किस दिशा में होगा?",
+                options: [
+                    {key: "A", val: "East / पूर्व"},
+                    {key: "B", val: "West / पश्चिम"},
+                    {key: "C", val: "South / दक्षिण"},
+                    {key: "D", val: "North / उत्तर"}
+                ],
+                correct: "C",
+                explain: "A complete rotation of $180^\\circ$ reverses your direction tracking state instantly. The polar opposite of North is South. / $180^\\circ$ का घुमाव आपकी दिशा को ठीक विपरीत कर देता है। उत्तर का विपरीत दक्षिण होता है।"
+            },
+            {
+                id: 97,
+                category: "mental",
+                qEng: "Find the odd alphanumeric cluster group from the choices profile.",
+                qHin: "विकल्पों में से विषम अल्फ़ान्यूमेरिक क्लस्टर समूह ज्ञात कीजिए।",
+                options: [
+                    {key: "A", val: "A2B"},
+                    {key: "B", val: "C4D"},
+                    {key: "C", val: "E5F"},
+                    {key: "D", val: "G8H"}
+                ],
+                correct: "C",
+                explain: "The internal numbers map to the sum of alphabet positions ($1+2=3 \\rightarrow$ invalid, alternate check: sequential letters with position of second item): $B=2, D=4, H=8$. $F$ should equal $6$, but it is labeled $5$. / मध्य की संख्या अंतिम अक्षर के वर्णमाला स्थान को दर्शाती है ($B=2, D=4, H=8$) | यहाँ $F=6$ होना चाहिए था, लेकिन $5$ लिखा गया है।"
+            },
+            {
+                id: 98,
+                category: "mental",
+                qEng: "Five students are sitting in a straight line row configuration. P is sitting next to Q but not next to R. If S is sitting next to R, and R is at the extreme left end, who is sitting right in the middle?",
+                qHin: "पांच छात्र एक सीधी पंक्ति में बैठे हैं। P, Q के बगल में बैठा है लेकिन R के बगल में नहीं। यदि S, R के बगल में बैठा है और R सबसे बाएं छोर पर है, तो ठीक बीच में कौन बैठा है?",
+                options: [
+                    {key: "A", val: "P"},
+                    {key: "B", val: "Q"},
+                    {key: "C", val: "S"},
+                    {key: "D", val: "R"}
+                ],
+                correct: "A",
+                explain: "Mapping left to right based on tracking criteria yields alignment order: R, S, P, Q, (or variable endpoint combinations). P is fixed at index position 3, the exact center. / दी गई शर्तों के अनुसार बाएं से दाएं बैठने का क्रम R, S, P, Q होगा। अतः मध्य स्थान पर P बैठा है।"
+            },
+            {
+                id: 99,
+                category: "mental",
+                qEng: "Complete the analog link line: $25 : 5 :: 36 : ?$",
+                qHin: "सादृश्य श्रृंखला को पूरा करें: $25 : 5 :: 36 : ?$",
+                options: [
+                    {key: "A", val: "4"},
+                    {key: "B", val: "6"},
+                    {key: "C", val: "8"},
+                    {key: "D", val: "9"}
+                ],
+                correct: "B",
+                explain: "The secondary value element is the exact square root of the initial value item ($\\sqrt{25} = 5$). Similarly, $\\sqrt{36} = 6$. / दूसरा पद पहले पद का वर्गमूल है ($\\sqrt{25} = 5$)। उसी प्रकार, $\\sqrt{36} = 6$ होगा।"
+            },
+            {
+                id: 100,
+                category: "mental",
+                qEng: "Choose the alternative option that contains a completely unique operational nature distinct from others.",
+                qHin: "उस वैकल्पिक विकल्प को चुनें जो दूसरों से पूरी तरह से भिन्न प्रकृति रखता हो।",
+                options: [
+                    {key: "A", val: "Laptop / लैपटॉप"},
+                    {key: "B", val: "Smartphone / स्मार्टफोन"},
+                    {key: "C", val: "Television / टेलीविजन"},
+                    {key: "D", val: "Calculator / कैलकुलेटर"}
+                ],
+                correct: "D",
+                explain: "Laptops, Smartphones, and Televisions are broad complex modern computing/entertainment digital devices. A calculator handles specialized numeric computations only. / लैपटॉप, स्मार्टफोन और टेलीविजन व्यापक डिजिटल उपकरण हैं, जबकि कैलकुलेटर केवल विशिष्ट सीमित अंकगणितीय गणनाओं के लिए उपयोग किया जाता है।"
+            }
         ];
 
         const HINDI_DATA_FROM_PDF = [
-            { id: 65, category: "hindi", qEng: "Identify the compound type (Samas) for the word 'Nyayalaya' (Court).", qHin: "शब्द 'न्यायालय' के लिए समास के प्रकार की पहचान करें।", options: [{key:"A",val:"Avyayibhav"},{key:"B",val:"Dvigu"},{key:"C",val:"Bahuvrihi"},{key:"D",val:"Tatpurush"}], correct: "D", explain: "न्यायालय का विग्रह 'न्याय के लिए आलय' होता है। संप्रदान कारक चिह्न के लोप के कारण यह तत्पुरुष समास है।" },
-            { id: 66, category: "hindi", qEng: "The word 'Ghar-Ghar' (House-to-house) is an example of which compound?", qHin: "शब्द 'घर-घर' किस समास का उदाहरण है?", options: [{key:"A",val:"Avyayibhav"},{key:"B",val:"Tatpurush"},{key:"C",val:"Dvandva"},{key:"D",val:"Karmadharaya"}], correct: "A", explain: "घर-घर में द्विरुक्ति है। जहाँ प्रथम पद की प्रधानता हो और पुनरावृत्ति हो, वह अव्ययीभाव समास होता है।" },
-            { id: 67, category: "hindi", qEng: "To which compound category does the word 'Gramvasi' (Villager) belong?", qHin: "शब्द 'ग्रामवासी' किस समास श्रेणी के अंतर्गत आता है?", options: [{key:"A",val:"Dvigu"},{key:"B",val:"Tatpurush"},{key:"C",val:"Bahuvrihi"},{key:"D",val:"Karmadharaya"}], correct: "B", explain: "ग्रामवासी का समास विग्रह 'ग्राम का वासी' होता है। यहाँ संबंध तत्पुरुष समास है।" },
-            { id: 68, category: "hindi", qEng: "In the written form of language, how do we convey information?", qHin: "भाषा के लिखित रूप में हम सूचना को कैसे संप्रेषित करते हैं?", options: [{key:"A",val:"By speaking / बोलकर"},{key:"B",val:"By writing / लिखकर"},{key:"C",val:"Both A and B / दोनों A और B"},{key:"D",val:"None of the above / कोई नहीं"}], correct: "B", explain: "लिखित भाषा में विचारों को लिखकर (Likhkar) प्रकट किया जाता है, जबकि मौखिक भाषा में बोलकर प्रकट करते हैं।" },
-            { id: 69, category: "hindi", qEng: "The word 'Sarvottam' (Best) is an example of which compound?", qHin: "शब्द 'सर्वोत्तम' किस समास का उदाहरण है?", options: [{key:"A",val:"Avyayibhav"},{key:"B",val:"Dvigu"},{key:"C",val:"Bahuvrihi"},{key:"D",val:"Tatpurush"}], correct: "D", explain: "सर्वोत्तम का समास विग्रह है 'सब में उत्तम'। यह अधिकरण तत्पुरुष समास का उदाहरण है।" },
-            { id: 70, category: "hindi", qEng: "In the context of punctuation, what does the term 'Viram' literally mean?", qHin: "विराम चिह्न के संदर्भ में, 'विराम' शब्द का शाब्दिक अर्थ क्या है?", options: [{key:"A",val:"Singing / गाना"},{key:"B",val:"Walking / चलना"},{key:"C",val:"Stopping or Pausing / रुकना या ठहरना"},{key:"D",val:"Running / दौड़ना"}], correct: "C", explain: "विराम का शाब्दिक अर्थ है 'रुकना' या 'ठहरना' (Stopping/Pausing)। भाषा के लिखित रूप में स्पष्टता के लिए इनका प्रयोग किया जाता है।" },
-            { id: 71, category: "hindi", qEng: "Which of the following is NOT an example of an abstract noun (Bhav-vachak Sangya)?", qHin: "निम्नलिखित में से कौन सा भाववाचक संज्ञा का उदाहरण नहीं है?", options: [{key:"A",val:"Goodness / अच्छाई"},{key:"B",val:"Education / पढ़ाई"},{key:"C",val:"Madness / पागलपन"},{key:"D",val:"Beautiful / सुंदर"}], correct: "D", explain: "'सुंदर' एक विशेषण (Adjective) है, भाववाचक संज्ञा नहीं। सुंदर की भाववाचक संज्ञा 'सुंदरता' या 'सौंदर्य' होती है।" },
-            { id: 72, category: "hindi", qEng: "Which of the following antonym pairs is incorrect?", qHin: "निम्नलिखित में से कौन सा विलोम शब्द युग्म गलत है?", options: [{key:"A",val:"Sugam - Durgam"},{key:"B",val:"Sandhi - Vigrah"},{key:"C",val:"Milan - Sanyog"},{key:"D",val:"Partantra - Swatantra"}], correct: "C", explain: "मिलन और संयोग पर्यायवाची शब्द हैं, विलोम नहीं। मिलन का विलोम 'विछोह' या 'विरह' होता है।" },
-            { id: 73, category: "hindi", qEng: "'Someone is coming' (Koi aa raha hai). In this sentence, what is the grammatical category of 'Someone' (Koi)?", qHin: "'कोई आ रहा है'। इस वाक्य में, 'कोई' शब्द की व्याकरणिक श्रेणी क्या है?", options: [{key:"A",val:"Indefinite Pronoun / अनिश्चयवाचक सर्वनाम"},{key:"B",val:"Definite Pronoun / निश्चयवाचक सर्वनाम"},{key:"C",val:"Personal Pronoun / पुरुषवाचक सर्वनाम"},{key:"D",val:"Questioning Pronoun / प्रश्नवाचक सर्वनाम"}], correct: "A", explain: "'कोई' अनिश्चयवाचक सर्वनाम है क्योंकि इससे किसी निश्चित व्यक्ति या वस्तु का बोध नहीं होता है।" },
-            { id: 74, category: "hindi", qEng: "'My country is great' (Mera desh mahan hai). What part of speech is 'Great' (Mahan)?", qHin: "'मेरा देश महान है'। इस वाक्य में 'महान' शब्द क्या है?", options: [{key:"A",val:"Noun / संज्ञा"},{key:"B",val:"Pronoun / सर्वनाम"},{key:"C",val:"Adjective / विशेषण"},{key:"D",val:"Verb / क्रिया"}], correct: "C", explain: "'महान' शब्द देश की विशेषता प्रकट करता है, अतः यह एक विशेषण (Adjective) है।" },
-            { id: 75, category: "hindi", qEng: "In which script is Hindi written?", qHin: "हिन्दी किस लिपि में लिखी जाती है?", options: [{key:"A",val:"Roman / रोमन"},{key:"B",val:"Devanagari / देवनागरी"},{key:"C",val:"Gurmukhi / गुरुमुखी"},{key:"D",val:"Persian / फारसी"}], correct: "B", explain: "हिन्दी भाषा देवनागरी लिपि में लिखी जाती है। पंजाबी गुरुमुखी में और अंग्रेजी रोमन लिपि में लिखी जाती है।" },
-            { id: 76, category: "hindi", qEng: "What is the medium for expressing one's inner thoughts to others?", qHin: "मनुष्यों के विचारों के आदान-प्रदान का मुख्य माध्यम क्या है?", options: [{key:"A",val:"Grammar / व्याकरण"},{key:"B",val:"Language / भाषा"},{key:"C",val:"Script / लिपि"},{key:"D",val:"Phonetics / ध्वनि"}], correct: "B", explain: "भाषा (Language) वह साधन है जिसके द्वारा हम अपने विचारों और भावों को दूसरों के सामने प्रकट करते हैं।" },
-            { id: 77, category: "hindi", qEng: "What is a Varn (Phonetic Unit)?", qHin: "वर्ण (Varn) क्या है?", options: [{key:"A",val:"A type of color / एक रंग"},{key:"B",val:"The smallest unit of sound / भाषा की सबसे छोटी ध्वनि"},{key:"C",val:"A complete word / एक शब्द"},{key:"D",val:"A type of sentence / एक वाक्य"}], correct: "B", explain: "वर्ण भाषा की उस सबसे छोटी ध्वनि को कहते हैं जिसके टुकड़े नहीं किए जा सकते, जैसे- अ, क, ख आदि।" },
-            { id: 78, category: "hindi", qEng: "A group of Varn (Alphabets) is called:", qHin: "वर्णों के व्यवस्थित समूह को क्या कहते हैं?", options: [{key:"A",val:"Sentence / वाक्य"},{key:"B",val:"Vocabulary / शब्दकोश"},{key:"C",val:"Varnmala / वर्णमाला"},{key:"D",val:"Grammar / व्याकरण"}], correct: "C", explain: "वर्णों के व्यवस्थित और क्रमबद्ध समूह को 'वर्णमाला' (Varnmala) कहा जाता है।" },
-            { id: 79, category: "hindi", qEng: "What are Tatsam words?", qHin: "तत्सम शब्द क्या होते हैं?", options: [{key:"A",val:"Changed Sanskrit words"},{key:"B",val:"Original Sanskrit words used in Hindi"},{key:"C",val:"Modified local words"},{key:"D",val:"Foreign words"}], correct: "B", explain: "सस्कृत के वे मूल शब्द जो बिना किसी परिवर्तन के हिन्दी में ज्यों के त्यों उपयोग किए जाते हैं, तत्सम शब्द कहलाते हैं।" }
+            { 
+                id: 101, 
+                category: "hindi", 
+                qEng: "Identify the compound type (Samas) for the word 'Nyayalaya' (Court).", 
+                qHin: "शब्द 'न्यायालय' के लिए समास के प्रकार की पहचान करें।", 
+                options: [{key:"A",val:"Avyayibhav / अव्ययीभाव"},{key:"B",val:"Dvigu / द्विगु"},{key:"C",val:"Bahuvrihi / बहुव्रीहि"},{key:"D",val:"Tatpurush / तत्पुरुष"}], 
+                correct: "D", 
+                explain: "न्यायालय का विग्रह 'न्याय के लिए आलय' होता है। संप्रदान कारक चिह्न के लोप के कारण यह तत्पुरुष समास है।" 
+            },
+            { 
+                id: 102, 
+                category: "hindi", 
+                qEng: "The word 'Ghar-Ghar' (House-to-house) is an example of which compound?", 
+                qHin: "शब्द 'घर-घर' किस समास का उदाहरण है?", 
+                options: [{key:"A",val:"Avyayibhav / अव्ययीभाव"},{key:"B",val:"Tatpurush / तत्पुरुष"},{key:"C",val:"Dvandva / द्वंद्व"},{key:"D",val:"Karmadharaya / कर्मधारय"}], 
+                correct: "A", 
+                explain: "घर-घर में द्विरुक्ति है। जहाँ प्रथम पद की प्रधानता हो और पुनरावृत्ति हो, वह अव्ययीभाव समास होता है।" 
+            },
+            { 
+                id: 103, 
+                category: "hindi", 
+                qEng: "To which compound category does the word 'Gramvasi' (Villager) belong?", 
+                qHin: "शब्द 'ग्रामवासी' किस समास श्रेणी के अंतर्गत आता है?", 
+                options: [{key:"A",val:"Dvigu / द्विगु"},{key:"B",val:"Tatpurush / तत्पुरुष"},{key:"C",val:"Bahuvrihi / बहुव्रीहि"},{key:"D",val:"Karmadharaya / कर्मधारय"}], 
+                correct: "B", 
+                explain: "ग्रामवासी का समास विग्रह 'ग्राम का वासी' होता है। यहाँ संबंध तत्पुरुष समास है।" 
+            },
+            { 
+                id: 104, 
+                category: "hindi", 
+                qEng: "In the written form of language, how do we convey information?", 
+                qHin: "भाषा के लिखित रूप में हम सूचना को कैसे संप्रेषित करते हैं?", 
+                options: [{key:"A",val:"By speaking / बोलकर"},{key:"B",val:"By writing / लिखकर"},{key:"C",val:"Both / दोनों"},{key:"D",val:"None / कोई नहीं"}], 
+                correct: "B", 
+                explain: "लिखित भाषा में विचारों को लिखकर (Likhkar) प्रकट किया जाता है, जबकि मौखिक भाषा में बोलकर प्रकट करते हैं।" 
+            },
+            { 
+                id: 105, 
+                category: "hindi", 
+                qEng: "The word 'Sarvottam' (Best) is an example of which compound?", 
+                qHin: "शब्द 'सर्वोत्तम' किस समास का उदाहरण है?", 
+                options: [{key:"A",val:"Avyayibhav / अव्ययीभाव"},{key:"B",val:"Dvigu / द्विगु"},{key:"C",val:"Bahuvrihi / बहुव्रीहि"},{key:"D",val:"Tatpurush / तत्पुरुष"}], 
+                correct: "D", 
+                explain: "सर्वोत्तम का समास विग्रह है 'सब में उत्तम'। यह अधिकरण तत्पुरुष समास का उदाहरण है।" 
+            },
+            { 
+                id: 106, 
+                category: "hindi", 
+                qEng: "In the context of punctuation, what does the term 'Viram' literally mean?", 
+                qHin: "विराम चिह्न के संदर्भ में, 'विराम' शब्द का शाब्दिक अर्थ क्या है?", 
+                options: [{key:"A",val:"Singing / गाना"},{key:"B",val:"Walking / चलना"},{key:"C",val:"Stopping / रुकना या ठहरना"},{key:"D",val:"Running / दौड़ना"}], 
+                correct: "C", 
+                explain: "विराम का शाब्दिक अर्थ है 'रुकना' या 'ठहरना' (Stopping/Pausing)। भाषा के लिखित रूप में स्पष्टता के लिए इनका प्रयोग किया जाता है।" 
+            },
+            { 
+                id: 107, 
+                category: "hindi", 
+                qEng: "Which of the following is NOT an example of an abstract noun?", 
+                qHin: "निम्नलिखित में से कौन सा भाववाचक संज्ञा का उदाहरण नहीं है?", 
+                options: [{key:"A",val:"Goodness / अच्छाई"},{key:"B",val:"Education / पढ़ाई"},{key:"C",val:"Madness / पागलपन"},{key:"D",val:"Beautiful / सुंदर"}], 
+                correct: "D", 
+                explain: "'सुंदर' एक विशेषण (Adjective) है, भाववाचक संज्ञा नहीं। सुंदर की भाववाचक संज्ञा 'सुंदरता' या 'सौंदर्य' होती है।" 
+            },
+            { 
+                id: 108, 
+                category: "hindi", 
+                qEng: "Which of the following antonym pairs is incorrect?", 
+                qHin: "निम्नलिखित में से कौन सा विलोम शब्द युग्म गलत है?", 
+                options: [{key:"A",val:"Sugam - Durgam"},{key:"B",val:"Sandhi - Vigrah"},{key:"C",val:"Milan - Sanyog"},{key:"D",val:"Partantra - Swatantra"}], 
+                correct: "C", 
+                explain: "मिलन और संयोग पर्यायवाची शब्द हैं, विलोम नहीं। मिलन का विलोम 'विछोह' या 'विरह' होता है।" 
+            },
+            { 
+                id: 109, 
+                category: "hindi", 
+                qEng: "What is the grammatical category of 'Someone' in 'Someone is coming'?", 
+                qHin: "'कोई आ रहा है'। इस वाक्य में, 'कोई' शब्द की व्याकरणिक श्रेणी क्या है?", 
+                options: [{key:"A",val:"Indefinite Pronoun / अनिश्चयवाचक सर्वनाम"},{key:"B",val:"Definite Pronoun / निश्चयवाचक सर्वनाम"},{key:"C",val:"Personal Pronoun / पुरुषवाचक सर्वनाम"},{key:"D",val:"Questioning Pronoun / प्रश्नवाचक सर्वनाम"}], 
+                correct: "A", 
+                explain: "'कोई' अनिश्चयवाचक सर्वनाम है क्योंकि इससे किसी निश्चित व्यक्ति या वस्तु का बोध नहीं होता है।" 
+            },
+            { 
+                id: 110, 
+                category: "hindi", 
+                qEng: "What part of speech is 'Great' in 'My country is great'?", 
+                qHin: "'मेरा देश महान है'। इस वाक्य में 'महान' शब्द क्या है?", 
+                options: [{key:"A",val:"Noun / संज्ञा"},{key:"B",val:"Pronoun / सर्वनाम"},{key:"C",val:"Adjective / विशेषण"},{key:"D",val:"Verb / क्रिया"}], 
+                correct: "C", 
+                explain: "'महान' शब्द देश की विशेषता प्रकट करता है, अतः यह एक विशेषण (Adjective) है।" 
+            },
+            { 
+                id: 111, 
+                category: "hindi", 
+                qEng: "In which script is Hindi written?", 
+                qHin: "हिन्दी किस लिपि में लिखी जाती है?", 
+                options: [{key:"A",val:"Roman / रोमन"},{key:"B",val:"Devanagari / देवनागरी"},{key:"C",val:"Gurmukhi / गुरुमुखी"},{key:"D",val:"Persian / फारसी"}], 
+                correct: "B", 
+                explain: "हिन्दी भाषा देवनागरी लिपि में लिखी जाती है। पंजाबी गुरुमुखी में और अंग्रेजी रोमन लिपि में लिखी जाती है।" 
+            },
+            { 
+                id: 112, 
+                category: "hindi", 
+                qEng: "What is the medium for expressing one's inner thoughts to others?", 
+                qHin: "मनुष्यों के विचारों के आदान-प्रदान का मुख्य माध्यम क्या है?", 
+                options: [{key:"A",val:"Grammar / व्याकरण"},{key:"B",val:"Language / भाषा"},{key:"C",val:"Script / लिपि"},{key:"D",val:"Phonetics / ध्वनि"}], 
+                correct: "B", 
+                explain: "भाषा (Language) वह साधन है जिसके द्वारा हम अपने विचारों और भावों को दूसरों के सामने प्रकट करते हैं।" 
+            },
+            { 
+                id: 113, 
+                category: "hindi", 
+                qEng: "What is a Varn (Phonetic Unit)?", 
+                qHin: "वर्ण (Varn) क्या है?", 
+                options: [{key:"A",val:"Color / रंग"},{key:"B",val:"Smallest unit of sound / भाषा की सबसे छोटी ध्वनि"},{key:"C",val:"Word / शब्द"},{key:"D",val:"Sentence / वाक्य"}], 
+                correct: "B", 
+                explain: "वर्ण भाषा की उस सबसे छोटी ध्वनि को कहते हैं जिसके टुकड़े नहीं किए जा सकते, जैसे- अ, क, ख आदि।" 
+            },
+            { 
+                id: 114, 
+                category: "hindi", 
+                qEng: "A group of Varn (Alphabets) is called:", 
+                qHin: "वर्णों के व्यवस्थित समूह को क्या कहते हैं?", 
+                options: [{key:"A",val:"Sentence / वाक्य"},{key:"B",val:"Vocabulary / शब्दकोश"},{key:"C",val:"Varnmala / वर्णमाला"},{key:"D",val:"Grammar / व्याकरण"}], 
+                correct: "C", 
+                explain: "वर्णों के व्यवस्थित और क्रमबद्ध समूह को 'वर्णमाला' (Varnmala) कहा जाता है।" 
+            },
+            { 
+                id: 115, 
+                category: "hindi", 
+                qEng: "What are Tatsam words?", 
+                qHin: "तत्सम शब्द क्या होते हैं?", 
+                options: [{key:"A",val:"Changed words"},{key:"B",val:"Original Sanskrit words / संस्कृत के मूल शब्द"},{key:"C",val:"Local words"},{key:"D",val:"Foreign words"}], 
+                correct: "B", 
+                explain: "संस्कृत के वे मूल शब्द जो बिना किसी परिवर्तन के हिन्दी में ज्यों के त्यों उपयोग किए जाते हैं, तत्सम शब्द कहलाते हैं।" 
+            },
+            { 
+                id: 116, 
+                category: "hindi", 
+                qEng: "What is the feminine form of the word 'Sut' (Son)?", 
+                qHin: "'सुत' शब्द का स्त्रीलिंग रूप क्या होगा?", 
+                options: [{key:"A",val:"Suta / सुता"},{key:"B",val:"Suti / सुती"},{key:"C",val:"Sutani / सुतानी"},{key:"D",val:"Putri / पुत्री"}], 
+                correct: "A", 
+                explain: "'सुत' का अर्थ बेटा होता है, और इसमें 'आ' प्रत्यय जोड़ने से स्त्रीलिंग रूप 'सुता' (बेटी) बनता है।" 
+            },
+            { 
+                id: 117, 
+                category: "hindi", 
+                qEng: "Which of the following is a synonym of the word 'Gai' (Cow)?", 
+                qHin: "निम्नलिखित में से 'गाय' शब्द का समानार्थी शब्द कौन सा है?", 
+                options: [{key:"A",val:"Dhenu / धेनु"},{key:"B",val:"Aswa / अश्व"},{key:"C",val:"Kunjal / कुंजल"},{key:"D",val:"Sarita / सरिता"}], 
+                correct: "A", 
+                explain: "गाय के पर्यायवाची शब्द धेनु, गौ, सुरभि माता आदि होते हैं। अश्व का अर्थ घोड़ा और सरिता का अर्थ नदी होता है।" 
+            },
+            { 
+                id: 118, 
+                category: "hindi", 
+                qEng: "The compound word 'Chauraha' (Crossroads) is an example of which Samas?", 
+                qHin: "'चौराहा' शब्द किस समास का प्रत्यक्ष उदाहरण है?", 
+                options: [{key:"A",val:"Avyayibhav / अव्ययीभाव"},{key:"B",val:"Tatpurush / तत्पुरुष"},{key:"C",val:"Dvigu / द्विगु"},{key:"D",val:"Dvandva / द्वंद्व"}], 
+                correct: "C", 
+                explain: "चौराहा का विग्रह 'चार राहों का समाहार' होता है। जहाँ प्रथम पद संख्यावाचक हो, वहाँ द्विगु समास होता है।" 
+            },
+            { 
+                id: 119, 
+                category: "hindi", 
+                qEng: "What is the correct antonym of the word 'Khoon' (Blood) in the context of relation / synonym blocks?", 
+                qHin: "व्याकरणिक शुद्धता के अनुसार 'बेटा' शब्द का सही विलोम शब्द क्या होगा?", 
+                options: [{key:"A",val:"Beti / बेटी"},{key:"B",val:"Mata / माता"},{key:"C",val:"Behan / बहन"},{key:"D",val:"Patni / पत्नी"}], 
+                correct: "A", 
+                explain: "'बेटा' शब्द का लिंग परिवर्तन या विलोम रूप 'बेटी' होता है।" 
+            },
+            { 
+                id: 120, 
+                category: "hindi", 
+                qEng: "What is the correct definition of Sandhi?", 
+                qHin: "दो वर्णों के मेल से होने वाले विकार (परिवर्तन) को क्या कहते हैं?", 
+                options: [{key:"A",val:"Samas / समास"},{key:"B",val:"Sandhi / संधि"},{key:"C",val:"Karak / कारक"},{key:"D",val:"Kriya / क्रिया"}], 
+                correct: "B", 
+                explain: "दो समीपवर्ती वर्णों के पास आने से जो नया परिवर्तन उत्पन्न होता है, उसे संधि कहते हैं; जैसे: देव + इंद्र = देवेंद्र।" 
+            },
+            { 
+                id: 121, 
+                category: "hindi", 
+                qEng: "The word 'Himalaya' is which type of Noun (Sangya)?", 
+                qHin: "'हिमालय' शब्द में कौन सी संज्ञा है?", 
+                options: [{key:"A",val:"Jativachak / जातिवाचक संज्ञा"},{key:"B",val:"Vyakativachak / व्यक्तिवाचक संज्ञा"},{key:"C",val:"Bhavvachak / भाववाचक संज्ञा"},{key:"D",val:"Samuhvachak / समूहवाचक संज्ञा"}], 
+                correct: "B", 
+                explain: "हिमालय एक विशेष पर्वत का नाम है। किसी विशेष स्थान, वस्तु या व्यक्ति का बोध कराने वाले शब्द व्यक्तिवाचक संज्ञा कहलाते हैं।" 
+            },
+            { 
+                id: 122, 
+                category: "hindi", 
+                qEng: "How many types of Vowels (Swar) are there based on pronunciation length?", 
+                qHin: "उच्चारण के समय के आधार पर स्वर के मुख्य रूप से कितने भेद होते हैं?", 
+                options: [{key:"A",val:"Two / दो"},{key:"B",val:"Three / तीन"},{key:"C",val:"Four / चार"},{key:"D",val:"Five / पाँच"}], 
+                correct: "B", 
+                explain: "स्वर के तीन भेद होते हैं: ह्रस्व स्वर (कम समय), दीर्घ स्वर (दुगुना समय), और प्लुत स्वर (तिगुना समय)।" 
+            },
+            { 
+                id: 123, 
+                category: "hindi", 
+                qEng: "What is the literal definition of 'Dwitva' consonant configurations?", 
+                qHin: "जब एक ही व्यंजन ध्वनि दो बार एक साथ आए (जैसे - पक्का, दिल्ली), तो उसे क्या कहते हैं?", 
+                options: [{key:"A",val:"Sanyukt Vyanjan / संयुक्त व्यंजन"},{key:"B",val:"Dwitva Vyanjan / द्वित्व व्यंजन"},{key:"C",val:"Antastha / अंतस्थ व्यंजन"},{key:"D",val:"Ushma / ऊष्म व्यंजन"}], 
+                correct: "B", 
+                explain: "जब स्वर रहित व्यंजन का मेल समान स्वर सहित व्यंजन से होता है, तो उसे द्वित्व व्यंजन कहते हैं; जैसे ल् + ली = ल्ली (दिल्ली)।" 
+            },
+            { 
+                id: 124, 
+                category: "hindi", 
+                qEng: "What is the proper noun indicator rule for geographical elements?", 
+                qHin: "'नदी' शब्द में कौन सी संज्ञा श्रेणी पाई जाती है?", 
+                options: [{key:"A",val:"Vyakativachak / व्यक्तिवाचक"},{key:"B",val:"Jativachak / जातिवाचक"},{key:"C",val:"Bhavvachak / भाववाचक"},{key:"D",val:"Dravyavachak / द्रव्यवाचक"}], 
+                correct: "B", 
+                explain: "'नदी' शब्द से दुनिया की सभी नदियों का बोध होता है, अतः यह पूरी जाति का बोध कराने के कारण जातिवाचक संज्ञा है।" 
+            },
+            { 
+                id: 125, 
+                category: "hindi", 
+                qEng: "Identify the correct plural form of the word 'Chidiya'.", 
+                qHin: "'चिड़िया' शब्द का सही बहुवचन रूप क्या होगा?", 
+                options: [{key:"A",val:"Chidiyan / चिड़ियाँ"},{key:"B",val:"Chidiyaye / चिड़ियाएँ"},{key:"C",val:"Chidiyayon / चिड़ियों"},{key:"D",val:"Chidiya / चिड़िया"}], 
+                correct: "A", 
+                explain: "या-अंत वाले स्त्रीलिंग शब्दों के अंत में चंद्रबिंदु (ँ) लगाने से बहुवचन बनता है, जैसे: चिड़िया का चिड़ियाँ।" 
+            },
+            { 
+                id: 126, 
+                category: "hindi", 
+                qEng: "The compound word 'Lambhudar' represents which Samas?", 
+                qHin: "'लम्बोदर' (लम्बा है उदर जिसका अर्थात् गणेश) किस समास का उदाहरण है?", 
+                options: [{key:"A",val:"Tatpurush / तत्पुरुष"},{key:"B",val:"Dvigu / द्विगु"},{key:"C",val:"Bahuvrihi / बहुव्रीहि"},{key:"D",val:"Karmadharaya / कर्मधारय"}], 
+                correct: "C", 
+                explain: "जहाँ दोनों पद मिलकर किसी तीसरे विशेष अर्थ (गणेश जी) की ओर संकेत करते हैं, वहाँ बहुव्रीहि समास होता है।" 
+            },
+            { 
+                id: 127, 
+                category: "hindi", 
+                qEng: "Identify the type of Sandhi for 'Surjodaya'.", 
+                qHin: "'सूर्योदय' शब्द का सही संधि विच्छेद क्या होगा?", 
+                options: [{key:"A",val:"Surya + Uday / सूर्य + उदय"},{key:"B",val:"Sur + Uday / सुर + उदय"},{key:"C",val:"Surya + Oday / सूर्य + ओदय"},{key:"D",val:"Suryo + Day / सूर्यो + दय"}], 
+                correct: "A", 
+                explain: "सूर्य + उदय = सूर्योदय। यह गुण स्वर संधि का उदाहरण है, जहाँ अ/आ + उ = ओ बनता है।" 
+            },
+            { 
+                id: 128, 
+                category: "hindi", 
+                qEng: "What is the synonym of 'Khoon' (Blood)?", 
+                qHin: "निम्नलिखित में से 'खून' शब्द का सही पर्यायवाची शब्द कौन सा है?", 
+                options: [{key:"A",val:"Rakt / रक्त"},{key:"B",val:"Paani / पानी"},{key:"C",val:"Jal / जल"},{key:"D",val:"Dudh / दूध"}], 
+                correct: "A", 
+                explain: "खून के पर्यायवाची शब्द रक्त, लहू, रुधिर और शोणित होते हैं।" 
+            },
+            { 
+                id: 129, 
+                category: "hindi", 
+                qEng: "What type of pronoun is 'Main' (I)?", 
+                qHin: "'मैं स्कूल जाता हूँ' - इस वाक्य में 'मैं' किस प्रकार का सर्वनाम है?", 
+                options: [{key:"A",val:"Nijvachak / निजवाचक सर्वनाम"},{key:"B",val:"Purushvachak / पुरुषवाचक सर्वनाम"},{key:"C",val:"Nishchayvachak / निश्चयवाचक सर्वनाम"},{key:"D",val:"Sambandhvachak / संबंधवाचक सर्वनाम"}], 
+                correct: "B", 
+                explain: "'मैं' उत्तम पुरुष पुरुषवाचक सर्वनाम है, जिसका प्रयोग वक्ता स्वयं के लिए करता है।" 
+            },
+            { 
+                id: 130, 
+                category: "hindi", 
+                qEng: "Identify the total number of Karak (Cases) in Hindi grammar.", 
+                qHin: "हिन्दी व्याकरण में कारक के कुल कितने भेद होते हैं?", 
+                options: [{key:"A",val:"Six / छः"},{key:"B",val:"Seven / सात"},{key:"C",val:"Eight / आठ"},{key:"D",val:"Nine / नौ"}], 
+                correct: "C", 
+                explain: "हिन्दी में कारकों की संख्या आठ है: कर्ता, कर्म, करण, संप्रदान, अपादान, संबंध, अधिकरण और संबोधन।" 
+            },
+            { 
+                id: 131, 
+                category: "hindi", 
+                qEng: "What is the sign for Apadan Karak?", 
+                qHin: "अपादान कारक का विभक्ति चिह्न क्या होता है?", 
+                options: [{key:"A",val:"Ne / ने"},{key:"B",val:"Ko / को"},{key:"C",val:"Se (Separation) / से (अलग होने के अर्थ में)"},{key:"D",val:"Ke Liye / के लिए"}], 
+                correct: "C", 
+                explain: "अपादान कारक का चिह्न 'से' होता है, जो किसी वस्तु के किसी स्थान या वस्तु से अलग होने, डरने या तुलना करने का बोध कराता है।" 
+            },
+            { 
+                id: 132, 
+                category: "hindi", 
+                qEng: "The word 'Mata-Pita' contains which Samas?", 
+                qHin: "'माता-पिता' शब्द में कौन सा समास पाया जाता है?", 
+                options: [{key:"A",val:"Dvigu / द्विगु समास"},{key:"B",val:"Dvandva / द्वंद्व समास"},{key:"C",val:"Tatpurush / तत्पुरुष समास"},{key:"D",val:"Avyayibhav / अव्ययीभाव समास"}], 
+                correct: "B", 
+                explain: "माता-पिता का विग्रह 'माता और पिता' होता है। जहाँ दोनों पद प्रधान हों और बीच में योजक चिह्न हो, वहाँ द्वंद्व समास होता है।" 
+            },
+            { 
+                id: 133, 
+                category: "hindi", 
+                qEng: "What is the correct definition of Tadbhav words?", 
+                qHin: "संस्कृत के जो शब्द परिवर्तित होकर हिन्दी में प्रयुक्त होते हैं, उन्हें क्या कहते हैं?", 
+                options: [{key:"A",val:"Tatsam / तत्सम"},{key:"B",val:"Tadbhav / तद्भव"},{key:"C",val:"Deshaj / देशज"},{key:"D",val:"Videshi / विदेशी"}], 
+                correct: "B", 
+                explain: "जो शब्द मूल रूप से संस्कृत के थे लेकिन समय के साथ बदलकर सरल रूप में हिन्दी में आए हैं, वे तद्भव कहलाते हैं; जैसे: दुग्ध से दूध।" 
+            },
+            { 
+                id: 134, 
+                category: "hindi", 
+                qEng: "What is the synonym of 'Aakash' (Sky)?", 
+                qHin: "निम्नलिखित में से 'आकाश' शब्द का पर्यायवाची शब्द कौन सा है?", 
+                options: [{key:"A",val:"Gagan / गगन"},{key:"B",val:"Jalad / जलद"},{key:"C",val:"Bhumika / भूमिका"},{key:"D",val:"Vasuda / वसुधा"}], 
+                correct: "A", 
+                explain: "आकाश के पर्यायवाची शब्द गगन, नभ, व्योम, अम्बर और आसमान होते हैं। वसुधा का अर्थ पृथ्वी होता है।" 
+            },
+            { 
+                id: 135, 
+                category: "hindi", 
+                qEng: "Identify the correct antonym of 'And अंधकार' (Darkness).", 
+                qHin: "'अंधकार' शब्द का सही विलोम शब्द क्या होगा?", 
+                options: [{key:"A",val:"Raat / रात"},{key:"B",val:"Prakash / प्रकाश"},{key:"C",val:"Ujala / उजाला"},{key:"D",val:"Subah / सुबह"}], 
+                correct: "B", 
+                explain: "'अंधकार' का तत्सम विलोम 'पrakash' (Light) होता है, जबकि 'अंधेरा' का तद्भव विलोम 'उजाला' होता है।" 
+            },
+            { 
+                id: 136, 
+                category: "hindi", 
+                qEng: "What is the definition of a sentence (Vakya)?", 
+                qHin: "शब्दों के सार्थक और व्यवस्थित समूह को क्या कहा जाता है?", 
+                options: [{key:"A",val:"Varnमाला / वर्णमाला"},{key:"B",val:"Shabd / शब्द"},{key:"C",val:"Vakya / वाक्य"},{key:"D",val:"Bhasha / भाषा"}], 
+                correct: "C", 
+                explain: "शब्दों के उस समूह को वाक्य (Sentence) कहते हैं जिससे वक्ता का पूरा अभिप्राय स्पष्ट रूप से प्रकट होता है।" 
+            },
+            { 
+                id: 137, 
+                category: "hindi", 
+                qEng: "What are the core components of a sentence layout?", 
+                qHin: "एक सामान्य वाक्य के मुख्य रूप से कितने अंग होते हैं?", 
+                options: [{key:"A",val:"Two (Subject, Predicate) / दो (उद्देश्य और विधेय)"},{key:"B",val:"Three / तीन"},{key:"C",val:"Four / चार"},{key:"D",val:"Five / पाँच"}], 
+                correct: "A", 
+                explain: "वाक्य के दो मुख्य अंग होते हैं: उद्देश्य (Subject - जिसके बारे में बात हो) और विधेय (Predicate - उद्देश्य के बारे में जो कहा जाए)।" 
+            },
+            { 
+                id: 138, 
+                category: "hindi", 
+                qEng: "Identify the total count of Swar (Vowels) in Hindi script setup.", 
+                qHin: "मानक हिन्दी वर्णमाला में कुल कितने स्वर होते हैं?", 
+                options: [{key:"A",val:"9"},{key:"B",val:"11"},{key:"C",val:"13"},{key:"D",val:"33"}], 
+                correct: "B", 
+                explain: "हिन्दी वर्णमाला में कुल 11 स्वर होते हैं (अ से औ तक)। अं और अः को अयोगवाह कहा जाता है।" 
+            },
+            { 
+                id: 139, 
+                category: "hindi", 
+                qEng: "Identify the total count of Vyanjan (Consonants).", 
+                qHin: "मानक हिन्दी वर्णमाला में मूल व्यंजनों की कुल संख्या कितनी है?", 
+                options: [{key:"A",val:"11"},{key:"B",val:"25"},{key:"C",val:"33"},{key:"D",val:"52"}], 
+                correct: "C", 
+                explain: "हिन्दी वर्णमाला में मूल रूप से 33 व्यंजन होते हैं, जिनमें 25 स्पर्श, 4 अंतस्थ और 4 ऊष्म व्यंजन शामिल हैं।" 
+            },
+            { 
+                id: 140, 
+                category: "hindi", 
+                qEng: "The phrase 'Tujhya Sarkhi' highlights which case equivalent or language tone?", 
+                qHin: "'कमल' किस प्रकार के शब्द का उदाहरण है (बनावट के आधार पर)?", 
+                options: [{key:"A",val:"Rud / रूढ़ शब्द"},{key:"B",val:"Yaugik / यौगिक शब्द"},{key:"C",val:"Yogrud / योगरूढ़ शब्द"},{key:"D",val:"Videshi / विदेशी शब्द"}], 
+                correct: "A", 
+                explain: "जिन शब्दों के टुकड़ों का कोई स्वतंत्र अर्थ नहीं निकलता, उन्हें रूढ़ शब्द कहते हैं; जैसे क + म + ल करने पर कोई अर्थ नहीं बचता।" 
+            },
+            { 
+                id: 141, 
+                category: "hindi", 
+                qEng: "Identify the correct structure of a Yaugik word.", 
+                qHin: "दो या दो से अधिक सार्थक शब्दों के मेल से बने शब्दों को क्या कहते हैं?", 
+                options: [{key:"A",val:"Rud / रूढ़"},{key:"B",val:"Yaugik / यौगिक"},{key:"C",val:"Yogrud / योगरूढ़"},{key:"D",val:"Tatsam / तत्सम"}], 
+                correct: "B", 
+                explain: "सार्थक खंडों से मिलकर बनने वाले शब्द यौगिक कहलाते हैं; जैसे: पाठ + शाला = पाठशाला।" 
+            },
+            { 
+                id: 142, 
+                category: "hindi", 
+                qEng: "What is an Anuswar phonetic mark?", 
+                qHin: "अक्षर के ऊपर लगाए जाने वाले बिंदु (ं) को व्याकरण में क्या कहा जाता है?", 
+                options: [{key:"A",val:"Anunasik / अनुनासिक"},{key:"B",val:"Anuswar / अनुस्वार"},{key:"C",val:"Visarg / विसर्ग"},{key:"D",val:"Halant / हलंत"}], 
+                correct: "B", 
+                explain: "बिंदु (ं) को अनुस्वार कहा जाता है। इसका उच्चारण केवल नाक से होता है, जैसे: गंगा, चंदा।" 
+            },
+            { 
+                id: 143, 
+                category: "hindi", 
+                qEng: "What is an Anunasik phonetic mark?", 
+                qHin: "अक्षर के ऊपर लगाए जाने वाले चंद्रबिंदु (ँ) को क्या कहा जाता है?", 
+                options: [{key:"A",val:"Anuswar / अनुस्वार"},{key:"B",val:"Anunasik / अनुनासिक"},{key:"C",val:"Visarg / विसर्ग"},{key:"D",val:"Nirununasik / निरनुनासिक"}], 
+                correct: "B", 
+                explain: "चंद्रबिंदु (ँ) को अनुनासिक कहते हैं। इसके उच्चारण के समय हवा नाक और मुंह दोनों से बाहर निकलती है, जैसे: आँख, चाँद।" 
+            },
+            { 
+                id: 144, 
+                category: "hindi", 
+                qEng: "Identify the correct spelling of 'Ujjwal'.", 
+                qHin: "निम्नलिखित में से किस विकल्प में वर्तनी (Spelling) शुद्ध है?", 
+                options: [{key:"A",val:"उज्वल"},{key:"B",val:"उज्ज्वल"},{key:"C",val:"उज्व्ल"},{key:"D",val:"उज्जवल"}], 
+                correct: "B", 
+                explain: "शुद्ध वर्तनी 'उज्ज्वल' है। इसमें दोनों 'ज' आधे होते हैं (उत् + ज्वल = उज्ज्वल)।" 
+            },
+            { 
+                id: 145, 
+                category: "hindi", 
+                qEng: "What is the definition of a prefix (Upsarg)?", 
+                qHin: "जो शब्दांश किसी शब्द के पहले जुड़कर उसके अर्थ में परिवर्तन लाते हैं, उन्हें क्या कहते हैं?", 
+                options: [{key:"A",val:"Pratyaya / प्रत्यय"},{key:"B",val:"Upsarg / उपसर्ग"},{key:"C",val:"Samas / समास"},{key:"D",val:"Sandhi / संधि"}], 
+                correct: "B", 
+                explain: "उपसर्ग (Prefix) वे शब्दांश हैं जो किसी मूल शब्द के आरम्भ में जुड़कर उसके अर्थ को बदल देते हैं; जैसे: प्र + हार = प्रहार।" 
+            },
+            { 
+                id: 146, 
+                category: "hindi", 
+                qEng: "What is the definition of a suffix (Pratyaya)?", 
+                qHin: "जो शब्दांश किसी शब्द के अंत में जुड़कर नया अर्थ उत्पन्न करते हैं, उन्हें क्या कहते हैं?", 
+                options: [{key:"A",val:"Upsarg / उपसर्ग"},{key:"B",val:"Pratyaya / प्रत्यय"},{key:"C",val:"Karak / कारक"},{key:"D",val:"Kriya / क्रिया"}], 
+                correct: "B", 
+                explain: "प्रत्यय (Suffix) वे शब्दांश हैं जो किसी शब्द के अंत में लगाए जाते हैं; जैसे: सुंदर + ता = सुंदरता।" 
+            },
+            { 
+                id: 147, 
+                category: "hindi", 
+                qEng: "What punctuation is used to isolate standard text list groupings?", 
+                qHin: "वाक्य में जहाँ बहुत कम समय के लिए रुकना पड़ता है, वहाँ किस चिह्न का प्रयोग करते हैं?", 
+                options: [{key:"A",val:"Purna Viram / पूर्ण विराम (।)"},{key:"B",val:"Alpa Viram / अल्प विराम (,)"},{key:"C",val:"Ardh Viram / अर्ध विराम (;)"},{key:"D",val:"Vismayadi Bodhak / विस्मयादिबोधक (!)"}], 
+                correct: "B", 
+                explain: "कम समय रुकने के लिए अल्प विराम (Comma - ,) का प्रयोग किया जाता है, जबकि वाक्य खत्म होने पर पूर्ण विराम (।) लगाते हैं।" 
+            },
+            { 
+                id: 148, 
+                category: "hindi", 
+                qEng: "Identify the meaning of the idiom 'Aankhon ka Tara'.", 
+                qHin: "'आँखों का तारा होना' मुहावरे का सही अर्थ क्या है?", 
+                options: [{key:"A",val:"Enemy / दुश्मन होना"},{key:"B",val:"Very Dear / बहुत प्यारा होना"},{key:"C",val:"Blind / अंधा होना"},{key:"D",val:"Night blindness / रात में कम दिखना"}], 
+                correct: "B", 
+                explain: "'आँखों का तारा होना' मुहावरे का अर्थ अत्यधिक प्रिय या बहुत प्यारा होना होता है; जैसे: बच्चा अपनी माँ की आँखों का तारा होता है।" 
+            },
+            { 
+                id: 149, 
+                category: "hindi", 
+                qEng: "What is the meaning of 'Aasman par chadhana'?", 
+                qHin: "'अंगूठा दिखाना' मुहावरे का सही अर्थ क्या है?", 
+                options: [{key:"A",val:"To help / मदद करना"},{key:"B",val:"To refuse / ऐन वक्त पर मना करना"},{key:"C",val:"To tease / चिढ़ाना"},{key:"D",val:"To respect / आदर करना"}], 
+                correct: "B", 
+                explain: "'अंगूठा दिखाना' का अर्थ होता है किसी कार्य के लिए ऐन वक्त पर साफ़ मना कर देना।" 
+            },
+            { 
+                id: 150, 
+                category: "hindi", 
+                qEng: "What is the core structural nature of 'Dravitwa' or liquid asset expressions contextually?", 
+                qHin: "जिस संज्ञा शब्द से किसी धातु, द्रव्य या तरल पदार्थ का बोध होता है, उसे क्या कहते हैं?", 
+                options: [{key:"A",val:"Jativachak / जातिवाचक संज्ञा"},{key:"B",val:"Dravyavachak / द्रव्यवाचक संज्ञा"},{key:"C",val:"Bhavvachak / भाववाचक संज्ञा"},{key:"D",val:"Samuhvachak / समूहवाचक संज्ञा"}], 
+                correct: "B", 
+                explain: "सोना, चाँदी, तेल, पानी, दूध आदि पदार्थों का बोध कराने वाली संज्ञा को द्रव्यवाचक संज्ञा (Material Noun) कहा जाता है।" 
+            }
         ];
 
         const GK_DATA_FROM_PDF = [
-                { id: 80, category: "gk", qEng: "What is the capital of India?", qHin: "भारत की राजधानी क्या है?", options: [{key:"A",val:"Mumbai"},{key:"B",val:"Kolkata"},{key:"C",val:"New Delhi"},{key:"D",val:"Chennai"}], correct: "C", explain: "The capital of India is New Delhi." },
-                { id: 81, category: "gk", qEng: "Who is the current Prime Minister of India?", qHin: "भारत के वर्तमान प्रधानमंत्री कौन हैं?", options: [{key:"A",val:"Narendra Modi"},{key:"B",val:"Rahul Gandhi"},{key:"C",val:"Amit Shah"},{key:"D",val:"Arvind Kejriwal"}], correct: "A", explain: "Narendra Modi is the current Prime Minister of India." },
-                { id: 82, category: "gk", qEng: "Which river is known as the 'Ganges of the South'?", qHin: "कौन सी नदी 'दक्षिण की गंगा' के नाम से जानी जाती है?", options: [{key:"A",val:"Godavari"},{key:"B",val:"Krishna"},{key:"C",val:"Cauvery"},{key:"D",val:"Tungabhadra"}], correct: "A", explain: "The Godavari River is often referred to as the 'Ganges of the South' due to its cultural and religious significance." },
-                { id: 83, category: "gk", qEng: "Who was the first President of India?", qHin: "भारत के पहले राष्ट्रपति कौन थे?", options: [{key:"A",val:"Dr. Rajendra Prasad"},{key:"B",val:"Dr. S. Radhakrishnan"},{key:"C",val:"Dr. A.P.J. Abdul Kalam"},{key:"D",val:"Dr. Zakir Husain"}], correct: "A", explain: "Dr. Rajendra Prasad was the first President of India." },
-                { id: 84, category: "gk", qEng: "Which Indian state is known as the 'Land of Five Rivers'?", qHin: "'पांच नदियों की भूमि' के नाम से कौन सा भारतीय राज्य जाना जाता है?", options: [{key:"A",val:"Punjab"},{key:"B",val:"Haryana"},{key:"C",val:"Rajasthan"},{key:"D",val:"Uttar Pradesh"}], correct: "A", explain: "Punjab is known as the 'Land of Five Rivers' because it is home to five major rivers: Sutlej, Beas, Ravi, Chenab, and Jhelum." }
+            {
+                id: 151,
+                category: "gk",
+                qEng: "Which of the following gases is most abundantly found in the Earth's atmosphere?",
+                qHin: "पृथ्वी के वायुमंडल में निम्नलिखित में से कौन सी गैस सर्वाधिक मात्रा में पाई जाती है?",
+                options: [
+                    {key: "A", val: "Oxygen / ऑक्सीजन"},
+                    {key: "B", val: "Carbon Dioxide / कार्बन डाइऑक्साइड"},
+                    {key: "C", val: "Nitrogen / नाइट्रोजन"},
+                    {key: "D", val: "Hydrogen / हाइड्रोजन"}
+                ],
+                correct: "C",
+                explain: "Nitrogen makes up about $78\\%$ of the Earth's atmosphere, making it the most abundant gas, followed by Oxygen at around $21\\%$. / नाइट्रोजन पृथ्वी के वायुमंडल का लगभग $78\\%$ भाग बनाती है, जिससे यह सबसे प्रचुर मात्रा में पाई जाने वाली गैस है। इसके बाद ऑक्सीजन लगभग $21\\%$ होती है।"
+            },
+            {
+                id: 152,
+                category: "gk",
+                qEng: "Deficiency of Vitamin Vitamin $A$ in the human diet directly leads to which of the following diseases?",
+                qHin: "मानव आहार में विटामिन $A$ की कमी से प्रत्यक्ष रूप से निम्नलिखित में से कौन सा रोग होता है?",
+                options: [
+                    {key: "A", val: "Scurvy / स्कर्वी"},
+                    {key: "B", val: "Rickets / रिकेट्स"},
+                    {key: "C", val: "Beriberi / बेरीबेरी"},
+                    {key: "D", val: "Night Blindness / रतौंधी"}
+                ],
+                correct: "D",
+                explain: "Vitamin $A$ deficiency causes Night Blindness (loss of vision in dim light). Scurvy is caused by Vitamin $C$ and Rickets by Vitamin $D$. / विटामिन $A$ की कमी से रतौंधी (धीमी रोशनी में कम दिखना) होती है। स्कर्वी विटामिन $C$ की कमी से और रिकेट्स विटामिन $D$ की कमी से होता है।"
+            },
+            {
+                id: 153,
+                category: "gk",
+                qEng: "Who was the permanent President of the Constituent Assembly of India?",
+                qHin: "भारत की संविधान सभा के स्थायी अध्यक्ष कौन थे?",
+                options: [
+                    {key: "A", val: "Dr. B.R. Ambedkar / डॉ. बी.आर. अम्बेडकर"},
+                    {key: "B", val: "Dr. Rajendra Prasad / डॉ. राजेन्द्र प्रसाद"},
+                    {key: "C", val: "Mahatma Gandhi / महात्मा गांधी"},
+                    {key: "D", val: "Jawaharlal Nehru / जवाहरलाल नेहरू"}
+                ],
+                correct: "B",
+                explain: "Dr. Rajendra Prasad was elected as the permanent President of the Constituent Assembly on December 11, 1946. Dr. Ambedkar was the Chairman of the Drafting Committee. / डॉ. राजेन्द्र प्रसाद को 11 दिसंबर, 1946 को संविधान सभा का स्थायी अध्यक्ष चुना गया था। डॉ. अम्बेडकर प्रारूप समिति के अध्यक्ष थे।"
+            },
+            {
+                id: 154,
+                category: "gk",
+                qEng: "Which planet in our solar system is known as the densest and is also referred to as the 'Blue Planet'?",
+                qHin: "हमारे सौरमंडल के किस ग्रह को सबसे सघन माना जाता है और इसे 'नीला ग्रह' भी कहा जाता है?",
+                options: [
+                    {key: "A", val: "Earth / पृथ्वी"},
+                    {key: "B", val: "Mars / मंगल"},
+                    {key: "C", val: "Venus / शुक्र"},
+                    {key: "D", val: "Neptune / वरुण"}
+                ],
+                correct: "A",
+                explain: "Earth is called the Blue Planet due to the presence of water covering $71\\%$ of its surface, and it has the highest density among all planets. / पृथ्वी की सतह पर $71\\%$ जल की उपस्थिति के कारण इसे नीला ग्रह कहा जाता है, और सभी ग्रहों में इसका घनत्व सबसे अधिक है।"
+            },
+            {
+                id: 155,
+                category: "gk",
+                qEng: "The process by which green plants manufacture their own food using sunlight and chlorophyll is called:",
+                qHin: "वह प्रक्रिया जिसके द्वारा हरे पौधे सूर्य के प्रकाश और क्लोरोफिल का उपयोग करके अपना भोजन बनाते हैं, कहलाती है:",
+                options: [
+                    {key: "A", val: "Respiration / श्वसन"},
+                    {key: "B", val: "Transpiration / वाष्पोत्सर्जन"},
+                    {key: "C", val: "Photosynthesis / प्रकाश संश्लेषण"},
+                    {key: "D", val: "Fermentation / किण्वन"}
+                ],
+                correct: "C",
+                explain: "Photosynthesis converts carbon dioxide and water into glucose and oxygen in the presence of sunlight and chlorophyll. / प्रकाश संश्लेषण सूर्य के प्रकाश और क्लोरोफिल की उपस्थिति में कार्बन डाइऑक्साइड और जल को ग्लूकोज और ऑक्सीजन में परिवर्तित करता है।"
+            },
+            {
+                id: 156,
+                category: "gk",
+                qEng: "Which layer of the atmosphere contains the ozone gas shield that protects us from harmful ultraviolet radiations?",
+                qHin: "वायुमंडल की किस परत में ओजोन गैस की ढाल होती है जो हमें हानिकारक पराबैंगनी विकिरणों से बचाती है?",
+                options: [
+                    {key: "A", val: "Troposphere / क्षोभमंडल"},
+                    {key: "B", val: "Stratosphere / समतापमंडल"},
+                    {key: "C", val: "Mesosphere / मध्यमंडल"},
+                    {key: "D", val: "Thermosphere / बाह्यवायुमंडल"}
+                ],
+                correct: "B",
+                explain: "The ozone layer is located in the Stratosphere, which lies directly above the troposphere, between about $10$ to $50$ km altitude. / ओजोन परत समतापमंडल में स्थित है, जो क्षोभमंडल के ठीक ऊपर, लगभग $10$ से $50$ किमी की ऊंचाई के बीच स्थित है।"
+            },
+            {
+                id: 157,
+                category: "gk",
+                qEng: "Which historical movement was started by Mahatma Gandhi in the year 1942 with the slogan 'Do or Die'?",
+                qHin: "वर्ष 1942 में महात्मा गांधी द्वारा 'करो या मरो' के नारे के साथ कौन सा ऐतिहासिक आंदोलन शुरू किया गया था?",
+                options: [
+                    {key: "A", val: "Non-Cooperation Movement / असहयोग आंदोलन"},
+                    {key: "B", val: "Civil Disobedience Movement / सविनय अवज्ञा आंदोलन"},
+                    {key: "C", val: "Quit India Movement / भारत छोड़ो आंदोलन"},
+                    {key: "D", val: "Khilafat Movement / खिलाफत आंदोलन"}
+                ],
+                correct: "C",
+                explain: "The Quit India Movement was launched on August 8, 1942, at the Bombay session of the All India Congress Committee, demanding an end to British rule. / ब्रिटिश शासन की समाप्ति की मांग को लेकर 8 अगस्त, 1942 को अखिल भारतीय कांग्रेस कमेटी के बॉम्बे सत्र में भारत छोड़ो आंदोलन शुरू किया गया था।"
+            },
+            {
+                id: 158,
+                category: "gk",
+                qEng: "What is the primary function of Red Blood Cells (RBCs) in the human circulatory system?",
+                qHin: "मानव परिसंचरण तंत्र में लाल रक्त कोशिकाओं (RBC) का मुख्य कार्य क्या है?",
+                options: [
+                    {key: "A", val: "To fight infections / संक्रमण से लड़ना"},
+                    {key: "B", val: "To transport oxygen / ऑक्सीजन का परिवहन करना"},
+                    {key: "C", val: "To help in blood clotting / रक्त का थक्का जमने में मदद करना"},
+                    {key: "D", val: "To produce hormones / हार्मोन का निर्माण करना"}
+                ],
+                correct: "B",
+                explain: "RBCs contain hemoglobin, a protein that binds to oxygen molecules and transports them from the lungs to all parts of the body. / RBC में हीमोग्लोबिन होता है, जो एक प्रोटीन है जो ऑक्सीजन अणुओं से जुड़कर उन्हें फेफड़ों से शरीर के सभी भागों तक पहुंचाता है।"
+            },
+            {
+                id: 159,
+                category: "gk",
+                qEng: "Which imaginary line divides the Earth into the Northern and Southern Hemispheres?",
+                qHin: "कौन सी काल्पनिक रेखा पृथ्वी को उत्तरी और दक्षिणी गोलार्ध में विभाजित करती है?",
+                options: [
+                    {key: "A", val: "Tropic of Cancer / कर्क रेखा"},
+                    {key: "B", val: "Tropic of Capricorn / मकर रेखा"},
+                    {key: "C", val: "Equator / भूमध्य रेखा (विषुवत रेखा)"},
+                    {key: "D", val: "Prime Meridian / प्रधान मध्याह्न रेखा"}
+                ],
+                correct: "C",
+                explain: "The Equator is the $0^\\circ$ latitude line that passes horizontally around the center of the Earth, separating the two hemispheres evenly. / भूमध्य रेखा $0^\\circ$ अक्षांश रेखा है जो पृथ्वी के केंद्र के चारों ओर क्षैतिज रूप से गुजरती है, दोनों गोलार्धों को समान रूप से अलग करती है।"
+            },
+            {
+                id: 160,
+                category: "gk",
+                qEng: "The fundamental process of conversion of water vapor back into liquid water droplets upon cooling is called:",
+                qHin: "ठंडा होने पर जल वाष्प के वापस तरल जल की बूंदों में बदलने की मूल प्रक्रिया कहलाती है:",
+                options: [
+                    {key: "A", val: "Evaporation / वाष्पीकरण"},
+                    {key: "B", val: "Condensation / संघनन"},
+                    {key: "C", val: "Sublimation / ऊर्ध्वपातन"},
+                    {key: "D", val: "Melting / पिघलना"}
+                ],
+                correct: "B",
+                explain: "Condensation is the reverse of evaporation. It is highly responsible for cloud formation when warm moisture rises and cools down. / संघनन वाष्पीकरण के विपरीत है। जब गर्म नमी ऊपर उठती है और ठंडी होती है, तो बादलों के निर्माण के लिए यह मुख्य रूप से जिम्मेदार है।"
+            },
+            {
+                id: 161,
+                category: "gk",
+                qEng: "Which state is situated to the immediate north of Jharkhand?",
+                qHin: "झारखंड के ठीक उत्तर में कौन सा राज्य स्थित है?",
+                options: [
+                    {key: "A", val: "Odisha / ओडिशा"},
+                    {key: "B", val: "West Bengal / पश्चिम बंगाल"},
+                    {key: "C", val: "Chhattisgarh / छत्तीसगढ़"},
+                    {key: "D", val: "Bihar / बिहार"}
+                ],
+                correct: "D",
+                explain: "Jharkhand was carved out of the southern part of Bihar on November 15, 2000. Bihar now bounds Jharkhand on its northern geographic border. / झारखंड 15 नवंबर, 2000 को बिहार के दक्षिणी हिस्से से अलग हुआ था। बिहार अब अपनी उत्तरी भौगोलिक सीमा पर झारखंड से जुड़ा हुआ है।"
+            },
+            {
+                id: 162,
+                category: "gk",
+                qEng: "Which specialized human organ secretes Bile juice, which plays a major role in the emulsification and digestion of fats?",
+                qHin: "मानव का कौन सा विशिष्ट अंग पित्त रस (Bile juice) स्रावित करता है, जो वसा के पाचन में महत्वपूर्ण भूमिका निभाता है?",
+                options: [
+                    {key: "A", val: "Stomach / आमाशय"},
+                    {key: "B", val: "Liver / यकृत (लीवर)"},
+                    {key: "C", val: "Pancreas / अग्न्याशय"},
+                    {key: "D", val: "Gallbladder / पित्ताशय"}
+                ],
+                correct: "B",
+                explain: "The liver produces bile juice, which is then stored and concentrated in the gallbladder until needed by the small intestine for lipid processing. / यकृत पित्त रस का उत्पादन करता है, जिसे बाद में पित्ताशय में जमा और केंद्रित किया जाता है जब तक कि छोटी आंत द्वारा वसा के पाचन के लिए इसकी आवश्यकता न हो।"
+            },
+            {
+                id: 163,
+                category: "gk",
+                qEng: "Who wrote India's national song, 'Vande Mataram', which originally appeared in the novel Anandamath?",
+                qHin: "भारत का राष्ट्रीय गीत 'वंदे मातरम्' किसने लिखा था, जो मूल रूप से आनंदमठ उपन्यास में प्रकाशित हुआ था?",
+                options: [
+                    {key: "A", val: "Rabindranath Tagore / रवींद्रनाथ टैगोर"},
+                    {key: "B", val: "Bankim Chandra Chattopadhyay / बंकिम चंद्र चट्टोपाध्याय"},
+                    {key: "C", val: "Sarojini Naidu / सरोजिनी नायडू"},
+                    {key: "D", val: "Subhash Chandra Bose / सुभाष चंद्र बोस"}
+                ],
+                correct: "B",
+                explain: "'Vande Mataram' was composed in Sanskritized Bengali by Bankim Chandra in the 1870s. Rabindranath Tagore composed the national anthem 'Jana Gana Mana'. / 'वंदे मातरम्' की रचना 1870 के दशक में बंकिम चंद्र द्वारा की गई थी। रवींद्रनाथ टैगोर ने राष्ट्रीय गान 'जन गण मन' की रचना की थी।"
+            },
+            {
+                id: 164,
+                category: "gk",
+                qEng: "What instrument is used by scientists to measure the atmospheric pressure of a specific geographical zone?",
+                qHin: "वैज्ञानिकों द्वारा किसी विशिष्ट भौगोलिक क्षेत्र के वायुमंडलीय दबाव को मापने के लिए किस उपकरण का उपयोग किया जाता है?",
+                options: [
+                    {key: "A", val: "Thermometer / थर्मोमीटर"},
+                    {key: "B", val: "Anemometer / एनीमोमीटर"},
+                    {key: "C", val: "Barometer / बैरोमीटर"},
+                    {key: "D", val: "Hygrometer / हाइग्रोमीटर"}
+                ],
+                correct: "C",
+                explain: "A Barometer measures pressure using water, air, or mercury. Anemometer measures wind speed, and Hygrometer measures humidity factors. / बैरोमीटर वायु, जल या पारे का उपयोग करके दबाव मापता है। एनीमोमीटर हवा की गति मापता है, और हाइग्रोमीटर आर्द्रता को मापता है।"
+            },
+            {
+                id: 165,
+                category: "gk",
+                qEng: "Which planet is located closest to the Sun and has the shortest orbital period in our Solar System?",
+                qHin: "हमारे सौरमंडल में कौन सा ग्रह सूर्य के सबसे निकट स्थित है और उसकी कक्षीय अवधि सबसे कम है?",
+                options: [
+                    {key: "A", val: "Venus / शुक्र"},
+                    {key: "B", val: "Mercury / बुध"},
+                    {key: "C", val: "Earth / पृथ्वी"},
+                    {key: "D", val: "Mars / मंगल"}
+                ],
+                correct: "B",
+                explain: "Mercury takes only $88$ Earth days to complete one full revolution around the Sun due to its immediate proximity to the star. / सूर्य से अत्यधिक निकटता के कारण बुध को सूर्य के चारों ओर एक पूर्ण चक्कर लगाने में केवल $88$ पृथ्वी दिन लगते हैं।"
+            },
+            {
+                id: 166,
+                category: "gk",
+                qEng: "The Chhotanagpur Plateau, which covers a major portion of Jharkhand, is internationally famous for its rich reserves of which resource?",
+                qHin: "छोटानागपुर का पठार, जो झारखंड के एक बड़े हिस्से को कवर करता है, किस संसाधन के समृद्ध भंडार के लिए अंतरराष्ट्रीय स्तर पर प्रसिद्ध है?",
+                options: [
+                    {key: "A", val: "Minerals / खनिज"},
+                    {key: "B", val: "Petroleum / पेट्रोलियम"},
+                    {key: "C", val: "Agricultural crops / कृषि फसलें"},
+                    {key: "D", val: "Marine resources / समुद्री संसाधन"}
+                ],
+                correct: "A",
+                explain: "Often called the 'Ruhr of India', the Chhotanagpur plateau contains extensive reserves of iron ore, coal, mica, bauxite, and copper. / अक्सर 'भारत का रूर' कहा जाने वाला छोटानागपुर पठार लौह अयस्क, कोयला, अभ्रक, बॉक्साइट और तांबे के व्यापक भंडार से समृद्ध है।"
+            },
+            {
+                id: 167,
+                category: "gk",
+                qEng: "Which component of blood is responsible for initiates the clotting mechanism at the site of any physical cuts or injury?",
+                qHin: "रक्त का कौन सा घटक किसी शारीरिक कट या चोट के स्थान पर थक्का जमने की प्रक्रिया को शुरू करने के लिए जिम्मेदार होता है?",
+                options: [
+                    {key: "A", val: "Plasma / प्लाज्मा"},
+                    {key: "B", val: "White Blood Cells / श्वेत रक्त कोशिकाएं"},
+                    {key: "C", val: "Platelets / प्लेटलेट्स"},
+                    {key: "D", val: "Hemoglobin / हीमोग्लोबिन"}
+                ],
+                correct: "C",
+                explain: "Platelets (thrombocytes) clump together at a wound site to form a temporary plug, preventing excessive loss of blood from the body. / प्लेटलेट्स (थ्रोम्बोसाइट्स) घाव के स्थान पर एक साथ इकट्ठा होकर एक अस्थायी प्लग बनाते हैं, जिससे शरीर से अत्यधिक रक्त की कमी को रोका जाता है।"
+            },
+            {
+                id: 168,
+                category: "gk",
+                qEng: "In which year did the ancient historic battle of Plassey take place, cementing early British footprint in India?",
+                qHin: "प्राचीन ऐतिहासिक प्लासी का युद्ध किस वर्ष हुआ था, जिसने भारत में ब्रिटिश पैर जमाने की शुरुआत की थी?",
+                options: [
+                    {key: "A", val: "1556"},
+                    {key: "B", val: "1757"},
+                    {key: "C", val: "1764"},
+                    {key: "D", val: "1857"}
+                ],
+                correct: "B",
+                explain: "The Battle of Plassey was fought on June 23, 1757, between the East India Company under Robert Clive and the Nawab of Bengal, Siraj-ud-Daulah. / प्लासी का युद्ध 23 जून, 1757 को रॉबर्ट क्लाइव के नेतृत्व में ईस्ट इंडिया कंपनी और बंगाल के नवाब सिराज-उद-दौला के बीच लड़ा गया था।"
+            },
+            {
+                id: 169,
+                category: "gk",
+                qEng: "Sound waves cannot travel through which of the following environmental mediums?",
+                qHin: "ध्वनि तरंगें निम्नलिखित में से किस पर्यावरणीय माध्यम से यात्रा नहीं कर सकती हैं?",
+                options: [
+                    {key: "A", val: "Solid metals / ठोस धातु"},
+                    {key: "B", val: "Water liquids / जलीय तरल"},
+                    {key: "C", val: "Atmospheric air / वायुमंडलीय हवा"},
+                    {key: "D", val: "Vacuum / निर्वात (शून्य)"}
+                ],
+                correct: "D",
+                explain: "Sound waves are mechanical longitudinal waves and strictly require a material medium to propagate; they cannot travel through empty vacuum space. / ध्वनि तरंगें यांत्रिक अनुदैर्ध्य तरंगें हैं और इन्हें फैलने के लिए एक भौतिक माध्यम की आवश्यकता होती है; वे निर्वात से यात्रा नहीं कर सकती हैं।"
+            },
+            {
+                id: 170,
+                category: "gk",
+                qEng: "Which major Indian river is officially the longest flowing river completely within the mainland geography of India?",
+                qHin: "कौन सी प्रमुख भारतीय नदी आधिकारिक तौर पर भारत के मुख्य भूमि भूगोल के भीतर पूरी तरह से बहने वाली सबसे लंबी नदी है?",
+                options: [
+                    {key: "A", val: "Ganga / गंगा"},
+                    {key: "B", val: "Godavari / गोदावरी"},
+                    {key: "C", val: "Brahmaputra / ब्रह्मपुत्र"},
+                    {key: "D", val: "Indus / सिंधु"}
+                ],
+                correct: "A",
+                explain: "The Ganga is the longest river of India, flowing over $2525$ km from its Himalayan source down to the Bay of Bengal. / गंगा भारत की सबसे लंबी नदी है, जो अपने हिमालयी स्रोत से बंगाल की खाड़ी तक $2525$ किमी से अधिक बहती है।"
+            },
+            {
+                id: 171,
+                category: "gk",
+                qEng: "Which element found inside cell structures is fundamentally considered the 'Powerhouse of the Cell' due to its ATP production cycles?",
+                qHin: "कोशिका संरचनाओं के भीतर पाए जाने वाले किस तत्व को मौलिक रूप से उसके एटीपी (ATP) उत्पादन चक्र के कारण 'कोशिका का ऊर्जाघर' माना जाता है?",
+                options: [
+                    {key: "A", val: "Nucleus / केंद्रक"},
+                    {key: "B", val: "Mitochondria / माइटोकॉन्ड्रिया"},
+                    {key: "C", val: "Ribosome / राइबोसोम"},
+                    {key: "D", val: "Chloroplast / हरितलवक"}
+                ],
+                correct: "B",
+                explain: "Mitochondria carry out cellular respiration, converting nutrients into adenosine triphosphate (ATP), which drives metabolic operations. / माइटोकॉन्ड्रिया कोशिकीय श्वसन को अंजाम देते हैं, पोषक तत्वों को एडेनोसिन ट्राइफॉस्फेट (ATP) में परिवर्तित करते हैं, जो चयापचय कार्यों को चलाता है।"
+            },
+            {
+                id: 172,
+                category: "gk",
+                qEng: "Which fundamental rights article group within the Indian Constitution guarantees protection against structural social and institutional discrimination?",
+                qHin: "भारतीय संविधान के भीतर कौन सा मौलिक अधिकार समूह सामाजिक और संस्थागत भेदभाव के खिलाफ सुरक्षा की गारंटी देता है?",
+                options: [
+                    {key: "A", val: "Right to Freedom / स्वतंत्रता का अधिकार"},
+                    {key: "B", val: "Right to Equality / समानता का अधिकार"},
+                    {key: "C", val: "Right against Exploitation / शोषण के विरुद्ध अधिकार"},
+                    {key: "D", val: "Right to Education / शिक्षा का अधिकार"}
+                ],
+                correct: "B",
+                explain: "The Right to Equality (Articles 14-18) explicitly prohibits state discrimination on grounds of religion, race, caste, sex, or place of birth. / समानता का अधिकार (अनुच्छेद 14-18) धर्म, मूलवंश, जाति, लिंग या जन्म स्थान के आधार पर राज्य के भेदभाव को स्पष्ट रूप से प्रतिबंधित करता है।"
+            },
+            {
+                id: 173,
+                category: "gk",
+                qEng: "The direct conversion phase change of a solid substance straight into its gaseous state without transitioning through an intermediate liquid state is called:",
+                qHin: "किसी ठोस पदार्थ का मध्यवर्ती तरल अवस्था से गुजरे बिना सीधे गैसीय अवस्था में बदलने की प्रक्रिया कहलाती है:",
+                options: [
+                    {key: "A", val: "Evaporation / वाष्पीकरण"},
+                    {key: "B", val: "Sublimation / ऊर्ध्वपातन"},
+                    {key: "C", val: "Condensation / संघनन"},
+                    {key: "D", val: "Deposition / निक्षेपण"}
+                ],
+                correct: "B",
+                explain: "Sublimation occurs in specific compounds like camphor, naphthalene, or dry ice when heated under open pressure boundaries. / कपूर, नैफ्थलीन या सूखी बर्फ जैसे विशिष्ट यौगिकों को गर्म करने पर ऊर्ध्वपातन की प्रक्रिया होती है।"
+            },
+            {
+                id: 174,
+                category: "gk",
+                qEng: "Which prominent Indian freedom fighter established the localized independent Azad Hind Fauj (Indian National Army) during World War II?",
+                qHin: "किस प्रमुख भारतीय स्वतंत्रता सेनानी ने द्वितीय विश्व युद्ध के दौरान आजाद हिंद फौज (इंडियन नेशनल आर्मी) की स्थापना की थी?",
+                options: [
+                    {key: "A", val: "Bhagat Singh / भगत सिंह"},
+                    {key: "B", val: "Subhas Chandra Bose / सुभाष चंद्र बोस"},
+                    {key: "C", val: "Lala Lajpat Rai / लाला लाजपत राय"},
+                    {key: "D", val: "Bal Gangadhar Tilak / बाल गंगाधर तिलक"}
+                ],
+                correct: "B",
+                explain: "Netaji Subhas Chandra Bose took leadership of the INA in Singapore in 1943, restructuring it to fight British imperial rule alongside Axis forces. / नेताजी सुभाष चंद्र बोस ने 1943 में सिंगापुर में आईएनए (INA) का नेतृत्व संभाला, और ब्रिटिश औपनिवेशिक शासन के खिलाफ लड़ने के लिए इसका पुनर्गठन किया।"
+            },
+            {
+                id: 175,
+                category: "gk",
+                qEng: "Which planet is historically the hottest planet in our Solar System due to an extreme runaway greenhouse effect caused by a dense carbon dioxide atmosphere?",
+                qHin: "घने कार्बन डाइऑक्साइड वायुमंडल के कारण होने वाले तीव्र ग्रीनहाउस प्रभाव के कारण कौन सा ग्रह हमारे सौरमंडल का सबसे गर्म ग्रह है?",
+                options: [
+                    {key: "A", val: "Mercury / बुध"},
+                    {key: "B", val: "Venus / शुक्र"},
+                    {key: "C", val: "Mars / मंगल"},
+                    {key: "D", val: "Jupiter / बृहस्पति"}
+                ],
+                correct: "B",
+                explain: "Although Mercury is closer to the Sun, Venus holds the record for highest surface temperatures (around $465^\\circ\\text{C}$) due to heat trapped by its atmosphere. / हालांकि बुध सूर्य के अधिक निकट है, लेकिन शुक्र की सतह का तापमान सबसे अधिक (लगभग $465^\\circ\\text{C}$) रहता है क्योंकि इसका वायुमंडल गर्मी को रोक लेता है।"
+            },
+            {
+                id: 176,
+                category: "gk",
+                qEng: "The world-famous mineral rich city of Jamshedpur in Jharkhand is situated along the banks of which river confluence map?",
+                qHin: "झारखंड का विश्व प्रसिद्ध खनिज समृद्ध शहर जमशेदपुर किस नदी के संगम पर स्थित है?",
+                options: [
+                    {key: "A", val: "Damodar and Barakar / दामोदर और बराकर"},
+                    {key: "B", val: "Subarnarekha and Kharkai / सुवर्णरेखा और खरकई"},
+                    {key: "C", val: "North Koel and Sone / उत्तरी कोयल और सोन"},
+                    {key: "D", val: "Mayurakshi / मयूराक्षी"}
+                ],
+                correct: "B",
+                explain: "Jamshedpur was selected by Jamsetji Tata for India's first private steel facility due to the water availability from the Subarnarekha-Kharkai confluence. / जमशेदपुर को जमशेदजी टाटा द्वारा सुवर्णरेखा और खरकई के संगम से पानी की उपलब्धता के कारण भारत के पहले निजी स्टील संयंत्र के लिए चुना गया था।"
+            },
+            {
+                id: 177,
+                category: "gk",
+                qEng: "Which acidic fluid chemical compound is naturally synthesized inside human stomach linings to process early protein breakdowns and kill foreign bacteria?",
+                qHin: "शारीरिक प्रोटीन के पाचन और बाहरी हानिकारक जीवाणुओं को नष्ट करने के लिए मानव आमाशय (Stomach) में कौन सा अम्लीय द्रव प्राकृतिक रूप से निर्मित होता है?",
+                options: [
+                    {key: "A", val: "Sulfur Acid / सल्फ्यूरिक अम्ल"},
+                    {key: "B", val: "Nitric Acid / नाइट्रिक अम्ल"},
+                    {key: "C", val: "Hydrochloric Acid / हाइड्रोक्लोरिक अम्ल (HCl)"},
+                    {key: "D", val: "Acetic Acid / एसिटिक अम्ल"}
+                ],
+                correct: "C",
+                explain: "Hydrochloric acid ($HCl$) maintains a highly acidic pH ($1.5$ to $3.5$) within the stomach cavity to activate key digestive pepsin enzymes. / हाइड्रोक्लोरिक अम्ल ($HCl$) पाचक पेप्सिन एंजाइमों को सक्रिय करने के लिए आमाशय के भीतर एक अत्यधिक अम्लीय पीएच ($1.5$ से $3.5$) बनाए रखता है।"
+            },
+            {
+                id: 178,
+                category: "gk",
+                qEng: "Who was the founder of the Mauryan Empire in ancient India, conquering and unifying vast geographical territories with Chanakya's counsel?",
+                qHin: "प्राचीन भारत में मौर्य साम्राज्य के संस्थापक कौन थे, जिन्होंने चाणक्य की सलाह से विशाल भौगोलिक क्षेत्रों को एकीकृत किया था?",
+                options: [
+                    {key: "A", val: "Ashoka the Great / महान अशोक"},
+                    {key: "B", val: "Chandragupta Maurya / चंद्रगुप्त मौर्य"},
+                    {key: "C", val: "Samudragupta / समुद्रगुप्त"},
+                    {key: "D", val: "Bindusara / बिंदुसार"}
+                ],
+                correct: "B",
+                explain: "Chandragupta Maurya overthrew the Nanda dynasty around $322$ BCE with the strategic alignment guidance of his prime minister, Chanakya. / चंद्रगुप्त मौर्य ने लगभग $322$ ईसा पूर्व में अपने प्रधानमंत्री चाणक्य के रणनीतिक मार्गदर्शन से नंद वंश को उखाड़ फेंका था।"
+            },
+            {
+                id: 179,
+                category: "gk",
+                qEng: "The conceptual mathematical velocity required for a structural space object to permanently break away from the gravitational pull of Earth is known as:",
+                qHin: "किसी अंतरिक्ष वस्तु को पृथ्वी के गुरुत्वाकर्षण खिंचाव से स्थायी रूप से मुक्त होने के लिए आवश्यक गणितीय वेग को कहा जाता है:",
+                options: [
+                    {key: "A", val: "Terminal Velocity / अंतिम वेग"},
+                    {key: "B", val: "Orbital Speed / कक्षीय गति"},
+                    {key: "C", val: "Escape Velocity / पलायन वेग"},
+                    {key: "D", val: "Sonic Speed / ध्वनि की गति"}
+                ],
+                correct: "C",
+                explain: "The escape velocity for Earth requires a launch calculation of approximately $11.2$ km/s to break free into interplanetary trajectories. / पृथ्वी के लिए पलायन वेग का मान लगभग $11.2$ किमी/सेकंड आवश्यक है ताकि गुरुत्वाकर्षण बल को पार करके अंतरिक्ष में जाया जा सके।"
+            },
+            {
+                id: 180,
+                category: "gk",
+                qEng: "Which state is located directly to the immediate west boundary line of Jharkhand?",
+                qHin: "झारखंड की ठीक पश्चिमी सीमा रेखा पर कौन सा राज्य स्थित है?",
+                options: [
+                    {key: "A", val: "Odisha / ओडिशा"},
+                    {key: "B", val: "Chhattisgarh / छत्तीसगढ़"},
+                    {key: "C", val: "West Bengal / पश्चिम बंगाल"},
+                    {key: "D", val: "Assam / असम"}
+                ],
+                correct: "B",
+                explain: "Jharkhand is completely landlocked by 5 states: Bihar north, West Bengal east, Odisha south, Chhattisgarh west, and Uttar Pradesh northwest. / झारखंड पूरी तरह से 5 राज्यों से घिरा है: उत्तर में बिहार, पूर्व में पश्चिम बंगाल, दक्षिण में ओडिशा, पश्चिम में छत्तीसगढ़ और उत्तर-पश्चिम में उत्तर प्रदेश।"
+            },
+            {
+                id: 181,
+                category: "gk",
+                qEng: "Which specialized compound inside chloroplast plant structures traps light radiation to trigger photosynthetic chemical operations?",
+                qHin: "पौधों के क्लोरोप्लास्ट संरचनाओं के भीतर कौन सा विशिष्ट यौगिक प्रकाश विकिरण को अवशोषित करके प्रकाश संश्लेषण की प्रक्रिया शुरू करता है?",
+                options: [
+                    {key: "A", val: "Hemoglobin / हीमोग्लोबिन"},
+                    {key: "B", val: "Chlorophyll / क्लोरोफिल (पर्णहरित)"},
+                    {key: "C", val: "Cytoplasm / कोशिकाद्रव्य"},
+                    {key: "D", val: "Cellulose / सेल्युलोज"}
+                ],
+                correct: "B",
+                explain: "Chlorophyll is a pigment that absorbs light blue and red wavelengths, reflecting green light back, which gives leaves their natural appearance. / क्लोरोफिल एक वर्णक है जो नीले और लाल प्रकाश को अवशोषित करता है, और हरे प्रकाश को वापस परावर्तित करता है, जिससे पत्तियों का रंग हरा दिखाई देता है।"
+            },
+            {
+                id: 182,
+                category: "gk",
+                qEng: "Who functions as the absolute executive head of the state structure inside an individual Indian state setup?",
+                qHin: "भारतीय राज्य व्यवस्था के भीतर किसी व्यक्तिगत राज्य का संवैधानिक और कार्यकारी प्रमुख कौन होता है?",
+                options: [
+                    {key: "A", val: "Chief Minister / मुख्यमंत्री"},
+                    {key: "B", val: "Governor / राज्यपाल"},
+                    {key: "C", val: "President / राष्ट्रपति"},
+                    {key: "D", val: "Chief Justice / मुख्य न्यायाधीश"}
+                ],
+                correct: "B",
+                explain: "The Governor is the constitutional head of a state, appointed by the central President, analogous to the President's role at the Union level. / राज्यपाल राज्य का संवैधानिक प्रमुख होता है, जिसकी नियुक्ति केंद्रीय राष्ट्रपति द्वारा की जाती है, ठीक वैसे ही जैसे संघ स्तर पर राष्ट्रपति की भूमिका होती है।"
+            },
+            {
+                id: 183,
+                category: "gk",
+                qEng: "An explicit chemical combination reaction involving two or more distinct pure element materials resulting in a completely new macro substance creates a:",
+                qHin: "दो या दो से अधिक अलग-अलग शुद्ध तत्वों के रासायनिक संयोजन से बनने वाला एक पूरी तरह से नया पदार्थ कहलाता है:",
+                options: [
+                    {key: "A", val: "Mixture / मिश्रण"},
+                    {key: "B", val: "Compound / यौगिक"},
+                    {key: "C", val: "Solution / विलयन"},
+                    {key: "D", val: "Alloy / मिश्र धातु"}
+                ],
+                correct: "B",
+                explain: "Compounds contain elements bonded in fixed mathematical proportions (e.g., $H_2O$), showing entirely different properties from their source components. / यौगिकों में तत्व निश्चित अनुपात में बंधे होते हैं (जैसे: $H_2O$), जो अपने मूल घटकों से पूरी तरह से भिन्न गुण प्रदर्शित करते हैं।"
+            },
+            {
+                id: 184,
+                category: "gk",
+                qEng: "The ancient world-famous Buddhist heritage monument site including Sanchi Stupa was constructed during the reign of which emperor?",
+                qHin: "सांची स्तूप सहित प्राचीन विश्व प्रसिद्ध बौद्ध विरासत स्मारक स्थल का निर्माण किस सम्राट के शासनकाल के दौरान किया गया था?",
+                options: [
+                    {key: "A", val: "Samudragupta / समुद्रगुप्त"},
+                    {key: "B", val: "Ashoka / अशोक"},
+                    {key: "C", val: "Kanishka / कनिष्क"},
+                    {key: "D", val: "Harsha / हर्षवर्धन"}
+                ],
+                correct: "B",
+                explain: "Emperor Ashoka commissioned the construction of the Great Stupa at Sanchi in the 3rd century BCE to preserve sacred relics of Lord Buddha. / सम्राट अशोक ने ईसा पूर्व तीसरी शताब्दी में भगवान बुद्ध के पवित्र अवशेषों को सुरक्षित रखने के लिए सांची में महान स्तूप के निर्माण का आदेश दिया था।"
+            },
+            {
+                id: 185,
+                category: "gk",
+                qEng: "What specific parameter loop measures the degree of moisture or water vapor content currently suspended inside atmospheric air?",
+                qHin: "कौन सा विशिष्ट मापदंड वायुमंडल में मौजूद नमी या जल वाष्प की मात्रा को मापता है?",
+                options: [
+                    {key: "A", val: "Temperature / तापमान"},
+                    {key: "B", val: "Humidity / आर्द्रता (उमस)"},
+                    {key: "C", val: "Precipitation / वर्षण"},
+                    {key: "D", val: "Density / घनत्व"}
+                ],
+                correct: "B",
+                explain: "Humidity dictates comfort profiles and cloud formation loops. High relative humidity prevents skin perspiration evaporation pathways. / आर्द्रता मौसम के बदलाव और बादलों के निर्माण को प्रभावित करती है। उच्च सापेक्ष आर्द्रता शरीर के पसीने के वाष्पीकरण को रोकती है।"
+            },
+            {
+                id: 186,
+                category: "gk",
+                qEng: "Which district of Jharkhand is internationally famous for containing the highly sacred Baidyanath Jyotirlinga temple?",
+                qHin: "झारखंड का कौन सा जिला अत्यधिक पवित्र बैद्यनाथ ज्योतिर्लिंग मंदिर के लिए अंतरराष्ट्रीय स्तर पर प्रसिद्ध है?",
+                options: [
+                    {key: "A", val: "Ranchi / रांची"},
+                    {key: "B", val: "Deoghar / देवघर"},
+                    {key: "C", val: "Dhanbad / धनबाद"},
+                    {key: "D", val: "Dumka / दुमका"}
+                ],
+                correct: "B",
+                explain: "Deoghar, translated literally as the 'Abode of Gods', hosts millions of pilgrims annually during the sacred Shravani Mela footprint. / देवघर, जिसका शाब्दिक अर्थ 'देवताओं का निवास' है, हर साल पवित्र श्रावणी मेले के दौरान लाखों तीर्थयात्रियों की मेजबानी करता है।"
+            },
+            {
+                id: 187,
+                category: "gk",
+                qEng: "Which specialized vitamin chemical balance code is synthesized naturally by human skin surfaces upon exposure to ultraviolet sunlight arrays?",
+                qHin: "सूर्य के प्रकाश के संपर्क में आने पर मानव त्वचा द्वारा प्राकृतिक रूप से कौन सा विशिष्ट विटामिन निर्मित किया जाता है?",
+                options: [
+                    {key: "A", val: "Vitamin $B_{12}$"},
+                    {key: "B", val: "Vitamin $C$"},
+                    {key: "C", val: "Vitamin $D$"},
+                    {key: "D", val: "Vitamin $K$"}
+                ],
+                correct: "C",
+                explain: "Vitamin $D$ acts directly to balance calcium absorption within human bone matrices, avoiding childhood rickets diseases. / विटामिन $D$ मानव हड्डियों में कैल्शियम के अवशोषण को संतुलित करने का कार्य करता है, जिससे बच्चों में रिकेट्स रोग को रोका जा सकता है।"
+            },
+            {
+                id: 188,
+                category: "gk",
+                qEng: "In which year did the historic Revolt of Indian Sepoys break out, challenging East India Company controls across northern loops?",
+                qHin: "भारतीय सिपाहियों का ऐतिहासिक विद्रोह किस वर्ष शुरू हुआ था, जिसने उत्तर भारत में ईस्ट इंडिया कंपनी के नियंत्रण को चुनौती दी थी?",
+                options: [
+                    {key: "A", val: "1757"},
+                    {key: "B", val: "1857"},
+                    {key: "C", val: "1919"},
+                    {key: "D", val: "1942"}
+                ],
+                correct: "B",
+                explain: "Sparked initially at Meerut by Mangal Pandey's historic resistance footprints, the 1857 rebellion led directly to the end of Company rule. / मंगल पांडे के ऐतिहासिक प्रतिरोध से मेरठ में शुरू हुए 1857 के इस विद्रोह के कारण भारत में ईस्ट इंडिया कंपनी का शासन समाप्त हो गया।"
+            },
+            {
+                id: 189,
+                category: "gk",
+                qEng: "Which light radiation category contains the longest structural wavelength footprint inside the electromagnetic spectrum line?",
+                qHin: "विद्युत चुंबकीय स्पेक्ट्रम रेखा के भीतर किस विकिरण श्रेणी में सबसे लंबी संरचनात्मक तरंगदैर्ध्य (Wavelength) होती है?",
+                options: [
+                    {key: "A", val: "X-Rays / एक्स-रे"},
+                    {key: "B", val: "Radio Waves / रेडियो तरंगें"},
+                    {key: "C", val: "Infrared / अवरक्त विकिरण"},
+                    {key: "D", val: "Gamma Rays / गामा किरणें"}
+                ],
+                correct: "B",
+                explain: "Radio waves have the lowest frequency and longest wavelengths ($1$ mm to over $100$ km). Gamma rays have the shortest wavelengths. / रेडियो तरंगों की आवृत्ति सबसे कम और तरंगदैर्ध्य सबसे लंबी ($1$ मिमी से $100$ किमी से अधिक) होती है। गामा किरणों की तरंगदैर्ध्य सबसे छोटी होती है।"
+            },
+            {
+                id: 190,
+                category: "gk",
+                qEng: "Which layer of the Earth structure composition sits immediately beneath the cold rocky outer crust line?",
+                qHin: "पृथ्वी की आंतरिक संरचना में कौन सी परत ठोस पथरीली बाहरी भूपर्पटी (Crust) के ठीक नीचे स्थित होती है?",
+                options: [
+                    {key: "A", val: "Inner Core / आंतरिक क्रोड"},
+                    {key: "B", val: "Outer Core / बाह्य क्रोड"},
+                    {key: "C", val: "Mantle / मेंटल (प्रावार)"},
+                    {key: "D", val: "Oceanic floor / समुद्री तल"}
+                ],
+                correct: "C",
+                explain: "The Mantle forms roughly $84\\%$ of Earth's total volume, containing highly viscous semi-solid silicate rock mixtures. / मेंटल पृथ्वी के कुल आयतन का लगभग $84\\%$ हिस्सा बनाता है, जिसमें अत्यधिक गाढ़े अर्ध-ठोस सिलिकेट चट्टानों का मिश्रण होता है।"
+            },
+            {
+                id: 191,
+                category: "gk",
+                qEng: "Which structural mineral resource form is extensively mined out from the world-famous deposits located at Jharia in Dhanbad?",
+                qHin: "धनबाद के विश्व प्रसिद्ध झरिया क्षेत्र से किस संरचनात्मक खनिज संसाधन का बड़े पैमाने पर खनन किया जाता है?",
+                options: [
+                    {key: "A", val: "Bauxite / बॉक्साइट"},
+                    {key: "B", val: "Mica / अभ्रक"},
+                    {key: "C", val: "Coal / कोयला"},
+                    {key: "D", val: "Gold Ore / स्वर्ण अयस्क"}
+                ],
+                correct: "C",
+                explain: "Jharia holds India's largest repository of high-grade metallurgical coking coal, highly vital for steel production cycles. / झरिया में उच्च श्रेणी के धातुकर्म कोकिंग कोयले का भारत का सबसे बड़ा भंडार है, जो इस्पात उत्पादन चक्रों के लिए अत्यंत महत्वपूर्ण है।"
+            },
+            {
+                id: 192,
+                category: "gk",
+                qEng: "The ultimate physiological process of cleaning up liquid waste products from human blood matrices is completed by which structural organ?",
+                qHin: "मानव रक्त से तरल अपशिष्ट पदार्थों को छानकर अलग करने की अंतिम शारीरिक प्रक्रिया किस अंग द्वारा पूरी की जाती है?",
+                options: [
+                    {key: "A", val: "Lungs / फेफड़े"},
+                    {key: "B", val: "Kidneys / वृक्क (गुर्दे)"},
+                    {key: "C", val: "Heart / हृदय"},
+                    {key: "D", val: "Spleen / प्लीहा"}
+                ],
+                correct: "B",
+                explain: "The twin kidneys contain millions of filtering nephrons that eliminate urea and excess salts via urine fluids. / दोनों गुर्दों में लाखों फिल्टर करने वाले नेफ्रॉन होते हैं जो मूत्र के माध्यम से यूरिया और अतिरिक्त लवणों को शरीर से बाहर निकालते हैं।"
+            },
+            {
+                id: 193,
+                category: "gk",
+                qEng: "Who composed the world-famous Sanskrit compilation epic Ramayana in ancient Indian history timelines?",
+                qHin: "प्राचीन भारतीय इतिहास में संस्कृत महाकाव्य 'रामायण' की रचना किसने की थी?",
+                options: [
+                    {key: "A", val: "Maharishi Valmiki / महर्षि वाल्मीकि"},
+                    {key: "B", val: "Ved Vyas / वेद व्यास"},
+                    {key: "C", val: "Tulsidas / तुलसीदास"},
+                    {key: "D", val: "Kalidas / कालिदास"}
+                ],
+                correct: "A",
+                explain: "Maharishi Valmiki composed the original epic in Sanskrit metrics. Sant Tulsidas composed the Awadhi version named Ramcharitmanas. / महर्षि वाल्मीकि ने संस्कृत में मूल महाकाव्य की रचना की थी। संत तुलसीदास ने अवधी भाषा में 'रामचरितमानस' की रचना की थी।"
+            },
+            {
+                id: 194,
+                category: "gk",
+                qEng: "What physical force parameter counters the forward movement velocity of two solid surfaces sliding against each other?",
+                qHin: "कौन सा भौतिक बल एक दूसरे के विपरीत खिसकने वाली दो ठोस सतहों की आगे की गति का विरोध करता है?",
+                options: [
+                    {key: "A", val: "Gravitational Force / गुरुत्वाकर्षण बल"},
+                    {key: "B", val: "Frictional Force / घर्षण बल"},
+                    {key: "C", val: "Magnetic Pull / चुंबकीय खिंचाव"},
+                    {key: "D", val: "Centrifugal Force / अपकेंद्रीय बल"}
+                ],
+                correct: "B",
+                explain: "Friction acts parallel to surface boundaries to oppose motion, converting moving energy directly into heat. / घर्षण गति का विरोध करने के लिए सतह की सीमाओं के समानांतर कार्य करता है, जो गतिज ऊर्जा को सीधे ऊष्मा में परिवर्तित करता है।"
+            },
+            {
+                id: 195,
+                category: "gk",
+                qEng: "Which planet is historically distinguished as the largest gaseous giant planet in our Solar System structure?",
+                qHin: "कौन सा ग्रह ऐतिहासिक रूप से हमारे सौरमंडल की संरचना में सबसे बड़ा गैसीय विशाल ग्रह माना जाता है?",
+                options: [
+                    {key: "A", val: "Saturn / शनि"},
+                    {key: "B", val: "Uranus / अरुण"},
+                    {key: "C", val: "Jupiter / बृहस्पति"},
+                    {key: "D", val: "Neptune / वरुण"}
+                ],
+                correct: "C",
+                explain: "Jupiter has a mass more than two and a half times that of all the other planets in our Solar System combined. / बृहस्पति का द्रव्यमान हमारे सौरमंडल के अन्य सभी ग्रहों के कुल द्रव्यमान के ढाई गुना से भी अधिक है।"
+            },
+            {
+                id: 196,
+                category: "gk",
+                qEng: "Which waterfall location near Ranchi is famously formed by the drop sequence of the Subarnarekha River?",
+                qHin: "रांची के निकट कौन सा प्रसिद्ध जलप्रपात सुवर्णरेखा नदी के गिरने के क्रम से बनता है?",
+                options: [
+                    {key: "A", val: "Dassam Falls / दशम प्रपात"},
+                    {key: "B", val: "Hundru Falls / हुंडरू प्रपात"},
+                    {key: "C", val: "Jonha Falls / जोन्हा प्रपात"},
+                    {key: "D", val: "Hirni Falls / हिरनी प्रपात"}
+                ],
+                correct: "B",
+                explain: "Hundru Falls is one of the highest waterfalls in Jharkhand, falling from a height of about $98$ meters ($320$ feet). / हुंडरू प्रपात झारखंड के सबसे ऊंचे जलप्रपातों में से एक है, जो लगभग $98$ मीटर ($320$ फीट) की ऊंचाई से गिरता है।"
+            },
+            {
+                id: 197,
+                category: "gk",
+                qEng: "What unique tissue variant inside vascular plant bodies acts as the pipeline to carry manufactured food leaves down to all structures?",
+                qHin: "पौधों में कौन सा विशिष्ट ऊतक पत्तियों द्वारा बनाए गए भोजन को पौधे के सभी भागों तक पहुँचाने के लिए पाइपलाइन के रूप में कार्य करता है?",
+                options: [
+                    {key: "A", val: "Xylem / जाइलम"},
+                    {key: "B", val: "Phloem / फ्लोएम"},
+                    {key: "C", val: "Epidermis / बाह्यत्वचा"},
+                    {key: "D", val: "Cortex / वलकुट"}
+                ],
+                correct: "B",
+                explain: "Phloem transports organic nutrients like sucrose via bi-directional loops. Xylem handles unidirectional water transport loops instead. / फ्लोएम कार्बनिक पोषक तत्वों जैसे सुक्रोज को सभी दिशाओं में पहुंचाता है। इसके विपरीत, जाइलम केवल जल के परिवहन का कार्य करता है।"
+            },
+            {
+                id: 198,
+                category: "gk",
+                qEng: "Who functions as the presiding ex-officio Chairman of the upper house Rajya Sabha parliament grid in India?",
+                qHin: "भारत में संसद के उच्च सदन राज्यसभा के पदेन सभापति (Chairman) के रूप में कौन कार्य करता है?",
+                options: [
+                    {key: "A", val: "Speaker of Lok Sabha / लोकसभा अध्यक्ष"},
+                    {key: "B", val: "Vice-President of India / भारत के उपराष्ट्रपति"},
+                    {key: "C", val: "Prime Minister / प्रधानमंत्री"},
+                    {key: "D", val: "President / राष्ट्रपति"}
+                ],
+                correct: "B",
+                explain: "Article 64 of the Indian Constitution designates the Vice-President to automatically oversee all regulatory functions inside the Rajya Sabha. / भारतीय संविधान का अनुच्छेद 64 उपराष्ट्रपति को स्वचालित रूप से राज्यसभा के सभी विनियामक कार्यों की देखरेख का अधिकार देता है।"
+            },
+            {
+                id: 199,
+                category: "gk",
+                qEng: "Which baseline measurement scale is implemented to identify the relative acidic or alkaline nature of a liquid sample?",
+                qHin: "किसी तरल नमूने की अम्लीय या क्षारीय प्रकृति की पहचान करने के लिए कौन सा पैमाना लागू किया जाता है?",
+                options: [
+                    {key: "A", val: "Celsius Scale / सेल्सियस पैमाना"},
+                    {key: "B", val: "pH Scale / पीएच (pH) पैमाना"},
+                    {key: "C", val: "Richter Scale / रिक्टर पैमाना"},
+                    {key: "D", val: "Kelvin Scale / केल्विन पैमाना"}
+                ],
+                correct: "B",
+                explain: "The pH scale ranges from $0$ to $14$. A value below $7$ indicates acid concentration, $7$ is completely neutral, and values above indicate alkaline base levels. / पीएच पैमाना $0$ से $14$ तक होता है। $7$ से कम का मान अम्ल, $7$ पूरी तरह से उदासीन और इससे अधिक का मान क्षारीय स्तर को दर्शाता है।"
+            },
+            {
+                id: 200,
+                category: "gk",
+                qEng: "In which year did the historical Battle of Buxar occur, establishing total territorial tax collection rights for the East India Company in Bengal?",
+                qHin: "ऐतिहासिक बक्सर का युद्ध किस वर्ष हुआ था, जिसने बंगाल में ईस्ट इंडिया कंपनी के लिए दीवानी (कर संग्रह) अधिकार स्थापित किए थे?",
+                options: [
+                    {key: "A", val: "1757"},
+                    {key: "B", val: "1761"},
+                    {key: "C", val: "1764"},
+                    {key: "D", val: "1793"}
+                ],
+                correct: "C",
+                explain: "Fought in October 1764 between Hector Munro's forces and the combined alignment of Mir Qasim, Shuja-ud-Daulah, and Shah Alam II. / अक्टूबर 1764 में हेक्टर मुनरो की सेना और मीर कासिम, शुजाउद्दौला तथा शाह आलम II की संयुक्त सेना के बीच यह युद्ध लड़ा गया था।"
+            }
         ];
-
         // Add your own questions here. Each object must include id, category, qEng, qHin, options, correct, explain.
         // Use category values: "math", "mental", "hindi", or "gk".
         const CUSTOM_QUESTIONS = [
@@ -949,29 +2560,54 @@
             // },
         ];
 
+        // ============================================== 
+        // MULTI-SET FRAMEWORK CONFIGURATION
+        // ============================================== 
+        let chosenSetKey = "set1";
+
+        const EXAM_SETS = {
+            "set1": {
+                "label": "Practice Set 1 ",
+                "math": MATH_DATA_FROM_PDF,
+                "mental": REASONING_DATA_FROM_PDF,
+                "hindi": HINDI_DATA_FROM_PDF,
+                "gk": GK_DATA_FROM_PDF
+            },
+            "set2": {
+                "label": "Practice Set 2 ",
+                "math": [],
+                "mental": [],
+                "hindi": [],
+                "gk": []
+            }
+        };
+
         let COMPLETE_200_DATABASE = [];
 
         function initCompleteDatabase() {
             COMPLETE_200_DATABASE = [];
 
-            // 1. Load Math (Q1 - Q49)
-            COMPLETE_200_DATABASE.push(...MATH_DATA_FROM_PDF);
+            // Read from the active set configuration
+            const activeSet = EXAM_SETS[chosenSetKey];
 
-            // 2. Load Mental Ability (Q51 - Q65)
+            // 1. Load Math (Q1 - Q50)
+            COMPLETE_200_DATABASE.push(...activeSet.math);
+
+            // 2. Load Mental Ability (Q51 - Q100)
             // Offset logic to prevent ID overlaps
-            const reasoningOffset = REASONING_DATA_FROM_PDF.map((q, idx) => {
+            const reasoningOffset = activeSet.mental.map((q, idx) => {
                 return { ...q, id: 51 + idx };
             });
             COMPLETE_200_DATABASE.push(...reasoningOffset);
 
-            // 3. Load Hindi Language (Q101 - Q115)
-            const hindiOffset = HINDI_DATA_FROM_PDF.map((q, idx) => {
+            // 3. Load Hindi Language (Q101 - Q150)
+            const hindiOffset = activeSet.hindi.map((q, idx) => {
                 return { ...q, id: 101 + idx };
             });
             COMPLETE_200_DATABASE.push(...hindiOffset);
 
             // 4. Load general knowledge questions (Q151 - Q200)
-            const gkOffset = GK_DATA_FROM_PDF.map((q, idx) => {
+            const gkOffset = activeSet.gk.map((q, idx) => {
                 return { ...q, id: 151 + idx };
             });
             COMPLETE_200_DATABASE.push(...gkOffset);
@@ -1067,22 +2703,6 @@
             }
         }
 
-        function toggleTheme() {
-            const isDark = document.documentElement.classList.contains('dark');
-            const icon = document.getElementById('themeIcon');
-            const text = document.getElementById('themeText');
-            if (isDark) {
-                document.documentElement.classList.remove('dark');
-                icon.className = "fas fa-moon";
-                text.innerText = "Dark Mode";
-            } else {
-                document.documentElement.classList.add('dark');
-                icon.className = "fas fa-sun";
-                text.innerText = "Light Mode";
-            }
-            playChime('click');
-        }
-
         // Generate sequential roll number
         let rollCounter = 1001;
         function generateCustomRoll() {
@@ -1091,11 +2711,52 @@
         }
         generateCustomRoll();
 
+        // RENDER SET SELECTION BUTTONS
+        function renderSetSelectionButtons() {
+            const container = document.getElementById('setButtonsGrid');
+            if (!container) return;
+            
+            container.innerHTML = "";
+            
+            Object.keys(EXAM_SETS).forEach((setKey) => {
+                const setData = EXAM_SETS[setKey];
+                const isActive = setKey === chosenSetKey;
+                
+                const btn = document.createElement('button');
+                btn.onclick = () => selectPracticeSet(setKey);
+                btn.className = `w-full text-left p-3 rounded-lg border-2 transition-all font-semibold text-sm ${
+                    isActive 
+                    ? 'border-brand-500 bg-brand-500/10 text-brand-600 dark:text-brand-400 shadow-md' 
+                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-300 dark:hover:border-brand-700'
+                }`;
+                
+                btn.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span>${setData.label}</span>
+                        ${isActive ? '<i class="fas fa-check-circle text-brand-500"></i>' : ''}
+                    </div>
+                `;
+                
+                container.appendChild(btn);
+            });
+        }
+
+        function selectPracticeSet(setKey) {
+            chosenSetKey = setKey;
+            renderSetSelectionButtons();
+            initCompleteDatabase();
+            changeExamMode(activeExamMode); // Recalculate counters
+            playChime('click');
+        }
+
         // Handle Change Mode
         function changeExamMode(mode) {
             activeExamMode = mode;
             const totalDisplay = document.getElementById('totalQuestionsDisplay');
             const timeDisplay = document.getElementById('timeLimitDisplay');
+            
+            // Recalculate from the active set
+            initCompleteDatabase();
             const fullCount = COMPLETE_200_DATABASE.length || 200;
             
             if (mode === 'full') {
@@ -1756,7 +3417,12 @@
             showConfirmModal(title, text, btnText, () => {}, null);
         }
 
-
+        // INITIALIZE ON PAGE LOAD
+        document.addEventListener('DOMContentLoaded', () => {
+            initCompleteDatabase();
+            renderSetSelectionButtons();
+            changeExamMode('full');
+        });
 
     </script>
 </body>

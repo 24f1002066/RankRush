@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC - RANKRUSH Premium Exam Prep</title>
+    <title>JNV - RANKRUSH Premium Exam Prep</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
@@ -274,8 +274,6 @@
                     <ul class="flex items-center justify-center md:justify-start gap-8 flex-wrap">
                         <li><a href="index.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-home text-metal-gold"></i>Home</a></li>
                         <li class="text-metal-gold/40 text-2xl">•</li>
-                        <li><a href="ssc.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-file-lines text-metal-gold"></i>SSC</a></li>
-                        <li class="text-metal-gold/40 text-2xl">•</li>
                         <li><a href="netarhat.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-book text-metal-gold"></i>Netarhat</a></li>
                         <li class="text-metal-gold/40 text-2xl">•</li>
                         <li><a href="igbv.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-graduation-cap text-metal-gold"></i>IGBV</a></li>
@@ -284,9 +282,6 @@
 
                 <!-- Utility Toggles -->
                 <div class="flex items-center gap-4">
-                    <button onclick="toggleTheme()" class="glass rounded-2xl p-4 hover:glass-gold transition-all duration-300 hover:scale-110 group">
-                        <i id="themeIcon" class="fas fa-moon text-metal-gold text-xl group-hover:text-yellow-300 transition-colors"></i>
-                    </button>
                     <button id="soundToggleBtn" onclick="toggleSound()" class="glass rounded-2xl p-4 hover:glass-gold transition-all duration-300 hover:scale-110 group">
                         <i id="soundIcon" class="fas fa-volume-up text-emerald-400 text-xl group-hover:text-emerald-300 transition-colors"></i>
                     </button>
@@ -303,7 +298,7 @@
                 <div class="p-6 md:p-8 bg-gradient-to-br from-brand-800 to-brand-900 text-white flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="space-y-3 max-w-xl">
                         <span class="bg-amber-400/30 text-amber-300 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-widest border border-amber-400/40">
-                            SSC
+                            JNV
                         </span>
                         <h2 class="text-2xl md:text-3xl font-bold tracking-tight">RANKRUSH</h2>
                         <p class="text-slate-300 text-sm leading-relaxed">
@@ -385,22 +380,6 @@
                 btn.className = "bg-slate-800/85 hover:bg-slate-700/85 border border-slate-700 text-slate-400 px-3 py-2 rounded-lg transition-all text-sm flex items-center gap-2";
                 label.innerText = "Chimes Off";
             }
-        }
-
-        function toggleTheme() {
-            const isDark = document.documentElement.classList.contains('dark');
-            const icon = document.getElementById('themeIcon');
-            const text = document.getElementById('themeText');
-            if (isDark) {
-                document.documentElement.classList.remove('dark');
-                icon.className = "fas fa-moon";
-                text.innerText = "Dark Mode";
-            } else {
-                document.documentElement.classList.add('dark');
-                icon.className = "fas fa-sun";
-                text.innerText = "Light Mode";
-            }
-            playChime('click');
         }
     </script>
 </body>
