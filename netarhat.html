@@ -362,6 +362,70 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ============================================================ -->
+            <!-- LEADERBOARD CARD — shows inside lobby before exam starts      -->
+            <!-- ============================================================ -->
+            <div class="bg-white dark:bg-slate-800 panel-surface border border-slate-200 dark:border-slate-700/80 shadow-2xl rounded-2xl overflow-hidden">
+
+                <!-- Leaderboard Header -->
+                <div class="p-5 bg-gradient-to-r from-orange-950 via-amber-950 to-orange-950 text-white flex items-center justify-between border-b-2 border-amber-500/50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center">
+                            <i class="fas fa-trophy text-amber-400 text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-sm uppercase tracking-wider text-amber-300">🏆 Hall of Fame — Top 5 Rankers</h3>
+                            <p class="text-amber-200/60 text-[11px] mt-0.5">Live leaderboard • Updates after every exam submission</p>
+                        </div>
+                    </div>
+                    <!-- Refresh button to re-fetch from Google Sheet -->
+                    <button onclick="fetchLeaderboard()" id="lbRefreshBtn"
+                        class="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 transition text-xs font-bold">
+                        <i class="fas fa-sync-alt" id="lbRefreshIcon"></i> Refresh
+                    </button>
+                </div>
+
+                <!-- Leaderboard Body -->
+                <div class="p-5">
+
+                    <!-- Status message (shown while loading / on error) -->
+                    <div id="lbStatusMsg" class="text-center py-6 text-slate-400 text-sm">
+                        <i class="fas fa-circle-notch fa-spin text-amber-400 text-xl mb-2 block"></i>
+                        Loading leaderboard...
+                    </div>
+
+                    <!-- The actual top-5 table (hidden until data loads) -->
+                    <div id="lbTableWrap" class="hidden">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="text-[10px] uppercase font-black text-slate-400 border-b border-slate-100 dark:border-slate-700">
+                                    <th class="pb-2 text-center w-10">Rank</th>
+                                    <th class="pb-2 text-left pl-3">Name</th>
+                                    <th class="pb-2 text-center">Score</th>
+                                    <th class="pb-2 text-center hidden sm:table-cell">Mode / Set</th>
+                                    <th class="pb-2 text-center hidden md:table-cell">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lbTableBody">
+                                <!-- Rows injected by renderLeaderboard() -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Setup hint shown when spreadsheet URLs are not configured -->
+                    <div id="lbSetupHint" class="hidden mt-4 p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl text-xs text-blue-400 leading-relaxed">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        <strong>Setup needed:</strong> Open this file in a code editor, find the
+                        <code class="bg-slate-700 px-1 rounded">LEADERBOARD_CONFIG</code> block at the top of the
+                        <code class="bg-slate-700 px-1 rounded">&lt;script&gt;</code> section, and follow
+                        the instructions there to connect your Google Sheet.
+                    </div>
+
+                </div>
+            </div>
+            <!-- END LEADERBOARD CARD -->
+
         </section>
 
         <section id="examScreen" class="hidden w-full flex-grow grid grid-cols-1 lg:grid-cols-4 gap-6 relative">
@@ -591,6 +655,291 @@
     </div>
 
     <script>
+
+        const LEADERBOARD_CONFIG = {
+
+            
+            SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQhlPNvKT0nHnvoRgZuXtijUS1lDTYaMwQQpR6GEtqKtlBKikwQldOg1u3knRK0d13Qq7SB2wYMWcm9/pub?output=csv",
+        
+            APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxT4wlYcpRxLovki5CyZmBVW8HYanpE62frvCND5yGiNC7tITdevO4wgfgNIYlpAzlm/exec",
+            
+
+            // How many top entries to display on the leaderboard
+            TOP_N: 5
+        };
+        
+        // ──────────────────────────────────────────────────────────────────
+        // LEADERBOARD: FETCH & RENDER
+        // Called on page load and when user clicks "Refresh"
+        // ──────────────────────────────────────────────────────────────────
+        async function fetchLeaderboard() {
+            const statusEl  = document.getElementById('lbStatusMsg');
+            const tableWrap = document.getElementById('lbTableWrap');
+            const setupHint = document.getElementById('lbSetupHint');
+            const refreshIcon = document.getElementById('lbRefreshIcon');
+
+            // If no CSV URL is configured, show the setup hint and stop
+            if (!LEADERBOARD_CONFIG.SHEET_CSV_URL) {
+                statusEl.classList.add('hidden');
+                tableWrap.classList.add('hidden');
+                setupHint.classList.remove('hidden');
+                return;
+            }
+
+            // Show loading spinner
+            statusEl.innerHTML = '<i class="fas fa-circle-notch fa-spin text-amber-400 text-xl mb-2 block"></i> Loading leaderboard...';
+            statusEl.classList.remove('hidden');
+            tableWrap.classList.add('hidden');
+            setupHint.classList.add('hidden');
+            refreshIcon.classList.add('fa-spin');
+
+            try {
+                // Fetch the Google Sheet CSV.
+                // We append a cache-busting timestamp so the browser doesn't serve stale data.
+                const csvUrl = LEADERBOARD_CONFIG.SHEET_CSV_URL + "&t=" + Date.now();
+                const response = await fetch(csvUrl);
+
+                if (!response.ok) throw new Error("Network error: " + response.status);
+
+                const csvText = await response.text();
+
+                // Parse CSV into an array of row objects
+                const rows = parseCSV(csvText);
+
+                // rows[0] is the header row — skip it, take the rest as data
+                const dataRows = rows.slice(1).filter(r => r.length >= 6 && r[2]); // at least 6 cols, has roll
+
+                if (dataRows.length === 0) {
+                    statusEl.innerHTML = '<i class="fas fa-ghost text-slate-500 text-xl mb-2 block"></i> No entries yet. Be the first to submit!';
+                    statusEl.classList.remove('hidden');
+                    tableWrap.classList.add('hidden');
+                } else {
+                    // Sort all rows by Percentage (column F = index 5) descending
+                    // Then take top N entries for the leaderboard
+                    const sorted = dataRows
+                        .sort((a, b) => parseFloat(b[5] || 0) - parseFloat(a[5] || 0))
+                        .slice(0, LEADERBOARD_CONFIG.TOP_N);
+
+                    renderLeaderboard(sorted);
+
+                    statusEl.classList.add('hidden');
+                    tableWrap.classList.remove('hidden');
+                }
+
+            } catch (err) {
+                // Show error message if fetch fails (e.g. network offline, wrong URL)
+                console.error("Leaderboard fetch error:", err);
+                statusEl.innerHTML = `<i class="fas fa-exclamation-triangle text-rose-400 text-xl mb-2 block"></i>
+                    Could not load leaderboard.<br>
+                    <span class="text-[11px] text-slate-500">Check your SHEET_CSV_URL in the config or internet connection.</span>`;
+                statusEl.classList.remove('hidden');
+            } finally {
+                refreshIcon.classList.remove('fa-spin');
+            }
+        }
+
+
+        // ──────────────────────────────────────────────────────────────────
+        // LEADERBOARD: RENDER TABLE ROWS
+        // Takes an array of top-N CSV rows and builds the HTML table
+        // CSV column order: Timestamp(0) | Name(1) | Roll(2) | Score(3) |
+        //                   Total(4) | Percentage(5) | Mode(6) | Set(7)
+        // ──────────────────────────────────────────────────────────────────
+        function renderLeaderboard(rows) {
+            const tbody = document.getElementById('lbTableBody');
+            tbody.innerHTML = "";
+
+            // Medal emoji for top 3 ranks
+            const medals = ["🥇", "🥈", "🥉"];
+
+            rows.forEach((row, idx) => {
+                const rank      = idx + 1;
+                const name      = (row[1] || "Anonymous").trim();
+                const score     = (row[3] || "0").trim();   // correct answers
+                const total     = (row[4] || "?").trim();   // total questions
+                const pct       = parseFloat(row[5] || "0").toFixed(1); // percentage
+                const mode      = (row[6] || "full").trim(); // exam mode
+                const set       = (row[7] || "set1").trim(); // question set
+                const timestamp = (row[0] || "").trim();    // submission time
+
+                // Format the date into a short readable string
+                let dateStr = "—";
+                if (timestamp) {
+                    try {
+                        // Google Sheets timestamps are locale strings; try parsing them
+                        const d = new Date(timestamp);
+                        if (!isNaN(d)) {
+                            dateStr = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: '2-digit' });
+                        } else {
+                            dateStr = timestamp.split(",")[0]; // fallback: just date part
+                        }
+                    } catch(e) { dateStr = timestamp.substring(0, 10); }
+                }
+
+                // Choose row highlight color based on rank
+                const rowClass = rank === 1
+                    ? "border-b border-amber-500/20 bg-amber-500/5"
+                    : rank === 2
+                    ? "border-b border-slate-200/20 bg-slate-500/5"
+                    : rank === 3
+                    ? "border-b border-orange-500/15 bg-orange-500/5"
+                    : "border-b border-slate-100 dark:border-slate-700/40";
+
+                // Percentage badge color
+                const pctColor = pct >= 70
+                    ? "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10"
+                    : pct >= 45
+                    ? "text-amber-600 dark:text-amber-400 bg-amber-500/10"
+                    : "text-rose-600 dark:text-rose-400 bg-rose-500/10";
+
+                const tr = document.createElement('tr');
+                tr.className = rowClass;
+                tr.innerHTML = `
+                    <td class="py-3 text-center font-black text-lg">${medals[idx] || rank}</td>
+                    <td class="py-3 pl-3">
+                        <div class="font-bold text-slate-800 dark:text-white text-sm">${escapeHtml(name)}</div>
+                    </td>
+                    <td class="py-3 text-center">
+                        <span class="font-black text-slate-800 dark:text-white text-sm">${score}/${total}</span>
+                        <span class="ml-1 text-[11px] font-bold px-1.5 py-0.5 rounded ${pctColor}">${pct}%</span>
+                    </td>
+                    <td class="py-3 text-center hidden sm:table-cell">
+                        <span class="text-[10px] font-bold uppercase text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">
+                            ${escapeHtml(mode)} / ${escapeHtml(set)}
+                        </span>
+                    </td>
+                    <td class="py-3 text-center hidden md:table-cell text-[11px] text-slate-400 font-semibold">${escapeHtml(dateStr)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+
+        // ──────────────────────────────────────────────────────────────────
+        // LEADERBOARD: SAVE SCORE TO GOOGLE SHEET
+        // Called automatically when a student finishes the exam.
+        // Sends all result data to the Apps Script Web App via a GET request.
+        // ──────────────────────────────────────────────────────────────────
+        // Guard flag — prevents the same exam session from being saved twice.
+        // e.g. if autoSubmit + manual submit both fire, only the first one goes through.
+        // Reset to false every time a fresh exam is launched inside launchExam().
+        let scoreSavedThisSession = false;
+
+        async function saveScoreToSheet(resultData) {
+
+            // ── Guard 1: skip if already saved this session ──────────────────
+            // Prevents duplicate rows if both autoSubmitExamOnTimeout AND
+            // triggerPostExamEvaluation somehow fire in the same session.
+            if (scoreSavedThisSession) {
+                console.info("LEADERBOARD: Already saved this session — skipping duplicate.");
+                return;
+            }
+
+            // ── Guard 2: skip if candidate name is blank ─────────────────────
+            // Catches empty/test submissions on both the JS side AND the sheet.
+            // The Apps Script also validates this on its end (see doGet comment).
+            if (!resultData.name || resultData.name.trim() === "") {
+                console.warn("LEADERBOARD: Candidate name is empty — score not saved to sheet.");
+                return;
+            }
+
+            // Mark saved immediately so any parallel/duplicate call is blocked
+            scoreSavedThisSession = true;
+            // If no Apps Script URL is configured, skip silently
+            if (!LEADERBOARD_CONFIG.APPS_SCRIPT_URL) {
+                console.info("LEADERBOARD: APPS_SCRIPT_URL not set — score not saved.");
+                return;
+            }
+
+            try {
+                // Build the URL with all score data as query parameters
+                // Each param matches what the Apps Script doGet(e) function reads
+                const params = new URLSearchParams({
+                    name:    resultData.name,       // Candidate name
+                    roll:    resultData.roll,        // Roll number
+                    score:   resultData.correct,     // Number of correct answers
+                    total:   resultData.total,       // Total questions attempted
+                    pct:     resultData.percentage,  // Score percentage
+                    mode:    resultData.mode,        // Exam mode (full / sprint / math)
+                    set:     resultData.set,         // Question set key (set1 / set2)
+                    correct: resultData.correct,     // Correct count (same as score)
+                    wrong:   resultData.wrong,       // Wrong answers count
+                    skipped: resultData.skipped      // Unanswered questions count
+                });
+
+                const url = LEADERBOARD_CONFIG.APPS_SCRIPT_URL + "?" + params.toString();
+
+                // fetch() has a CORS issue with Apps Script GET requests,
+                // so we use mode:"no-cors" — we won't see the response body
+                // but the sheet will still get the data appended correctly.
+                await fetch(url, { method: "GET", mode: "no-cors" });
+
+                console.info("LEADERBOARD: Score saved successfully.");
+
+                // After saving, refresh the leaderboard display so the new entry
+                // might appear (with a small delay to let the sheet update)
+                setTimeout(() => fetchLeaderboard(), 2500);
+
+            } catch (err) {
+                // Don't interrupt the result screen even if saving fails
+                console.error("LEADERBOARD: Failed to save score:", err);
+            }
+        }
+
+
+        // ──────────────────────────────────────────────────────────────────
+        // CSV PARSER
+        // Converts raw CSV text into a 2D array: [[col,col,...], [col,...]]
+        // Handles quoted fields that may contain commas (RFC 4180 basic)
+        // ──────────────────────────────────────────────────────────────────
+        function parseCSV(text) {
+            const rows = [];
+            // Split on newlines; filter blank lines
+            const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
+
+            lines.forEach(line => {
+                const cols = [];
+                let current = "";
+                let inQuotes = false;
+
+                for (let i = 0; i < line.length; i++) {
+                    const ch = line[i];
+                    if (ch === '"') {
+                        // Toggle quoted-field mode
+                        inQuotes = !inQuotes;
+                    } else if (ch === ',' && !inQuotes) {
+                        // Comma outside quotes → new column
+                        cols.push(current.trim());
+                        current = "";
+                    } else {
+                        current += ch;
+                    }
+                }
+                cols.push(current.trim()); // push last column
+                rows.push(cols);
+            });
+
+            return rows;
+        }
+
+
+        // ──────────────────────────────────────────────────────────────────
+        // UTILITY: Escape HTML special characters before inserting into DOM
+        // Prevents XSS if someone enters <script> in their name etc.
+        // ──────────────────────────────────────────────────────────────────
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
+
+
+        // DEVELOPER NOTE: The complete Question bank contains exactly 200 items mapped programmatically.
+
+        // Users can export it via the copy JSON tool.
+
         const MATH_DATA_FROM_PDF = [
             { id: 51, category: "math", qEng: "Evaluate the mathematical value of the expression: $16 - 16 \\div 2$", qHin: "दिए गए व्यंजक का सही गणितीय मान ज्ञात कीजिए: $16 - 16 \\div 2$", options: [{key: "A", val: "8"},{key: "B", val: "0.5"},{key: "C", val: "1"},{key: "D", val: "3"}], correct: "A", explain: "BODMAS नियम के अनुसार पहले भाग हल करेंगे: $16 \\div 2 = 8$। फिर घटाव करेंगे: $16 - 8 = 8$।" },
             { id: 52, category: "math", qEng: "What is the correct decimal form conversion of $1.25\\%$?", qHin: "$1.25\\%$ का शुद्ध दशमलव रूप रूपांतरण क्या है?", options: [{key: "A", val: "0.0125"},{key: "B", val: "1"},{key: "C", val: "3"},{key: "D", val: "1.25"}], correct: "A", explain: "प्रतिशत हटाने के लिए संख्या को 100 से भाग दिया जाता है: $\\frac{1.25}{100} = 0.0125$।" },
@@ -1005,9 +1354,23 @@
             document.getElementById('examScreen').classList.add('hidden');
             document.getElementById('resultScreen').classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            saveScoreToSheet({
+                name:       name.trim(),
+                roll:       roll.trim(),
+                correct:    correct,
+                wrong:      wrong,
+                skipped:    skipped,
+                total:      examQuestionsList.length,
+                percentage: pct,
+                mode:       activeExamMode,
+                set:        chosenSetKey
+            });
         }
 
         function buildDiagnosticDetailedReview() { renderFilteredReviewCards(); }
+
+        // ── END LEADERBOARD SAVE ────────────────────────────────────────
 
         function changeReviewFilter(filterType) { currentReviewFilter = filterType; renderFilteredReviewCards(); playChime('click'); }
 
@@ -1063,11 +1426,16 @@
             if (window.MathJax) MathJax.typesetPromise().catch(err => console.log(err));
         }
 
+
+        
+
         function backToLobby() {
             document.getElementById('resultScreen').classList.add('hidden');
             document.getElementById('lobbyScreen').classList.remove('hidden');
             playChime('click');
         }
+
+
 
         function retakeExam() {
             selectedAnswers = {}; flaggedQuestions = {}; currentQuestionIndex = 0;
@@ -1102,9 +1470,12 @@
             setTimeout(() => { document.getElementById('modalOverlay').classList.add('hidden'); }, 200);
             playChime('click');
         }
-
+        
+        
         document.addEventListener('DOMContentLoaded', () => {
             initCompleteDatabase(); renderSetSelectionButtons(); changeExamMode('full'); generateCustomRoll();
+            // Load leaderboard from Google Sheet
+            fetchLeaderboard();
         });
     </script>
 </body>
