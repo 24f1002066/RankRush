@@ -181,6 +181,28 @@
             height: 1px;
         }
     </style>
+
+    <!-- MathJax for rendering mathematical notation -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                renderActions: {
+                    addMenu: [0, '', '']
+                }
+            },
+            startup: {
+                typeset: false
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body class="text-white font-sans">
 
@@ -379,6 +401,17 @@
                 icon.className = "fas fa-volume-mute";
                 btn.className = "bg-slate-800/85 hover:bg-slate-700/85 border border-slate-700 text-slate-400 px-3 py-2 rounded-lg transition-all text-sm flex items-center gap-2";
                 label.innerText = "Chimes Off";
+            }
+        }
+
+
+        // ============================================== 
+        // MATHJAX HELPER - reliable typeset on element
+        // ============================================== 
+        function typesetMath(element) {
+            if (!window.MathJax) return;
+            if (MathJax.typesetPromise) {
+                MathJax.typesetPromise(element ? [element] : []).catch(err => console.warn('MathJax:', err));
             }
         }
     </script>

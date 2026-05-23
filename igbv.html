@@ -313,6 +313,27 @@
             box-shadow: 0 10px 30px rgba(217, 119, 6, 0.2);
         }
     </style>
+        <!-- MathJax for rendering mathematical notation -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                renderActions: {
+                    addMenu: [0, '', '']
+                }
+            },
+            startup: {
+                typeset: false
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body class="text-white font-sans">
 
@@ -831,22 +852,16 @@
         </div>
     </div>
 
-    <!-- ============================================== -->
-    <!-- DATABASE & LOGICAL ENGINE                      -->
-    <!-- ============================================== -->
+
     <script>
-        // DEVELOPER NOTE: The complete Question bank contains exactly 200 items mapped programmatically.
-        // Users can export it via the copy JSON tool.
         
-        // Let's generate a complete standard set of 200 questions to avoid hitting file limit, 
-        // while perfectly maintaining all 49 Math from the PDF, 25 Hindi Language, and 25 Reasoning items.
-        // Remaining 101 questions are completed programmatically to reach a solid 200-question pool!
+    
         
         const MATH_DATA_FROM_PDF = [
             { id: 1, category: "math", qEng: "Which of the following numbers is completely divisible by 5?", qHin: "निम्नलिखित में से कौन सी संख्या 5 से पूर्णतः विभाज्या है?", options: [{key:"A",val:"17"},{key:"B",val:"60"},{key:"C",val:"22"},{key:"D",val:"38"}], correct: "B", explain: "A number is divisible by 5 if its last digit is 0 or 5. Here, 60 has 0 as its units digit." },
             { id: 2, category: "math", qEng: "A journey starts on 13th May at 11:55 AM and terminates on 15th May at 9:30 AM. Find the total duration of the journey.", qHin: "एक यात्रा 13 मई को दोपहर 11:55 बजे शुरू होती है और 15 मई को सुबह 9:30 बजे समाप्त होती है। यात्रा की कुल अवधि ज्ञात कीजिए।", options: [{key:"A",val:"48 hours"},{key:"B",val:"45 hrs 35 mins"},{key:"C",val:"46 hrs 25 mins"},{key:"D",val:"44 hrs 40 mins"}], correct: "B", explain: "From May 13 at 11:55 AM to May 14 at 11:55 AM = 24 hours. From May 14 at 11:55 AM to May 15 at 11:55 AM would be 24 hours. But it ends at 9:30 AM (which is 2 hours 25 minutes earlier). So: 48 hours minus 2 hrs 25 mins = 45 hours and 35 minutes." },
             { id: 3, category: "math", qEng: "One number is 5 greater than another number. If their algebraic sum is 53, determine the two numbers.", qHin: "एक संख्या दूसरी संख्या से 5 अधिक है। यदि उनका योग 53 है, तो दोनों संख्याएँ ज्ञात कीजिए।", options: [{key:"A",val:"20 and 25"},{key:"B",val:"24 and 29"},{key:"C",val:"25 and 30"},{key:"D",val:"22 and 27"}], correct: "B", explain: "Let the smaller number be $x$. The larger is $x+5$. Sum: $x + (x + 5) = 53 \\implies 2x = 48 \\implies x = 24$. The two numbers are 24 and 29." },
-            { id: 4, category: "math", qEng: "Evaluate the value of the arithmetic decimal expression: 0.75 * 0.02 / 5.", qHin: "दशमलव व्यंजक का मान ज्ञात कीजिए: 0.75 * 0.02 / 5.", options: [{key:"A",val:"0.03"},{key:"B",val:"0.003"},{key:"C",val:"0.30"},{key:"D",val:"0.0003"}], correct: "B", explain: "$0.75 \\times 0.02 = 0.0150$. Dividing this by 5: $0.015 / 5 = 0.003$." },
+            { id: 4, category: "math", qEng: "Evaluate the value of the arithmetic decimal expression: (0.75 * 0.02) / 5.", qHin: "दशमलव व्यंजक का मान ज्ञात कीजिए: (0.75 * 0.02) / 5.", options: [{key:"A",val:"0.03"},{key:"B",val:"0.003"},{key:"C",val:"0.30"},{key:"D",val:"0.0003"}], correct: "B", explain: "$0.75 \\times 0.02 = 0.0150$. Dividing this by 5: $0.015 / 5 = 0.003$." },
             { id: 5, category: "math", qEng: "If x + 1/x = 2, find the precise numerical value of the expression x - 1/x.", qHin: "यदि x + 1/x = 2 है, तो व्यंजक x - 1/x का सटीक मान ज्ञात कीजिए।", options: [{key:"A",val:"1"},{key:"B",val:"0"},{key:"C",val:"2"},{key:"D",val:"-1"}], correct: "B", explain: "If $x + 1/x = 2$, this holds true for $x = 1$. Substituting $x=1$ into the target expression: $1 - 1/1 = 0$." },
             { id: 6, category: "math", qEng: "If x% of 1,400 is equal to 49, find the unknown value of x.", qHin: "यदि 1,400 का x% मान 49 के बराबर है, तो x का मान ज्ञात कीजिए।", options: [{key:"A",val:"3.5"},{key:"B",val:"7"},{key:"C",val:"14"},{key:"D",val:"21"}], correct: "A", explain: "$\(x / 100\) \\times 1400 = 49 \\implies 14x = 49 \\implies x = 49/14 = 3.5$." },
             { id: 7, category: "math", qEng: "If the ratio x:y = 4:1 evaluate the value of the compounded ratio (4x + 3y) : (4x - 3y).", qHin: "यदि अनुपात x:y = 4:1, तो अनुपात (4x + 3y) : (4x - 3y) का मान ज्ञात कीजिए।", options: [{key:"A",val:"19:13"},{key:"B",val:"17:15"},{key:"C",val:"13:19"},{key:"D",val:"15:17"}], correct: "A", explain: "Substitute $x=4$ and $y=1$ directly: $(4(4)+3(1)) : (4(4)-3(1)) = (16+3) : (16-3) = 19 : 13$." },
@@ -859,7 +874,7 @@
             { id: 14, category: "math", qEng: "Find the cumulative mathematical sum of the first 21 positive consecutive odd integers.", qHin: "प्रथम 21 धनात्मक विषम संख्याओं का कुल योगफल ज्ञात कीजिए।", options: [{key:"A",val:"400"},{key:"B",val:"441"},{key:"C",val:"484"},{key:"D",val:"529"}], correct: "B", explain: "The sum of the first $n$ odd positive integers is given by the formula $n^2$. For $n = 21$, sum = $21^2 = 441$." },
             { id: 15, category: "math", qEng: "Applying the division algorithm, if a dividend of 397,246 yields a quotient of 865 and a remainder of 21, find the missing divisor.", qHin: "विभाजन एल्गोरिथ्म का उपयोग करके, यदि भाज्य 397,246, भागफल 865 और शेषफल 21 है, तो भाजक ज्ञात कीजिए।", options: [{key:"A",val:"435"},{key:"B",val:"459"},{key:"C",val:"472"},{key:"D",val:"495"}], correct: "B", explain: "$\text{Divisor} = (\text{Dividend} - \text{Remainder}) / \text{Quotient} = (397246 - 21) / 865 = 397225 / 865 = 459$." },
             { id: 16, category: "math", qEng: "Compute the value of the following decimal sequence alignment: 11.1111 + 11.111 + 11.11 + 11.1.", qHin: "निम्नलिखित दशमलव श्रृंखला का योग मान ज्ञात कीजिए: 11.1111 + 11.111 + 11.11 + 11.1.", options: [{key:"A",val:"44.4321"},{key:"B",val:"44.1111"},{key:"C",val:"44.4444"},{key:"D",val:"45.1234"}], correct: "A", explain: "Align the decimals: $11.1111 + 11.1110 + 11.1100 + 11.1000 = 44.4321$." },
-            { id: 17, category: "math", qEng: "What fractional value must be explicitly added to the mixed fraction 2 1/5 to reach a target integer value of 3?", qHin: "मिश्रित भिन्न 2 1/5 में कौन सा भिन्न जोड़ा जाना चाहिए ताकि लक्षित पूर्णांक मान 3 प्राप्त हो सके?", options: [{key:"A",val:"2/5"},{key:"B",val:"3/5"},{key:"C",val:"4/5"},{key:"D",val:"1/5"}], correct: "C", explain: "$2 \\frac{1}{5} = 11/5$. To reach 3: $3 - 11/5 = 15/5 - 11/5 = 4/5$." },
+            { id: 17, category: "math", qEng: "What fractional value must be explicitly added to the mixed fraction $2 \\frac{1}{5}$ to reach a target integer value of 3?", qHin: "मिश्रित भिन्न $2 \\frac{1}{5}$ में कौन सा भिन्न जोड़ा जाना चाहिए ताकि लक्षित पूर्णांक मान 3 प्राप्त हो सके?", options: [{key:"A",val:"2/5"},{key:"B",val:"3/5"},{key:"C",val:"4/5"},{key:"D",val:"1/5"}], correct: "C", explain: "$2 \\frac{1}{5} = 11/5$. To reach 3: $3 - 11/5 = 15/5 - 11/5 = 4/5$." },
             { id: 18, category: "math", qEng: "Find the magnitude of the supplementary angle corresponding to an angle of 75°.", qHin: "75° के कोण का सम्पूरक कोण (supplementary angle) का मान ज्ञात कीजिए।", options: [{key:"A",val:"105°"},{key:"B",val:"115°"},{key:"C",val:"15°"},{key:"D",val:"90°"}], correct: "A", explain: "The sum of supplementary angles is 180°. So the complement is $180 - 75 = 105^\\circ$." },
             { id: 19, category: "math", qEng: "A boat moves at a downstream speed of 14 km/h and an upstream speed of 9 km/h. Calculate its relative speed in completely still water.", qHin: "एक नाव की अनुप्रवाह (downstream) चाल 14 किमी/घंटा और ऊर्ध्वप्रवाह (upstream) चाल 9 किमी/घंटा है। शांत जल में नाव की चाल ज्ञात कीजिए।", options: [{key:"A",val:"10.5 km/h"},{key:"B",val:"11.5 km/h"},{key:"C",val:"12.0 km/h"},{key:"D",val:"12.5 km/h"}], correct: "B", explain: "Speed in still water = $(\text{Downstream Speed} + \text{Upstream Speed}) / 2 = (14 + 9) / 2 = 11.5 \text{ km/h}$." },
             { id: 20, category: "math", qEng: "The continuous sum of 5 consecutive even integers equates to 160. Identify the largest number in this specific group.", qHin: "5 लगातार सम पूर्णांकों का कुल योग 160 है। इस समूह की सबसे बड़ी संख्या की पहचान कीजिए।", options: [{key:"A",val:"32"},{key:"B",val:"34"},{key:"C",val:"36"},{key:"D",val:"38"}], correct: "C", explain: "Let the middle even number be $x$. The numbers are $x-4, x-2, x, x+2, x+4$. Their sum is $5x = 160 \\implies x = 32$. The numbers are 28, 30, 32, 34, 36. The largest is 36." },
@@ -868,14 +883,14 @@
             { id: 23, category: "math", qEng: "Individual A earns 20% more than individual B. If B earns a net salary of Rs. 10,500, calculate the total earnings of A.", qHin: "व्यक्ति A, व्यक्ति B से 20% अधिक कमाता है। यदि B की कुल आय 10,500 रुपये है, तो A की कुल आय की गणना कीजिए।", options: [{key:"A",val:"Rs. 11,500"},{key:"B",val:"Rs. 12,100"},{key:"C",val:"Rs. 12,600"},{key:"D",val:"Rs. 13,200"}], correct: "C", explain: "Earnings of A = $1.20 \\times 10,500 = 12,600\text{ Rupees}$." },
             { id: 24, category: "math", qEng: "A bicycle is purchased for Rs. 500 and subsequently sold at a net profit margin of 20%. Determine its final selling price.", qHin: "एक साइकिल 500 रुपये में खरीदी जाती है और बाद में 20% के लाभ पर बेच दी जाती है। इसका अंतिम विक्रय मूल्य निर्धारित कीजिए।", options: [{key:"A",val:"Rs. 550"},{key:"B",val:"Rs. 580"},{key:"C",val:"Rs. 600"},{key:"D",val:"Rs. 650"}], correct: "C", explain: "$\text{Selling Price} = \text{Cost Price} \\times (1 + \text{Profit Percent}/100) = 500 \\times 1.20 = 600\text{ Rupees}$." },
             { id: 25, category: "math", qEng: "The total surface area of a square-shaped garden plots out to 196 sq.m. Find the linear boundary perimeter of the garden.", qHin: "एक वर्गाकार बगीचे का कुल क्षेत्रफल 196 वर्ग मीटर है। बगीचे की कुल परिमाप (perimeter) ज्ञात कीजिए।", options: [{key:"A",val:"48 m"},{key:"B",val:"52 m"},{key:"C",val:"56 m"},{key:"D",val:"64 m"}], correct: "C", explain: "$\text{Side of the square} = \\sqrt{196} = 14\text{ m}$. $\text{Perimeter} = 4 \\times \text{side} = 4 \\times 14 = 56\text{ m}$." },
-            { id: 26, category: "math", qEng: "Evaluate and calculate the exact amount equivalent to 18 3/4 % of 800.", qHin: "800 के 18 3/4 % का सटीक मान ज्ञात कीजिए।", options: [{key:"A",val:"120"},{key:"B",val:"140"},{key:"C",val:"150"},{key:"D",val:"160"}], correct: "C", explain: "$18 \\frac{3}{4}\\% = 75/4\\% = 0.1875$. Therefore, $0.1875 \\times 800 = 150$." },
+            { id: 26, category: "math", qEng: "Evaluate and calculate the exact amount equivalent to $18 \\frac{3}{4}$  % of 800.", qHin: "800 के $18 \\frac{3}{4}$ % का सटीक मान ज्ञात कीजिए।", options: [{key:"A",val:"120"},{key:"B",val:"140"},{key:"C",val:"150"},{key:"D",val:"160"}], correct: "C", explain: "$18 \\frac{3}{4}\\% = 75/4\\% = 0.1875$. Therefore, $0.1875 \\times 800 = 150$." },
             { id: 27, category: "math", qEng: "A student reads 3/8 of a novel on the first day, and exactly 4/5 of the remaining portion on the second day. If 30 pages are left unread, determine the absolute total page count of the book.", qHin: "एक छात्र पहले दिन एक किताब का 3/8 भाग पढ़ता है, और दूसरे दिन शेष भाग का 4/5 भाग पढ़ता है। यदि 30 पृष्ठ बिना पढ़े बच जाते हैं, तो पुस्तक के कुल पृष्ठों की संख्या ज्ञात कीजिए।", options: [{key:"A",val:"180"},{key:"B",val:"200"},{key:"C",val:"240"},{key:"D",val:"300"}], correct: "C", explain: "Remaining after day 1 = $1 - 3/8 = 5/8$. Read on day 2 = $4/5 \\times 5/8 = 1/2$. Total read = $3/8 + 1/2 = 7/8$. Remaining unread = $1 - 7/8 = 1/8$ of total pages. Since $1/8$ corresponds to 30 pages, total pages = $30 \\times 8 = 240$." },
-            { id: 28, category: "math", qEng: "Solve the following mixed fraction summation: 2 1/2 + 3 1/4 + 7 5/6.", qHin: "निम्नलिखित मिश्रित भिन्न के योग को हल कीजिए: 2 1/2 + 3 1/4 + 7 5/6.", options: [{key:"A",val:"13 5/12"},{key:"B",val:"13 7/12"},{key:"C",val:"12 5/12"},{key:"D",val:"14"}], correct: "B", explain: "Whole numbers: $2 + 3 + 7 = 12$. Fractions: $1/2 + 1/4 + 5/6 = 6/12 + 3/12 + 10/12 = 19/12 = 1 \\frac{7}{12}$. Total = $12 + 1 \\frac{7}{12} = 13 \\frac{7}{12}$." },
+            { id: 28, category: "math", qEng: "Solve the following mixed fraction summation: $2 \\frac{1}{2}$ + $3 \\frac{1}{4}$ + $7\\frac{5}{6}$.", qHin: "निम्नलिखित मिश्रित भिन्न के योग को हल कीजिए: $2 \\frac{1}{2}$ + $3 \\frac{1}{4}$ + $7\\frac{5}{6}$.", options: [{key:"A",val:"$13\\frac{5}{12}$"},{key:"B",val:"$13 {7}/{12}$"},{key:"C",val:"$12 \\frac{5}{12}$"},{key:"D",val:"14"}], correct: "B", explain: "Whole numbers: $2 + 3 + 7 = 12$. Fractions: $1/2 + 1/4 + 5/6 = 6/12 + 3/12 + 10/12 = 19/12 = 1 \\frac{7}{12}$. Total = $12 + 1 \\frac{7}{12} = 13 \\frac{7}{12}$." },
             { id: 29, category: "math", qEng: "Find the absolute difference between the largest possible and smallest possible 6-digit numbers that can be synthesized using the distinct digits {1, 9, 7, 5, 0, 3} without repetition (Note: zero cannot lead).", qHin: "अंकों {1, 9, 7, 5, 0, 3} का बिना दोहराव के उपयोग करके बनने वाली सबसे बड़ी और सबसे छोटी संभव 6-अंकीय संख्याओं के बीच का अंतर ज्ञात कीजिए।", options: [{key:"A",val:"871,731"},{key:"B",val:"669,951"},{key:"C",val:"871,200"},{key:"D",val:"654,321"}], correct: "A", explain: "Largest number = 975,310. Smallest number (0 cannot lead) = 103,579. Difference = $975,310 - 103,579 = 871,731$." },
             { id: 30, category: "math", qEng: "What is the smallest positive whole integer that should be added to 1,000 so that the resulting sum becomes perfectly divisible by 18?", qHin: "वह सबसे छोटी धनात्मक पूर्ण संख्या कौन सी है जिसे 1,000 में जोड़ने पर प्राप्त योग 18 से पूर्णतः विभाज्या हो जाए?", options: [{key:"A",val:"4"},{key:"B",val:"6"},{key:"C",val:"8"},{key:"D",val:"10"}], correct: "C", explain: "$1000 / 18 = 55$ with a remainder of 10. To make it divisible, we must add $18 - 10 = 8$." },
             { id: 31, category: "math", qEng: "Manish maintains a liquid balance of Rs. 65,690 in his savings account. If a parcel of land requires an immediate capital outlay of Rs. 71,000, how much more money is required?", qHin: "मनीष के बैंक खाते में 65,690 रुपये जमा हैं। यदि जमीन के एक टुकड़े के लिए 71,000 रुपये की आवश्यकता है, तो उसे और कितने रुपयों की आवश्यकता होगी?", options: [{key:"A",val:"Rs. 4,310"},{key:"B",val:"Rs. 5,310"},{key:"C",val:"Rs. 5,510"},{key:"D",val:"Rs. 6,310"}], correct: "B", explain: "$\text{Required money} = 71,000 - 65,690 = 5,310\text{ Rupees}$." },
             { id: 32, category: "math", qEng: "A total volume of 5.5 L of milk is distributed equally among 10 individuals. Calculate the exact volume allocation per individual in milliliters (ml).", qHin: "कुल 5.5 लीटर दूध को 10 व्यक्तियों में बराबर बांटा जाता है। प्रत्येक व्यक्ति को मिलने वाले दूध की मात्रा मिलीलीटर (ml) में ज्ञात कीजिए।", options: [{key:"A",val:"500 ml"},{key:"B",val:"550 ml"},{key:"C",val:"600 ml"},{key:"D",val:"650 ml"}], correct: "B", explain: "$5.5\text{ Liters} = 5500\text{ ml}$. Distributed among 10 people = $5500 / 10 = 550\text{ ml}$." },
-            { id: 33, category: "math", qEng: "A school has 200 boys enrolled. If the number of girls is exactly equivalent to 3/4 of the total number of boys, calculate the net institutional student strength.", qHin: "एक विद्यालय में 200 लड़के नामांकित हैं। यदि लड़कियों की संख्या लड़कों की कुल संख्या के 3/4 के बराबर है, तो विद्यालय में विद्यार्थियों की कुल संख्या की गणना कीजिए।", options: [{key:"A",val:"300"},{key:"B",val:"320"},{key:"C",val:"350"},{key:"D",val:"380"}], correct: "C", explain: "Girls = $3/4 \\times 200 = 150$. Total strength = $\text{Boys} + \text{Girls} = 200 + 150 = 350$." },
+            { id: 33, category: "math", qEng: "A school has 200 boys enrolled. If the number of girls is exactly equivalent to $ \\frac{3}{4}$ of the total number of boys, calculate the net institutional student strength.", qHin: "एक विद्यालय में 200 लड़के नामांकित हैं। यदि लड़कियों की संख्या लड़कों की कुल संख्या के $ \\frac{3}{4}$ के बराबर है, तो विद्यालय में विद्यार्थियों की कुल संख्या की गणना कीजिए।", options: [{key:"A",val:"300"},{key:"B",val:"320"},{key:"C",val:"350"},{key:"D",val:"380"}], correct: "C", explain: "Girls = $3/4 \\times 200 = 150$. Total strength = $\text{Boys} + \text{Girls} = 200 + 150 = 350$." },
             { id: 34, category: "math", qEng: "Identify the explicit positional place value of the digit '8' within the large multi-digit integer configuration 83,524.", qHin: "संख्या 83,524 में अंक '8' का स्थानीय मान (place value) ज्ञात कीजिए।", options: [{key:"A",val:"8,000"},{key:"B",val:"80,000"},{key:"C",val:"800"},{key:"D",val:"800,000"}], correct: "B", explain: "The digit '8' is at the ten-thousandths position. So its value is $8 \\times 10,000 = 80,000$." },
             { id: 35, category: "math", qEng: "Tushar possesses a total cash sum of Rs. 20. If he hands over exactly 1/4 of his cash asset to Ramesh, compute the net balance remaining with Tushar.", qHin: "तुषार के पास कुल 20 रुपये हैं। यदि वह अपनी राशि का 1/4 भाग रमेश को दे देता है, तो तुषार के पास बची हुई शेष राशि की गणना कीजिए।", options: [{key:"A",val:"Rs. 12"},{key:"B",val:"Rs. 15"},{key:"C",val:"Rs. 16"},{key:"D",val:"Rs. 18"}], correct: "B", explain: "Given to Ramesh = $1/4 \\times 20 = 5\text{ Rupees}$. Remaining balance = $20 - 5 = 15\text{ Rupees}$." },
             { id: 36, category: "math", qEng: "The longitudinal length of a rectangular plot is 50 m, and its overall surface area is measured at 300 sq.m. Find the lateral width dimension of the plot.", qHin: "एक आयताकार भूखंड की लंबाई 50 मीटर है और इसका कुल क्षेत्रफल 300 वर्ग मीटर है। भूखंड की चौड़ाई ज्ञात कीजिए।", options: [{key:"A",val:"5 m"},{key:"B",val:"6 m"},{key:"C",val:"7 m"},{key:"D",val:"8 m"}], correct: "B", explain: "$\text{Width} = \text{Area} / \text{Length} = 300 / 50 = 6\text{ m}$." },
@@ -1363,8 +1378,8 @@
             {
                 id: 99,
                 category: "mental",
-                qEng: "Complete the analog link line: $25 : 5 :: 36 : ?$",
-                qHin: "सादृश्य श्रृंखला को पूरा करें: $25 : 5 :: 36 : ?$",
+                qEng: "Complete the analog link line: [25 : 5 :: 36 : ?]",
+                qHin: "सादृश्य श्रृंखला को पूरा करें: [25 : 5 :: 36 : ?]",
                 options: [
                     {key: "A", val: "4"},
                     {key: "B", val: "6"},
@@ -2545,44 +2560,39 @@
                 explain: "Fought in October 1764 between Hector Munro's forces and the combined alignment of Mir Qasim, Shuja-ud-Daulah, and Shah Alam II. / अक्टूबर 1764 में हेक्टर मुनरो की सेना और मीर कासिम, शुजाउद्दौला तथा शाह आलम II की संयुक्त सेना के बीच यह युद्ध लड़ा गया था।"
             }
         ];
-        // Add your own questions here. Each object must include id, category, qEng, qHin, options, correct, explain.
-        // Use category values: "math", "mental", "hindi", or "gk".
-        const CUSTOM_QUESTIONS = [
-            // Example:
-            // {
-            //     id: 85,
-            //     category: "gk",
-            //     qEng: "Which planet is known as the Red Planet?",
-            //     qHin: "कौन सा ग्रह 'लाल ग्रह' के नाम से जाना जाता है?",
-            //     options: [{key:"A",val:"Mars"},{key:"B",val:"Venus"},{key:"C",val:"Jupiter"},{key:"D",val:"Saturn"}],
-            //     correct: "A",
-            //     explain: "Mars is called the Red Planet because of its reddish appearance caused by iron oxide on its surface."
-            // },
-        ];
 
         // ============================================== 
         // MULTI-SET FRAMEWORK CONFIGURATION
         // ============================================== 
         let chosenSetKey = "set1";
-
         const EXAM_SETS = {
-            "set1": {
-                "label": "Practice Set 1 ",
-                "math": MATH_DATA_FROM_PDF,
-                "mental": REASONING_DATA_FROM_PDF,
-                "hindi": HINDI_DATA_FROM_PDF,
-                "gk": GK_DATA_FROM_PDF
-            },
-            "set2": {
-                "label": "Practice Set 2 ",
-                "math": [],
-                "mental": [],
-                "hindi": [],
-                "gk": []
-            }
+            "set1": { "label": "Practice Set 1", "math": MATH_DATA_FROM_PDF, "mental": REASONING_DATA_FROM_PDF, "hindi": HINDI_DATA_FROM_PDF, "gk": GK_DATA_FROM_PDF },
+            "set2": { "label": "Practice Set 2", "math": MATH_DATA_FROM_PDF.slice().reverse(), "mental": REASONING_DATA_FROM_PDF.slice().reverse(), "hindi": HINDI_DATA_FROM_PDF.slice().reverse(), "gk": GK_DATA_FROM_PDF.slice().reverse() }
         };
 
         let COMPLETE_200_DATABASE = [];
+        let CUSTOM_QUESTIONS = []; // Custom questions array (initialized as empty)
+        // Active State variables
+        let examQuestionsList = []; // Subset of questions based on active mode
+        let currentQuestionIndex = 0;
+        let selectedAnswers = {}; // key: questionId, val: optionKey
+        let flaggedQuestions = {}; // key: questionId, val: bool
+        let countdownTimer = null;
+
+
+        // Mode-based time allocations (in seconds)
+        const TIME_MODE_MAP = {
+            'full': 7200,   // 120 minutes
+            'sprint': 1800, // 30 minutes
+            'math': 3000    // 50 minutes
+        };
+
+        let timeRemainingSeconds = TIME_MODE_MAP['full']; // default: full exam time
+        let isPracticeActive = false;
+        let activeExamMode = 'full';
+        let currentReviewFilter = 'all';
+        let soundOn = true;
+        let audioContext = null;
 
         function initCompleteDatabase() {
             COMPLETE_200_DATABASE = [];
@@ -2622,26 +2632,21 @@
             }
         }
 
-        // Active State variables
-        let examQuestionsList = []; // Subset of questions based on active mode
-        let currentQuestionIndex = 0;
-        let selectedAnswers = {}; // key: questionId, val: optionKey
-        let flaggedQuestions = {}; // key: questionId, val: bool
-        let countdownTimer = null;
 
-        // Mode-based time allocations (in seconds)
-        const TIME_MODE_MAP = {
-            'full': 7200,   // 120 minutes
-            'sprint': 1800, // 30 minutes
-            'math': 3000    // 50 minutes
-        };
 
-        let timeRemainingSeconds = TIME_MODE_MAP['full']; // default: full exam time
-        let isPracticeActive = false;
-        let activeExamMode = 'full';
-        let currentReviewFilter = 'all';
-        let soundOn = true;
-        let audioContext = null;
+        // // Mode-based time allocations (in seconds)
+        // const TIME_MODE_MAP = {
+        //     'full': 7200,   // 120 minutes
+        //     'sprint': 1800, // 30 minutes
+        //     'math': 3000    // 50 minutes
+        // };
+
+        // let timeRemainingSeconds = TIME_MODE_MAP['full']; // default: full exam time
+        // let isPracticeActive = false;
+        // let activeExamMode = 'full';
+        // let currentReviewFilter = 'all';
+        // let soundOn = true;
+        // let audioContext = null;
 
         // Custom Sound Effects Synthesizer using Web Audio API
         function playChime(chimeType) {
@@ -2782,6 +2787,12 @@
                 return;
             }
 
+            // Check if questions exist
+            if (COMPLETE_200_DATABASE.length === 0) {
+                alert("No questions loaded in the active set. Please add questions before launching the exam.");
+                return;
+            }
+
             // Prep database
             initCompleteDatabase();
             const totalDisplay = document.getElementById('totalQuestionsDisplay');
@@ -2835,8 +2846,13 @@
             document.getElementById('questionCounterHeader').innerText = `Question ${currentQuestionIndex + 1} of ${examQuestionsList.length}`;
 
             // Render texts
-            document.getElementById('displayQEng').innerText = q.qEng;
-            document.getElementById('displayQHin').innerText = q.qHin;
+            document.getElementById('displayQEng').innerHTML = q.qEng;
+            document.getElementById('displayQHin').innerHTML = q.qHin;
+
+            // Re-render MathJax to process LaTeX notation
+            if (window.MathJax) {
+                MathJax.typesetPromise().catch(err => console.log(err));
+            }
 
             // Render Options
             const container = document.getElementById('displayOptionsGrid');
@@ -3334,6 +3350,11 @@
 
                 container.appendChild(card);
             });
+
+            // Re-render MathJax to process LaTeX notation in explanations
+            if (window.MathJax) {
+                MathJax.typesetPromise().catch(err => console.log(err));
+            }
         }
 
         // RESET SYSTEM
@@ -3417,12 +3438,26 @@
             showConfirmModal(title, text, btnText, () => {}, null);
         }
 
+        // ============================================== 
+        // MATHJAX HELPER - reliable typeset on element
+        // ============================================== 
+        function typesetMath(element) {
+            if (!window.MathJax) return;
+            if (MathJax.typesetPromise) {
+                MathJax.typesetPromise(element ? [element] : []).catch(err => console.warn('MathJax:', err));
+            }
+        }
+
         // INITIALIZE ON PAGE LOAD
         document.addEventListener('DOMContentLoaded', () => {
             initCompleteDatabase();
             renderSetSelectionButtons();
             changeExamMode('full');
+            // Generate roll number on load
+            generateCustomRoll();
         });
+
+
 
     </script>
 </body>
