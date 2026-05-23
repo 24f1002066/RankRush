@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IGBV - RANKRUSH Premium Exam Prep</title>
+    <title>IGBV - RANKRUSH  Exam Prep</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
@@ -28,13 +28,35 @@
                         'neon-orange': '#FF6B35',
                         'metal-gold': '#D4AF37',
                         'teal-sea': '#0F7B8E',
+                        'brand': {
+                            50: '#f0f9fa',
+                            100: '#dcf2f5',
+                            200: '#bde2e8',
+                            500: '#0F7B8E',
+                            600: '#0d6575',
+                            700: '#0a4f5d',
+                            800: '#083f4b',
+                            900: '#052a32',
+                            950: '#02161b'
+                        }
                     }
                 }
             }
         }
     </script>
-    <style>
-        /* Premium scrollbars */
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0B0F19 0%, #1A2333 50%, #0B0F19 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -49,7 +71,6 @@
             background: linear-gradient(180deg, #FFD700, #FF8C42);
         }
 
-        /* Glassmorphism base */
         .glass {
             background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(20px);
@@ -65,26 +86,6 @@
             box-shadow: 0 0 30px rgba(212, 175, 55, 0.1), inset 0 0 20px rgba(212, 175, 55, 0.05);
         }
 
-        body {
-            background: linear-gradient(135deg, #0B0F19 0%, #1A2333 50%, #0B0F19 100%);
-            min-height: 100vh;
-        }
-
-        .panel-surface {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.22);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-        }
-
-        .panel-surface-alt {
-            background: rgba(10, 17, 35, 0.92);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.03);
-        }
-
-        /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -115,11 +116,6 @@
             }
         }
 
-        @keyframes fade-in {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         .animate-float {
             animation: float 3s ease-in-out infinite;
         }
@@ -132,26 +128,12 @@
             animation: slide-up 0.6s ease-out;
         }
 
-        .animate-fade-in {
-            animation: fade-in 0.8s ease-out;
-        }
-
-        /* Premium badges */
         .badge-neon {
             background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 107, 53, 0.1));
             border: 1px solid rgba(255, 107, 53, 0.6);
             color: #FF6B35;
         }
 
-        .icon-gradient {
-            background: linear-gradient(135deg, #D4AF37, #FFD700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-
-        /* Text gradients */
         .text-gradient {
             background: linear-gradient(135deg, #D4AF37, #FFD700, #D4AF37);
             -webkit-background-clip: text;
@@ -161,14 +143,6 @@
             background-size: 200% 200%;
         }
 
-        .text-gradient-orange {
-            background: linear-gradient(135deg, #FF6B35, #FF8C42);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Navigation hover effect */
         .nav-item {
             position: relative;
             padding: 8px 0;
@@ -194,7 +168,6 @@
             color: #D4AF37;
         }
 
-        /* Card hover effects */
         .card-hover {
             transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
         }
@@ -205,112 +178,9 @@
             border-color: rgba(212, 175, 55, 0.6);
         }
 
-        /* Premium header line */
         .header-divider {
             background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
             height: 1px;
-        }
-
-
-
-        /* Interactive OMR highlights */
-        .omr-bubble-active {
-            box-shadow: 0 0 8px rgba(2, 132, 199, 0.5);
-        }
-
-        /* Header Animations & Styles
-        @keyframes logoGlow {
-            0%, 100% {
-                box-shadow: 0 0 25px rgba(217, 119, 6, 0.6), 0 0 50px rgba(251, 191, 36, 0.3), inset 0 0 25px rgba(217, 119, 6, 0.2);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(217, 119, 6, 1), 0 0 80px rgba(251, 191, 36, 0.5), inset 0 0 40px rgba(217, 119, 6, 0.4);
-            }
-        } */
-
-        @keyframes shimmer {
-            0% {
-                background-position: -1000px 0;
-            }
-            100% {
-                background-position: 1000px 0;
-            }
-        }
-
-        @keyframes floatLogo {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        @keyframes pulse-ring {
-            0% {
-                box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(217, 119, 6, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
-            }
-        }
-
-        .logo-container {
-            animation: logoGlow 3s ease-in-out infinite, floatLogo 4s ease-in-out infinite;
-            background: linear-gradient(135deg, #ffffff, #f8fafc);
-        }
-
-        .logo-pulse {
-            animation: pulse-ring 2s infinite;
-        }
-
-        .header-shimmer {
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-            background-size: 1000px 100%;
-            animation: shimmer 4s infinite;
-        }
-
-        .nav-link {
-            position: relative;
-            transition: all 0.3s ease;
-            padding-bottom: 4px;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
-            transition: width 0.4s ease;
-        }
-
-        .nav-link:hover {
-            color: #fbbf24;
-            transform: translateY(-2px);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .stat-badge {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(251, 191, 36, 0.1));
-            border: 1.5px solid rgba(251, 191, 36, 0.5);
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-        }
-
-        .stat-badge:hover {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(217, 119, 6, 0.2));
-            border-color: rgba(251, 191, 36, 1);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(217, 119, 6, 0.2);
         }
     </style>
         <!-- MathJax for rendering mathematical notation -->
@@ -429,19 +299,16 @@
         <!-- ============================================== -->
         <!-- LOBBY / SETUP / MODE SELECTION                 -->
         <!-- ============================================== -->
-        <section id="lobbyScreen" class="w-full max-w-4xl mx-auto my-auto space-y-6 py-6 animate-fade-in">
-            
-            <!-- Information Hero -->
-            <div class="bg-white dark:bg-slate-800 panel-surface border border-slate-200 dark:border-slate-700/80 shadow-2xl rounded-2xl overflow-hidden">
-                <div class="p-6 md:p-8 bg-gradient-to-br from-brand-800 to-brand-900 text-white flex flex-col md:flex-row items-center justify-between gap-6">
-
+        <section id="lobbyScreen" class="w-full max-w-4xl mx-auto my-auto space-y-6 py-6">
+            <div class="glass rounded-2xl overflow-hidden border border-gray-700">
+                <div class="p-6 md:p-8 bg-gradient-to-br from-brand-900 to-brand-950 text-white flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="space-y-3 max-w-xl text-center md:text-left">
                         <span class="bg-amber-400/30 text-amber-300 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-widest border border-amber-400/40">
-                           IGBV
+                            IGBV
                         </span>
                         <h2 class="text-2xl md:text-3xl font-bold tracking-tight">IGBV MOCK QUESTIONS</h2>
                         <p class="text-slate-300 text-sm leading-relaxed">
-                            Prepare for the IGBV entrance exam with our comprehensive question bank featuring 50 mathematics problems, challenging reasoning sections, and specialized Hindi and GK categories. Practice with confidence using our advanced exam simulator.
+                            Prepare for the IGBV entrance exam with our flexible practice platform. Add and organize your custom question sets to build targeted practice sessions aligned with your preparation strategy.
                         </p>
                     </div>
                     <div class="bg-white/10 p-5 rounded-2xl border border-white/20 text-center flex-shrink-0 w-full md:w-auto">
@@ -453,84 +320,74 @@
                     </div>
                 </div>
 
-                <!-- Setup & Configuration form -->
-                <div class="p-6 md:p-8 space-y-6">
+                <div class="p-6 md:p-8 space-y-6 bg-premium-darker/60">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        
-                        <!-- Candidate Setup Form -->
                         <div class="space-y-4">
-                            <h3 class="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b pb-2 border-slate-100 dark:border-slate-700/50 flex items-center gap-2">
-                                <i class="fas fa-id-badge text-brand-500"></i> Profile Setup
+                            <h3 class="text-sm font-bold uppercase tracking-wider border-b pb-2 border-gray-700 flex items-center gap-2 text-metal-gold">
+                                <i class="fas fa-id-badge"></i> Profile Setup
                             </h3>
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Student Name / नाम</label>
-                                <input type="text" id="candidateNameInput" placeholder="E.g., Candidate Name" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white font-semibold focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                                <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Student Name / नाम</label>
+                                <input type="text" id="candidateNameInput" placeholder="E.g., Candidate Name" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-premium-dark text-white font-semibold focus:ring-2 focus:ring-brand-500 outline-none transition-all">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Roll Number / अनुक्रमांक</label>
+                                <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Roll Number / अनुक्रमांक</label>
                                 <div class="flex gap-2">
-                                    <input type="text" id="candidateRollInput" readonly class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-700/50 font-mono font-bold text-slate-600 dark:text-slate-300">
-                                    <button onclick="generateCustomRoll()" class="px-4 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-xl transition" title="Generate New Roll">
+                                    <input type="text" id="candidateRollInput" readonly class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-800 font-mono font-bold text-slate-300">
+                                    <button onclick="generateCustomRoll()" class="px-4 bg-gray-700 hover:bg-gray-600 rounded-xl transition" title="Generate New Roll">
                                         <i class="fas fa-sync-alt"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Practice Set Selection -->
                         <div id="setSelectionContainer" class="space-y-4">
-                            <h3 class="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b pb-2 border-slate-100 dark:border-slate-700/50 flex items-center gap-2">
-                                <i class="fas fa-database text-brand-500"></i> Question Sets
+                            <h3 class="text-sm font-bold uppercase tracking-wider border-b pb-2 border-gray-700 flex items-center gap-2 text-metal-gold">
+                                <i class="fas fa-database"></i> Question Sets
                             </h3>
-                            <div class="space-y-2" id="setButtonsGrid">
-                                <!-- Rendered dynamically by renderSetSelectionButtons() -->
-                            </div>
+                            <div class="space-y-2" id="setButtonsGrid"></div>
                         </div>
 
-                        <!-- Mode & Length config -->
                         <div class="space-y-4">
-                            <h3 class="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b pb-2 border-slate-100 dark:border-slate-700/50 flex items-center gap-2">
-                                <i class="fas fa-cog text-brand-500"></i> Choose Practice Mode
+                            <h3 class="text-sm font-bold uppercase tracking-wider border-b pb-2 border-gray-700 flex items-center gap-2 text-metal-gold">
+                                <i class="fas fa-cog"></i> Choose Practice Mode
                             </h3>
                             <div class="grid grid-cols-1 gap-3">
                                 <label class="flex items-center gap-4 p-3 rounded-xl border border-brand-500/30 bg-brand-500/5 cursor-pointer hover:bg-brand-500/10 transition-all">
                                     <input type="radio" name="examMode" value="full" checked onchange="changeExamMode('full')" class="w-5 h-5 accent-brand-500">
                                     <div>
-                                        <span class="text-sm font-bold block text-slate-800 dark:text-white">Full length Exam (200 Questions)</span>
-                                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Maths (50), Reasoning (50), Hindi (50), Science/SST/GK (50)</span>
+                                        <span class="text-sm font-bold block text-white">Full length Exam</span>
+                                        <span class="text-[11px] text-slate-400">Complete question set practice (120 minutes)</span>
                                     </div>
                                 </label>
-                                <label class="flex items-center gap-4 p-3 rounded-xl border border-slate-200 dark:border-slate-700/65 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                                <label class="flex items-center gap-4 p-3 rounded-xl border border-gray-700 cursor-pointer hover:bg-gray-800 transition-all">
                                     <input type="radio" name="examMode" value="sprint" onchange="changeExamMode('sprint')" class="w-5 h-5 accent-brand-500">
                                     <div>
-                                        <span class="text-sm font-bold block text-slate-800 dark:text-white">Quick Practice Sprint (30 Questions)</span>
-                                        <span class="text-[11px] text-slate-500 dark:text-slate-400">High-yield mixed selection of 30 key questions.</span>
+                                        <span class="text-sm font-bold block text-white">Quick Practice Sprint</span>
+                                        <span class="text-[11px] text-slate-400">Limited-time focused practice (30 minutes)</span>
                                     </div>
                                 </label>
-                                <label class="flex items-center gap-4 p-3 rounded-xl border border-slate-200 dark:border-slate-700/65 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                                <label class="flex items-center gap-4 p-3 rounded-xl border border-gray-700 cursor-pointer hover:bg-gray-800 transition-all">
                                     <input type="radio" name="examMode" value="math" onchange="changeExamMode('math')" class="w-5 h-5 accent-brand-500">
                                     <div>
-                                        <span class="text-sm font-bold block text-slate-800 dark:text-white">Mathematics Specialist (50 Questions)</span>
-                                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Complete 50 official bilingual math questions and concepts.</span>
+                                        <span class="text-sm font-bold block text-white">Topic Focus Practice</span>
+                                        <span class="text-[11px] text-slate-400">Specialized category practice (50 minutes)</span>
                                     </div>
                                 </label>
                             </div>
                         </div>
-
                     </div>
-                    <!-- Actions -->
-                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-slate-100 dark:border-slate-700/50">
-                        <p class="text-xs text-slate-500 text-center sm:text-left">
+
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-gray-700">
+                        <p class="text-xs text-slate-400 text-center sm:text-left">
                             <i class="fas fa-clock"></i> Simulates actual exam. Closing this tab clears temporary progress.
                         </p>
-                        <button onclick="launchExam()" class="w-full sm:w-auto px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white text-lg font-black rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
+                        <button onclick="launchExam()" class="w-full sm:w-auto px-8 py-4 bg-brand-700 hover:bg-brand-900 text-white text-lg font-black rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
                             ENTER MOCK ARENA <i class="fas fa-play"></i>
                         </button>
                     </div>
-
                 </div>
             </div>
-
         </section>
 
         <!-- ============================================== -->
@@ -2545,14 +2402,17 @@
         // ============================================== 
         // MULTI-SET FRAMEWORK CONFIGURATION
         // ============================================== 
+        // This section defines the question set selection.
+        // Change chosenSetKey to switch the default set,
+        // or modify EXAM_SETS to point to different question arrays.
         let chosenSetKey = "set1";
         const EXAM_SETS = {
             "set1": { "label": "Practice Set 1", "math": MATH_DATA_FROM_PDF, "mental": REASONING_DATA_FROM_PDF, "hindi": HINDI_DATA_FROM_PDF, "gk": GK_DATA_FROM_PDF },
             "set2": { "label": "Practice Set 2", "math": MATH_DATA_FROM_PDF.slice().reverse(), "mental": REASONING_DATA_FROM_PDF.slice().reverse(), "hindi": HINDI_DATA_FROM_PDF.slice().reverse(), "gk": GK_DATA_FROM_PDF.slice().reverse() }
         };
 
-        let COMPLETE_200_DATABASE = [];
-        let CUSTOM_QUESTIONS = []; // Custom questions array (initialized as empty)
+        let COMPLETE_200_DATABASE = []; // Combined exam database after all offsets are applied
+        let CUSTOM_QUESTIONS = []; // Add extra question objects here if you want custom items
         // Active State variables
         let examQuestionsList = []; // Subset of questions based on active mode
         let currentQuestionIndex = 0;
@@ -2562,6 +2422,7 @@
 
 
         // Mode-based time allocations (in seconds)
+        // Update these values to change the exam duration for each mode.
         const TIME_MODE_MAP = {
             'full': 7200,   // 120 minutes
             'sprint': 1800, // 30 minutes
@@ -2575,6 +2436,9 @@
         let soundOn = true;
         let audioContext = null;
 
+        // DATABASE INITIALIZATION
+        // This builds the full question list from the selected set.
+        // Change the exam order or category IDs here if you want custom sequencing.
         function initCompleteDatabase() {
             COMPLETE_200_DATABASE = [];
 
@@ -2630,6 +2494,7 @@
         // let audioContext = null;
 
         // Custom Sound Effects Synthesizer using Web Audio API
+        // Change or disable these sounds from here.
         function playChime(chimeType) {
             if (!soundOn) return;
             try {
@@ -2712,7 +2577,7 @@
                 btn.onclick = () => selectPracticeSet(setKey);
                 btn.className = `w-full text-left p-3 rounded-lg border-2 transition-all font-semibold text-sm ${
                     isActive 
-                    ? 'border-brand-500 bg-brand-500/10 text-brand-600 dark:text-brand-400 shadow-md' 
+                    ? 'border-brand-500 bg-brand-500/10 text-white dark:text-white shadow-md' 
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-300 dark:hover:border-brand-700'
                 }`;
                 
