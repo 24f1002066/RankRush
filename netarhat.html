@@ -233,7 +233,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <!-- <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                 <div class="glass-gold rounded-2xl px-8 py-6 text-center card-hover animate-slide-up" style="animation-delay: 0.1s">
                     <div class="text-5xl font-black text-gradient mb-2">3</div>
                     <p class="text-gray-400 text-sm font-semibold uppercase tracking-widest">Exams</p>
@@ -246,7 +246,7 @@
                     <div class="text-5xl font-black text-gradient mb-2">4</div>
                     <p class="text-gray-400 text-sm font-semibold uppercase tracking-widest">Categories</p>
                 </div>
-            </div>
+            </div> -->
 
             <div class="header-divider mb-12"></div>
 
@@ -375,8 +375,8 @@
                             <i class="fas fa-trophy text-amber-400 text-lg"></i>
                         </div>
                         <div>
-                            <h3 class="font-extrabold text-sm uppercase tracking-wider text-amber-300">🏆 Hall of Fame — Top 5 Rankers</h3>
-                            <p class="text-amber-200/60 text-[11px] mt-0.5">Live leaderboard • Updates after every exam submission</p>
+                            <h3 class="font-extrabold text-sm uppercase tracking-wider text-amber-300"> Hall of Fame — Top 5 Rankers</h3>
+                            <p class="text-amber-200/60 text-[11px] mt-0.5">Live leaderboard •</p>
                         </div>
                     </div>
                     <!-- Refresh button to re-fetch from Google Sheet -->
@@ -396,15 +396,15 @@
                     </div>
 
                     <!-- The actual top-5 table (hidden until data loads) -->
-                    <div id="lbTableWrap" class="hidden">
-                        <table class="w-full text-sm">
+                    <div id="lbTableWrap" class="hidden overflow-x-auto">
+                        <table class="w-full min-w-[760px] text-sm whitespace-nowrap">
                             <thead>
                                 <tr class="text-[10px] uppercase font-black text-slate-400 border-b border-slate-100 dark:border-slate-700">
                                     <th class="pb-2 text-center w-10">Rank</th>
                                     <th class="pb-2 text-left pl-3">Name</th>
                                     <th class="pb-2 text-center">Score</th>
-                                    <th class="pb-2 text-center hidden sm:table-cell">Mode / Set</th>
-                                    <th class="pb-2 text-center hidden md:table-cell">Date</th>
+                                    <th class="pb-2 text-center">Mode / Set</th>
+                                    <th class="pb-2 text-center">Date</th>
                                 </tr>
                             </thead>
                             <tbody id="lbTableBody">
@@ -803,12 +803,12 @@
                         <span class="font-black text-slate-800 dark:text-white text-sm">${score}/${total}</span>
                         <span class="ml-1 text-[11px] font-bold px-1.5 py-0.5 rounded ${pctColor}">${pct}%</span>
                     </td>
-                    <td class="py-3 text-center hidden sm:table-cell">
+                    <td class="py-3 text-center">
                         <span class="text-[10px] font-bold uppercase text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">
                             ${escapeHtml(mode)} / ${escapeHtml(set)}
                         </span>
                     </td>
-                    <td class="py-3 text-center hidden md:table-cell text-[11px] text-slate-400 font-semibold">${escapeHtml(dateStr)}</td>
+                    <td class="py-3 text-center text-[11px] text-slate-400 font-semibold">${escapeHtml(dateStr)}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -1088,6 +1088,8 @@
             if (!soundOn) return;
             try {
                 if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                // Some mobile browsers require a resume on user gesture
+                if (audioContext.state === 'suspended' && audioContext.resume) audioContext.resume().catch(() => {});
                 const osc = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
                 osc.connect(gainNode);
@@ -1109,13 +1111,25 @@
 
         function toggleSound() {
             soundOn = !soundOn;
+            // persist preference
+            try { localStorage.setItem('rankrush_sound', soundOn ? '1' : '0'); } catch(e) {}
+            updateSoundUI();
+            // play a tiny feedback when enabling
+            if (soundOn) playChime('click');
+        }
+
+        // Update sound button UI to reflect current `soundOn` state
+        function updateSoundUI() {
             const btn = document.getElementById('soundToggleBtn');
+            if (!btn) return;
             const icon = document.getElementById('soundIcon');
             const label = btn.querySelector('span');
             if (soundOn) {
-                icon.className = "fas fa-volume-up text-emerald-400"; label.innerText = "Chimes On"; playChime('click');
+                icon.className = "fas fa-volume-up text-emerald-400";
+                label.innerText = "Sound On";
             } else {
-                icon.className = "fas fa-volume-mute text-slate-400"; label.innerText = "Chimes Off";
+                icon.className = "fas fa-volume-mute text-slate-400";
+                label.innerText = "Sound Off";
             }
         }
 
@@ -1474,6 +1488,12 @@
         
         document.addEventListener('DOMContentLoaded', () => {
             initCompleteDatabase(); renderSetSelectionButtons(); changeExamMode('full'); generateCustomRoll();
+            // restore sound preference and sync UI
+            try {
+                const savedSound = localStorage.getItem('rankrush_sound');
+                if (savedSound !== null) soundOn = savedSound === '1';
+            } catch(e) {}
+            updateSoundUI();
             // Load leaderboard from Google Sheet
             fetchLeaderboard();
         });

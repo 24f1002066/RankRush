@@ -449,33 +449,50 @@
         function playChime(chimeType) {
             if (!soundOn) return;
             try {
-                if (!audioContext) {
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                }
+                if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                // Some mobile browsers require a resume on user gesture
+                if (audioContext.state === 'suspended' && audioContext.resume) audioContext.resume().catch(() => {});
                 const osc = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
                 osc.connect(gainNode);
                 gainNode.connect(audioContext.destination);
 
                 if (chimeType === 'click') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(800, audioContext.currentTime);
-                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-                    osc.start(audioContext.currentTime);
-                    osc.stop(audioContext.currentTime + 0.1);
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(550, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.04, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+                    osc.start(); osc.stop(audioContext.currentTime + 0.1);
+                } else if (chimeType === 'success') {
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(600, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.06, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
+                    osc.start(); osc.stop(audioContext.currentTime + 0.3);
                 }
-            } catch (e) {
-                console.log('Audio not available');
-            }
+            } catch (e) { console.warn(e); }
         }
 
         function toggleSound() {
             soundOn = !soundOn;
+            // persist preference
+            try { localStorage.setItem('rankrush_sound', soundOn ? '1' : '0'); } catch(e) {}
+            updateSoundUI();
+            // play a tiny feedback when enabling
+            if (soundOn) playChime('click');
+        }
+
+        // Update sound button UI to reflect current `soundOn` state
+        function updateSoundUI() {
+            const btn = document.getElementById('soundToggleBtn');
+            if (!btn) return;
             const icon = document.getElementById('soundIcon');
-            icon.classList.toggle('fa-volume-up');
-            icon.classList.toggle('fa-volume-mute');
-            playChime('click');
+            const label = btn.querySelector('span');
+            if (soundOn) {
+                icon.className = "fas fa-volume-up text-emerald-400";
+                label.innerText = "Sound On";
+            } else {
+                icon.className = "fas fa-volume-mute text-slate-400";
+                label.innerText = "Sound Off";
+            }
         }
     </script>
 
