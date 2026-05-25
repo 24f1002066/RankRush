@@ -560,54 +560,68 @@
             </div>
         </section>
 
-        <section id="resultScreen" class="hidden w-full max-w-5xl mx-auto space-y-6 py-4">
-            <div class="glass border border-gray-700 shadow-2xl rounded-3xl overflow-hidden">
+        <section id="resultScreen" class="hidden w-full max-w-5xl mx-auto space-y-6 py-4 animate-fade-in">
+            <div class="bg-white dark:bg-slate-800 panel-surface border-2 border-slate-200 dark:border-slate-700/80 shadow-2xl rounded-3xl overflow-hidden">
                 <div class="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-900 text-white p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border-b-4 border-amber-500">
-                    <div class="space-y-2 text-center md:text-left">
-                        <span class="bg-emerald-500 text-black text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">Evaluation Complete</span>
-                        <h2 class="text-3xl md:text-4xl font-black text-white">Performance Summary</h2>
-                        <p id="resultCandidateLabel" class="text-slate-300 text-sm">Candidate Details Loading...</p>
-                        <p id="resultPassBadge" class="mt-1"></p>
+                    <div class="space-y-2.5 text-center md:text-left">
+                        <span class="bg-emerald-500 text-brand-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                            Examination Complete
+                        </span>
+                        <h2 class="text-3xl font-serif font-black text-amber-400 drop-shadow">NETARHAT MOCK EXAM REPORT CARD</h2>
+                        <div class="text-slate-300 text-xs font-medium">
+                            <p id="resultCandidateLabel">Name: Candidate Name | Roll: NET-2026-2001</p>
+                            <p class="mt-1">Date: <span id="resultTimeStamp">May 25, 2026</span></p>
+                        </div>
                     </div>
-                    <div class="text-center flex-shrink-0 flex flex-col items-center">
-                        <svg class="w-24 h-24 transform -rotate-90">
-                            <circle cx="48" cy="48" r="40" stroke="#374151" stroke-width="8" fill="transparent" />
-                            <circle id="scoreProgressCircle" cx="48" cy="48" r="40" stroke="#10b981" stroke-width="8" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="251.2" />
-                        </svg>
-                        <div class="text-3xl font-black text-amber-400 mt-2" id="scorePercentage">0%</div>
-                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider" id="resultTotalScore">0/0</div>
+
+                    <div class="bg-white/5 border border-white/10 p-4 rounded-2xl flex items-center gap-4">
+                        <div class="relative w-24 h-24 flex items-center justify-center">
+                            <svg class="absolute inset-0 transform -rotate-90" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" stroke="rgba(255, 255, 255, 0.1)" stroke-width="10" fill="transparent"></circle>
+                                <circle id="scoreProgressCircle" cx="50" cy="50" r="40" stroke="#f59e0b" stroke-width="10" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="0" class="transition-all duration-1000"></circle>
+                            </svg>
+                            <div class="text-center z-10">
+                                <div class="text-2xl font-black text-amber-400" id="resultTotalScore">0/200</div>
+                                <div class="text-[9px] uppercase font-bold text-slate-300">Marks</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] uppercase font-bold text-slate-300">Passing Status</div>
+                            <div class="text-lg font-black" id="resultPassBadge">PROVISIONALLY PASS</div>
+                            <div class="text-xs text-slate-400" id="resultPercentage">Success: 0%</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="p-6 md:p-8 grid grid-cols-2 md:grid-cols-5 gap-4 bg-premium-darker/40">
-                    <div class="bg-gray-800/60 p-4 rounded-xl text-center border border-gray-700">
-                        <div class="text-2xl font-black text-emerald-400" id="statCorrect">0</div>
-                        <div class="text-xs font-bold uppercase text-slate-400 mt-1">Correct</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 md:p-8">
+                    <div class="bg-emerald-500/10 dark:bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Correct Attempts</div>
+                        <div class="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-1" id="statCorrect">0</div>
                     </div>
-                    <div class="bg-gray-800/60 p-4 rounded-xl text-center border border-gray-700">
-                        <div class="text-2xl font-black text-rose-400" id="statWrong">0</div>
-                        <div class="text-xs font-bold uppercase text-slate-400 mt-1">Wrong</div>
+                    <div class="bg-red-500/10 dark:bg-red-500/5 border border-red-500/20 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Wrong / Mistakes</div>
+                        <div class="text-3xl font-black text-red-600 dark:text-red-400 mt-1" id="statWrong">0</div>
                     </div>
-                    <div class="bg-gray-800/60 p-4 rounded-xl text-center border border-gray-700">
-                        <div class="text-2xl font-black text-amber-400" id="statSkipped">0</div>
-                        <div class="text-xs font-bold uppercase text-slate-400 mt-1">Skipped</div>
+                    <div class="bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Skipped / Left</div>
+                        <div class="text-3xl font-black text-amber-500 mt-1" id="statSkipped">0</div>
                     </div>
-                    <div class="bg-gray-800/60 p-4 rounded-xl text-center border border-gray-700">
-                        <div class="text-2xl font-black text-teal-400" id="statTime">00:00</div>
-                        <div class="text-xs font-bold uppercase text-slate-400 mt-1">Time Taken</div>
-                    </div>
-                    <div class="bg-gray-800/60 p-4 rounded-xl text-center border border-gray-700 col-span-2 md:col-span-1">
-                        <div class="text-[11px] font-mono font-bold text-slate-300" id="resultTimeStamp">--</div>
-                        <div class="text-xs font-bold uppercase text-slate-400 mt-1">Timestamp</div>
+                    <div class="bg-brand-500/10 dark:bg-brand-500/5 border border-brand-500/20 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Time Elapsed</div>
+                        <div class="text-3xl font-black text-brand-600 dark:text-brand-400 mt-1" id="statTime">00:00</div>
                     </div>
                 </div>
 
-                <div class="p-6 md:p-8 border-t border-gray-700 bg-premium-dark/30">
-                    <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Subject Wise Performance</h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4" id="subjectBreakdownContainer"></div>
+                <div class="px-6 md:px-8 pb-8 space-y-4">
+                    <h3 class="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b pb-2 border-slate-100 dark:border-slate-700/50 flex items-center gap-1.5">
+                        <i class="fas fa-chart-bar text-brand-500"></i> Subject-wise Accuracy breakdown
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="subjectBreakdownContainer">
+                        <!-- Dynamic stats loaded -->
+                    </div>
                 </div>
 
-                <div class="p-6 md:p-8 flex flex-col sm:flex-row gap-4 border-t border-gray-700 bg-premium-darker/60">
+                <div class="p-6 md:p-8 flex flex-col sm:flex-row gap-4 border-t border-slate-100 dark:border-slate-700/50 bg-white/5">
                     <button onclick="backToLobby()" class="flex-1 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-xl transition flex items-center justify-center gap-2">
                         <i class="fas fa-arrow-left"></i> Back to Lobby
                     </button>
@@ -1348,10 +1362,21 @@
 
         function promptSubmitTest() {
             const count = Object.keys(selectedAnswers).length;
-            showConfirmModal("Evaluate Answers", `You have answered ${count} of ${examQuestionsList.length} questions. Submit for immediate automatic grading?`, "Evaluate Test", triggerPostExamEvaluation);
+            const left = examQuestionsList.length - count;
+
+            let promptMsg = `You have answered <strong>${count} of ${examQuestionsList.length}</strong> questions.<br>`;
+            if (left > 0) {
+                promptMsg += `<span class="text-rose-500 font-bold">Warning: ${left} questions are still left blank.</span><br>`;
+            }
+            promptMsg += "Are you ready to submit your responses and trigger instant automatic evaluation?";
+
+            showConfirmModal("Evaluate Answers", promptMsg, "Evaluate Test", triggerPostExamEvaluation, "Keep Practicing");
         }
 
-        function autoSubmitExamOnTimeout() { triggerPostExamEvaluation(); }
+        function autoSubmitExamOnTimeout() {
+            triggerPostExamEvaluation();
+            showSimpleAlert("Time limit reached", "Your allotted time has finished completely. All recorded responses have been processed successfully.", "See Report");
+        }
 
         function triggerPostExamEvaluation() {
             isPracticeActive = false; clearInterval(countdownTimer);
@@ -1368,7 +1393,6 @@
             });
 
             const pct = Math.round((correct / examQuestionsList.length) * 100);
-            document.getElementById('scorePercentage').innerText = `${pct}%`;
             document.getElementById('resultTotalScore').innerText = `${correct}/${examQuestionsList.length}`;
             document.getElementById('scoreProgressCircle').style.strokeDashoffset = 251.2 - (251.2 * pct) / 100;
             
@@ -1383,7 +1407,6 @@
             const name = document.getElementById('candidateNameInput').value;
             const roll = document.getElementById('candidateRollInput').value;
             document.getElementById('resultCandidateLabel').innerHTML = `Candidate: <b>${name}</b> | Roll: <b>${roll}</b>`;
-            document.getElementById('resultTimeStamp').innerText = new Date().toLocaleDateString();
 
             const passBadge = document.getElementById('resultPassBadge');
             if(pct >= 45) {
@@ -1501,14 +1524,19 @@
             renderCurrentQuestion(); buildOMRGridSheet(); updateLiveProgressStrip(); startTimerCountdown(); playChime('success');
         }
 
-        function showConfirmModal(title, text, primaryText, action) {
+        function showConfirmModal(title, text, primaryText, action, secondaryText = "Cancel") {
             document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalBodyText').innerText = text;
+            const body = document.getElementById('modalBodyText');
+            if (typeof text === 'string' && /[<>]/.test(text)) {
+                body.innerHTML = text;
+            } else {
+                body.innerText = text;
+            }
             const actions = document.getElementById('modalActions');
             actions.innerHTML = "";
 
             const cBtn = document.createElement('button');
-            cBtn.innerText = "Cancel"; cBtn.className = "px-4 py-2 text-xs font-bold text-slate-400 hover:bg-gray-800 rounded-lg";
+            cBtn.innerText = secondaryText; cBtn.className = "px-4 py-2 text-xs font-bold text-slate-400 hover:bg-gray-800 rounded-lg";
             cBtn.onclick = closeModal;
             actions.appendChild(cBtn);
 
