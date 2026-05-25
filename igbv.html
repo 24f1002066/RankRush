@@ -2780,6 +2780,13 @@
             'math': 3000    // 50 minutes
         };
 
+        const SUBJECT_LABELS = {
+            math: "Maths",
+            mental: "Mental Ability",
+            hindi: "Hindi",
+            gk: "General Knowledge"
+        };
+
         let timeRemainingSeconds = TIME_MODE_MAP['full']; // default: full exam time
         let isPracticeActive = false;
         let activeExamMode = 'full';
@@ -3350,13 +3357,15 @@
                 const stat = categoryStats[key];
                 if (stat.total === 0) return; // avoid division by zero if section doesn't exist
 
+                const displayName = SUBJECT_LABELS[key] || key.toUpperCase();
                 const accuracyPct = Math.round((stat.correct / stat.total) * 100);
                 const widget = document.createElement('div');
                 widget.className = "bg-slate-50 dark:bg-slate-700/40 p-4 rounded-xl border border-slate-100 dark:border-slate-700/60";
 
                 widget.innerHTML = `
-                    <div class="text-[10px] font-black uppercase tracking-wider text-slate-400">${key.toUpperCase()} ACCURACY</div>
+                    <div class="text-[10px] font-black uppercase tracking-wider text-slate-400">${displayName}</div>
                     <div class="text-2xl font-black text-slate-800 dark:text-white mt-1">${stat.correct}/${stat.total}</div>
+                    <div class="text-[11px] text-slate-500 dark:text-slate-300 mt-1">Out of ${stat.total} ${displayName} questions</div>
                     <div class="mt-2">
                         <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
                             <div class="h-full ${accuracyPct >= 70 ? 'bg-emerald-500' : accuracyPct >= 40 ? 'bg-amber-500' : 'bg-rose-500'}" style="width: ${accuracyPct}%"></div>
