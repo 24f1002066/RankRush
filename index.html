@@ -42,6 +42,9 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             background: linear-gradient(135deg, #0B0F19 0%, #1A2333 50%, #0B0F19 100%);
             background-attachment: fixed;
@@ -204,6 +207,49 @@
             background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
             height: 1px;
         }
+
+
+        /* ══════════════════════════════════════════════════════════
+           FEEDBACK SECTION STYLES
+           These styles control the star rating form and the
+           review cards displayed below it.
+        ══════════════════════════════════════════════════════════ */
+ 
+        /* Star buttons inside the submit form — dim by default, gold when active */
+        .star-btn {
+            font-size: 2rem;
+            cursor: pointer;
+            color: rgba(255,255,255,0.2);
+            transition: color 0.2s, transform 0.15s;
+            background: none;
+            border: none;
+            padding: 0 3px;
+        }
+        .star-btn:hover, .star-btn.active {
+            color: #D4AF37;
+            transform: scale(1.2);
+        }
+ 
+        /* Each review card displayed in the grid */
+        .feedback-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 1rem;
+            padding: 1.25rem 1.5rem;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .feedback-card:hover {
+            border-color: rgba(212,175,55,0.55);
+            transform: translateY(-4px);
+        }
+ 
+        /* Filled and empty stars shown inside review cards */
+        .star-filled { color: #D4AF37; }
+        .star-empty  { color: rgba(255,255,255,0.15); }
+ 
+        /* Spinning loader animation */
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spin { animation: spin 0.9s linear infinite; display: inline-block; }
     </style>
 </head>
 <body class="text-white font-sans">
@@ -279,6 +325,8 @@
                         <li><a href="netarhat.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-book text-metal-gold"></i>Netarhat</a></li>
                         <li class="text-metal-gold/40 text-2xl">•</li>
                         <li><a href="igbv.html" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-graduation-cap text-metal-gold"></i>IGBV</a></li>
+                        <li class="text-metal-gold/40 text-2xl">•</li>
+                        <li><a href="#feedbackSection" class="nav-item flex items-center gap-2 text-gray-300 font-semibold uppercase text-sm tracking-wide"><i class="fas fa-comment-dots text-metal-gold"></i>Feedback</a></li>
                     </ul>
                 </nav>
 
@@ -316,7 +364,7 @@
                 </div>
             </div>
 
-            <!-- SSC Featured Card -->
+            <!-- JNV Featured Card -->
             <div class="glass-gold rounded-3xl overflow-hidden card-hover animate-slide-up" style="animation-delay: 0.5s">
                 <div class="bg-gradient-to-br from-blue-900/40 to-indigo-900/20 p-8">
                     <div class="mb-6">
@@ -434,6 +482,145 @@
         </section>
     </main>
 
+
+    <!-- ════════════════════════════════════════════════════════════════
+    FEEDBACK SECTION
+    Two parts:
+    A) Submit Form  — user picks stars + types a message + name
+    B) Reviews Grid — fetched live from Google Sheet CSV
+    Both talk to Google Sheets (see JS config below).
+    ════════════════════════════════════════════════════════════════ -->
+    <section class="max-w-7xl mx-auto px-4 mt-20 mb-12" id="feedbackSection">
+ 
+        <!-- Section heading -->
+        <div class="text-center mb-12">
+            <span class="badge-neon px-5 py-2 rounded-full font-bold text-xs uppercase tracking-widest inline-block mb-4">
+                <i class="fas fa-comments mr-2"></i>Community
+            </span>
+            <h2 class="text-4xl md:text-5xl font-black font-serif text-white mb-3">
+                <span class="text-gradient">Student Reviews</span>
+            </h2>
+            <p class="text-gray-400 text-base max-w-xl mx-auto">
+                Share your experience with RankRush. Your feedback helps us improve and inspires others.
+            </p>
+        </div>
+ 
+        <!-- ── A. SUBMIT FEEDBACK FORM ────────────────────────────────── -->
+        <div class="glass-gold rounded-3xl p-8 md:p-10 mb-12 animate-slide-up">
+            <h3 class="text-2xl font-black text-white mb-6 flex items-center gap-3">
+                <i class="fas fa-pen-to-square text-metal-gold"></i>
+                Leave Your Review
+            </h3>
+ 
+            <!-- Star Rating Picker -->
+            <div class="mb-6">
+                <p class="text-gray-400 text-sm uppercase tracking-widest mb-3">Your Rating</p>
+                <!-- Each button calls setRating(n) defined in JS below -->
+                <div class="flex gap-1" id="starPicker">
+                    <button class="star-btn" data-val="1" onclick="setRating(1)" title="1 star">&#9733;</button>
+                    <button class="star-btn" data-val="2" onclick="setRating(2)" title="2 stars">&#9733;</button>
+                    <button class="star-btn" data-val="3" onclick="setRating(3)" title="3 stars">&#9733;</button>
+                    <button class="star-btn" data-val="4" onclick="setRating(4)" title="4 stars">&#9733;</button>
+                    <button class="star-btn" data-val="5" onclick="setRating(5)" title="5 stars">&#9733;</button>
+                </div>
+                <!-- Shows "3 / 5 stars" text after selection -->
+                <p class="text-metal-gold text-sm mt-2 font-semibold" id="ratingLabel">Tap a star to rate</p>
+            </div>
+ 
+            <!-- Name + Message inputs -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        Your Name <span class="text-red-400">*</span>
+                    </label>
+                    <input id="fbName" type="text" placeholder="e.g. Priya Sharma"
+                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10
+                               text-white placeholder-gray-500 text-sm font-semibold
+                               focus:outline-none focus:border-metal-gold/60 transition-all">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        Exam Prepared For
+                    </label>
+                    <!-- Dropdown so data in sheet is consistent -->
+                    <select id="fbExam"
+                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10
+                               text-white text-sm font-semibold
+                               focus:outline-none focus:border-metal-gold/60 transition-all">
+                        <option value="General" class="bg-slate-900">General / All</option>
+                        <option value="IGBV"    class="bg-slate-900">IGBV</option>
+                        <option value="JNV"     class="bg-slate-900">JNV</option>
+                        <option value="Netarhat" class="bg-slate-900">Netarhat</option>
+                    </select>
+                </div>
+            </div>
+ 
+            <div class="mb-6">
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                    Your Feedback <span class="text-red-400">*</span>
+                </label>
+                <textarea id="fbMessage" rows="3" placeholder="Tell others what you think about RankRush..."
+                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10
+                           text-white placeholder-gray-500 text-sm font-semibold
+                           focus:outline-none focus:border-metal-gold/60 transition-all resize-none">
+                </textarea>
+            </div>
+ 
+            <!-- Submit button + status message -->
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+                <button onclick="submitFeedback()"
+                    class="px-8 py-3 bg-gradient-to-r from-metal-gold to-yellow-500
+                           text-black font-black rounded-xl uppercase tracking-widest
+                           text-sm hover:shadow-lg hover:shadow-yellow-500/30
+                           transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-paper-plane"></i> Submit Review
+                </button>
+                <!-- Status text (success / error / loading) -->
+                <p id="fbStatus" class="text-sm font-semibold hidden"></p>
+            </div>
+        </div>
+ 
+        <!-- ── B. REVIEWS DISPLAY GRID ────────────────────────────────── -->
+        <div>
+            <!-- Header row: title + refresh button -->
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-black text-white flex items-center gap-3">
+                    <i class="fas fa-star text-metal-gold"></i>
+                    What Students Say
+                </h3>
+                <!-- Manual refresh button — re-fetches the sheet CSV -->
+                <button onclick="fetchFeedbacks()"
+                    class="glass rounded-xl px-4 py-2 text-xs font-bold text-gray-300
+                           hover:glass-gold transition-all flex items-center gap-2 uppercase tracking-widest">
+                    <i class="fas fa-sync-alt" id="fbRefreshIcon"></i> Refresh
+                </button>
+            </div>
+ 
+            <!-- Average rating summary bar (shown once feedbacks load) -->
+            <div id="fbSummaryBar" class="hidden glass-gold rounded-2xl p-5 mb-6 flex flex-col sm:flex-row items-center gap-4">
+                <div class="text-center">
+                    <!-- Big average number like "4.6" -->
+                    <div class="text-5xl font-black text-gradient" id="fbAvgScore">—</div>
+                    <!-- Stars row for the average -->
+                    <div class="flex justify-center gap-0.5 mt-1" id="fbAvgStars"></div>
+                    <div class="text-xs text-gray-400 mt-1 uppercase tracking-widest" id="fbTotalCount"></div>
+                </div>
+                <div class="flex-1 text-sm text-gray-300 leading-relaxed hidden sm:block">
+                    Based on real student reviews. Submit yours to contribute to the community score.
+                </div>
+            </div>
+ 
+            <!-- Loading / error status for the reviews list -->
+            <div id="fbLoadStatus" class="text-center py-10 text-gray-400 text-sm">
+                <i class="fas fa-circle-notch spin text-metal-gold text-xl mb-2 block"></i>
+                Loading reviews...
+            </div>
+ 
+            <!-- The reviews grid — cards are injected here by renderFeedbacks() -->
+            <div id="fbGrid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </div>
+    </section>
+
     <!-- Premium Footer -->
     <footer class="border-t border-white/5 mt-20 py-8 px-4 text-center text-gray-500 text-sm">
         <div class="max-w-7xl mx-auto">
@@ -494,7 +681,392 @@
                 label.innerText = "Sound Off";
             }
         }
-    </script>
 
+
+        
+    </script>
+    <script>
+
+ 
+    const FEEDBACK_CONFIG = {
+        SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxPWObnsujYeoBD9tmhyiJmLCkegbohNHZuOu5U4T-IgzVl-PoHiSAf-8u6cYqbyclW1RK48bpRlyk/pub?output=csv",
+        
+        APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwYko5uP6NkVGIQIBgxMTRkgjPH1yapxU0iDAmHkvo50WotHZcZCvkMDBINQPb1hlsa/exec",
+        
+        MAX_DISPLAY: 9
+    };
+ 
+    // ════════════════════════════════════════════════════════════════
+    // STAR RATING PICKER
+    // Tracks which star the user clicked and updates the UI.
+    // ════════════════════════════════════════════════════════════════
+ 
+    // Holds the currently selected star value (1–5). 0 = nothing selected yet.
+    let selectedRating = 0;
+ 
+    // Called when user clicks a star button
+    function setRating(val) {
+        selectedRating = val;
+ 
+        // Loop through all star buttons, update class and explicit color state.
+        document.querySelectorAll('.star-btn').forEach(btn => {
+            const btnVal = parseInt(btn.dataset.val);
+            const active = btnVal <= val;
+            btn.classList.toggle('active', active);
+            btn.style.color = active ? '#D4AF37' : 'rgba(255,255,255,0.2)';
+        });
+ 
+        // Update the text label beneath the stars e.g. "4 / 5 stars"
+        document.getElementById('ratingLabel').textContent =
+            (val > 0 ? (val + ' / 5 star' + (val > 1 ? 's' : '')) : 'Tap a star to rate');
+    }
+ 
+    // Hover preview: light up stars as the user hovers (without committing)
+    document.querySelectorAll('.star-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            const hoverVal = parseInt(btn.dataset.val);
+            document.querySelectorAll('.star-btn').forEach(b => {
+                b.style.color = parseInt(b.dataset.val) <= hoverVal
+                    ? '#D4AF37'
+                    : 'rgba(255,255,255,0.2)';
+            });
+        });
+        // On mouse-leave, restore to whatever was actually selected
+        btn.addEventListener('mouseleave', () => {
+            document.querySelectorAll('.star-btn').forEach(b => {
+                const bVal = parseInt(b.dataset.val);
+                b.style.color = bVal <= selectedRating
+                    ? '#D4AF37'
+                    : 'rgba(255,255,255,0.2)';
+            });
+        });
+    });
+ 
+ 
+    // ════════════════════════════════════════════════════════════════
+    // SUBMIT FEEDBACK
+    // Validates inputs, calls the Apps Script URL, and on success
+    // clears the form and refreshes the reviews list.
+    // ════════════════════════════════════════════════════════════════
+ 
+    // Guard: prevents the same user from double-submitting in one page load
+    let feedbackSubmitted = false;
+ 
+    async function submitFeedback() {
+ 
+        // Don't allow submitting twice without reloading the page
+        if (feedbackSubmitted) return;
+ 
+        const name    = document.getElementById('fbName').value.trim();
+        const exam    = document.getElementById('fbExam').value;
+        const message = document.getElementById('fbMessage').value.trim();
+        const status  = document.getElementById('fbStatus');
+ 
+        // ── Client-side validation ──────────────────────────────────
+        if (!name) {
+            showFbStatus('Please enter your name.', 'error');
+            return;
+        }
+        if (selectedRating === 0) {
+            showFbStatus('Please select a star rating.', 'error');
+            return;
+        }
+        if (!message) {
+            showFbStatus('Please write your feedback message.', 'error');
+            return;
+        }
+        if (message.length < 10) {
+            showFbStatus('Feedback is too short — write at least 10 characters.', 'error');
+            return;
+        }
+ 
+        // ── Check if Apps Script URL is configured ──────────────────
+        if (!FEEDBACK_CONFIG.APPS_SCRIPT_URL) {
+            showFbStatus('⚙️ Apps Script URL not configured yet. See code comments.', 'error');
+            return;
+        }
+ 
+        // ── Send to Google Sheet ────────────────────────────────────
+        showFbStatus('Submitting...', 'loading');
+ 
+        try {
+            // Build URL params — each key matches what the Apps Script reads
+            const params = new URLSearchParams({
+                name:    name,
+                exam:    exam,
+                rating:  selectedRating,
+                message: message
+            });
+ 
+            const url = FEEDBACK_CONFIG.APPS_SCRIPT_URL + '?' + params.toString();
+ 
+            // mode:"no-cors" avoids CORS errors with Apps Script.
+            // We won't see the response body, but the sheet still gets the data.
+            await fetch(url, { method: 'GET', mode: 'no-cors' });
+ 
+            // Mark submitted so the button can't fire again
+            feedbackSubmitted = true;
+ 
+            showFbStatus('✅ Thank you! Your review has been submitted.', 'success');
+            playChime('success');
+ 
+            // Clear the form fields
+            document.getElementById('fbName').value    = '';
+            document.getElementById('fbMessage').value = '';
+            document.getElementById('fbExam').value    = 'General';
+            setRating(0);
+ 
+            // Wait 2.5 seconds then refresh the reviews grid so the
+            // new entry might already appear (Apps Script is usually fast)
+            setTimeout(() => fetchFeedbacks(), 2500);
+ 
+        } catch (err) {
+            console.error('Feedback submit error:', err);
+            showFbStatus('❌ Something went wrong. Please try again.', 'error');
+        }
+    }
+ 
+    // Helper: shows a coloured status message under the submit button
+    function showFbStatus(msg, type) {
+        const el = document.getElementById('fbStatus');
+        el.textContent = msg;
+        el.classList.remove('hidden', 'text-red-400', 'text-green-400', 'text-gray-400');
+        if (type === 'error')   el.classList.add('text-red-400');
+        if (type === 'success') el.classList.add('text-green-400');
+        if (type === 'loading') el.classList.add('text-gray-400');
+    }
+ 
+ 
+    // ════════════════════════════════════════════════════════════════
+    // FETCH & RENDER REVIEWS FROM GOOGLE SHEET
+    // Called on page load and when user clicks the Refresh button.
+    // ════════════════════════════════════════════════════════════════
+ 
+    async function fetchFeedbacks() {
+        const loadEl   = document.getElementById('fbLoadStatus');
+        const gridEl   = document.getElementById('fbGrid');
+        const summaryEl= document.getElementById('fbSummaryBar');
+        const refreshIcon = document.getElementById('fbRefreshIcon');
+ 
+        // Spin the refresh icon while loading
+        refreshIcon.classList.add('spin');
+ 
+        // Show loading state
+        loadEl.innerHTML = '<i class="fas fa-circle-notch spin text-metal-gold text-xl mb-2 block"></i> Loading reviews...';
+        loadEl.classList.remove('hidden');
+        gridEl.classList.add('hidden');
+        summaryEl.classList.add('hidden');
+ 
+        // If CSV URL is not configured, show the setup hint and stop
+        if (!FEEDBACK_CONFIG.SHEET_CSV_URL) {
+            loadEl.innerHTML = '<i class="fas fa-info-circle text-blue-400 mr-2"></i> Connect your Google Sheet to display reviews. See the FEEDBACK_CONFIG in the code.';
+            refreshIcon.classList.remove('spin');
+            return;
+        }
+ 
+        try {
+            // Cache-bust the URL so the browser always fetches fresh data
+            const url = FEEDBACK_CONFIG.SHEET_CSV_URL + '&t=' + Date.now();
+            const res  = await fetch(url);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+ 
+            const csv  = await res.text();
+ 
+            // Parse the CSV into rows; skip row 0 (headers)
+            const rows = parseSimpleCSV(csv).slice(1)
+                .filter(r => r.length >= 5 && r[1] && r[4]); // must have name + message
+ 
+            if (rows.length === 0) {
+                loadEl.innerHTML = '<i class="fas fa-ghost text-gray-500 mr-2"></i> No reviews yet — be the first!';
+                loadEl.classList.remove('hidden');
+                refreshIcon.classList.remove('spin');
+                return;
+            }
+ 
+            // ── Sort newest first (column A = Timestamp) ──────────────
+            // Reverse so latest submissions appear at the top
+            rows.reverse();
+ 
+            // Limit to MAX_DISPLAY
+            const displayed = rows.slice(0, FEEDBACK_CONFIG.MAX_DISPLAY);
+ 
+            // ── Calculate average rating for the summary bar ──────────
+            const allRatings = rows
+                .map(r => parseFloat(r[3]) || 0)
+                .filter(v => v > 0);
+            const avg = allRatings.length
+                ? (allRatings.reduce((a, b) => a + b, 0) / allRatings.length)
+                : 0;
+ 
+            // Render the summary bar
+            renderSummaryBar(avg, rows.length);
+            summaryEl.classList.remove('hidden');
+ 
+            // Render the cards grid
+            renderFeedbacks(displayed);
+            gridEl.classList.remove('hidden');
+            loadEl.classList.add('hidden');
+ 
+        } catch (err) {
+            console.error('Fetch feedbacks error:', err);
+            loadEl.innerHTML = '<i class="fas fa-exclamation-triangle text-red-400 mr-2"></i> Could not load reviews. Check your SHEET_CSV_URL or internet connection.';
+        } finally {
+            refreshIcon.classList.remove('spin');
+        }
+    }
+ 
+ 
+    // ════════════════════════════════════════════════════════════════
+    // RENDER SUMMARY BAR
+    // Shows the overall average score and total count above the grid.
+    // ════════════════════════════════════════════════════════════════
+ 
+    function renderSummaryBar(avg, total) {
+        // Show the average rounded to 1 decimal e.g. "4.6"
+        document.getElementById('fbAvgScore').textContent = avg.toFixed(1);
+        document.getElementById('fbTotalCount').textContent = total + ' review' + (total !== 1 ? 's' : '');
+ 
+        // Build star row: 5 stars, filled based on the average
+        const starsEl = document.getElementById('fbAvgStars');
+        starsEl.innerHTML = '';
+        for (let i = 1; i <= 5; i++) {
+            const s = document.createElement('i');
+            // A star is filled if its index ≤ rounded average
+            s.className = 'fas fa-star text-sm ' + (i <= Math.round(avg) ? 'star-filled' : 'star-empty');
+            starsEl.appendChild(s);
+        }
+    }
+ 
+ 
+    // ════════════════════════════════════════════════════════════════
+    // RENDER FEEDBACK CARDS
+    // Takes an array of CSV rows and builds the HTML review cards.
+    // CSV column order: Timestamp(0) | Name(1) | Exam(2) | Rating(3) | Message(4)
+    // ════════════════════════════════════════════════════════════════
+ 
+    function renderFeedbacks(rows) {
+        const grid = document.getElementById('fbGrid');
+        grid.innerHTML = '';
+ 
+        rows.forEach(row => {
+            const timestamp = (row[0] || '').trim();
+            const name      = (row[1] || 'Anonymous').trim();
+            const exam      = (row[2] || '').trim();
+            const rating    = Math.min(5, Math.max(1, parseInt(row[3]) || 5));
+            const message   = (row[4] || '').trim();
+ 
+            // Format date: "23 May 2026"
+            let dateStr = '';
+            if (timestamp) {
+                try {
+                    const d = new Date(timestamp);
+                    if (!isNaN(d)) {
+                        dateStr = d.toLocaleDateString('en-IN', {
+                            day: '2-digit', month: 'short', year: 'numeric'
+                        });
+                    } else {
+                        dateStr = timestamp.split(',')[0];
+                    }
+                } catch(e) { dateStr = timestamp.substring(0, 10); }
+            }
+ 
+            // Build the 5-star display (filled vs empty)
+            let starsHtml = '';
+            for (let i = 1; i <= 5; i++) {
+                starsHtml += `<i class="fas fa-star text-xs ${i <= rating ? 'star-filled' : 'star-empty'}"></i>`;
+            }
+ 
+            // Get initials for the avatar circle e.g. "PS" from "Priya Sharma"
+            const initials = name.split(' ')
+                .slice(0, 2)
+                .map(w => w[0] ? w[0].toUpperCase() : '')
+                .join('');
+ 
+            // Build the exam badge (only shown if exam is set)
+            const examBadge = exam
+                ? `<span class="badge-neon px-2 py-0.5 rounded-full text-xs font-bold">${escapeHtml(exam)}</span>`
+                : '';
+ 
+            // Create the card element
+            const card = document.createElement('div');
+            card.className = 'feedback-card animate-slide-up';
+            card.innerHTML = `
+                <!-- Top row: avatar + name + exam + date -->
+                <div class="flex items-start justify-between gap-3 mb-3">
+                    <div class="flex items-center gap-3">
+                        <!-- Avatar circle with initials -->
+                        <div class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center
+                                    bg-gradient-to-br from-metal-gold/30 to-orange-500/20
+                                    border border-metal-gold/30 text-metal-gold font-black text-sm">
+                            ${escapeHtml(initials || '?')}
+                        </div>
+                        <div>
+                            <div class="text-white font-bold text-sm">${escapeHtml(name)}</div>
+                            <div class="flex items-center gap-2 mt-0.5">
+                                ${examBadge}
+                                <span class="text-gray-500 text-xs">${escapeHtml(dateStr)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Star display -->
+                    <div class="flex gap-0.5 flex-shrink-0">${starsHtml}</div>
+                </div>
+                <!-- Review message -->
+                <p class="text-gray-300 text-sm leading-relaxed">${escapeHtml(message)}</p>
+            `;
+            grid.appendChild(card);
+        });
+    }
+ 
+ 
+    // ════════════════════════════════════════════════════════════════
+    // CSV PARSER
+    // Converts raw CSV text into a 2D array.
+    // Handles quoted fields (RFC 4180 basic compliance).
+    // ════════════════════════════════════════════════════════════════
+ 
+    function parseSimpleCSV(text) {
+        const rows = [];
+        const lines = text.split(/\r?\n/).filter(l => l.trim() !== '');
+        lines.forEach(line => {
+            const cols = [];
+            let cur = '';
+            let inQ = false;
+            for (let i = 0; i < line.length; i++) {
+                const ch = line[i];
+                if (ch === '"')       { inQ = !inQ; }
+                else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+                else                  { cur += ch; }
+            }
+            cols.push(cur.trim());
+            rows.push(cols);
+        });
+        return rows;
+    }
+ 
+ 
+    // ════════════════════════════════════════════════════════════════
+    // XSS SAFETY HELPER
+    // Escapes HTML special characters before inserting user text
+    // into the DOM. Prevents script injection via name/message fields.
+    // ════════════════════════════════════════════════════════════════
+ 
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+ 
+ 
+    // ════════════════════════════════════════════════════════════════
+    // AUTO-LOAD on page load
+    // ════════════════════════════════════════════════════════════════
+    window.addEventListener('DOMContentLoaded', () => {
+        fetchFeedbacks();
+    });
+ 
+    </script>
 </body>
 </html>
