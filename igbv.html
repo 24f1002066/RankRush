@@ -808,14 +808,6 @@
         let countdownTimer = null;
         let scoreSavedThisSession = false;
 
-        const TIME_MODE_CONFIG = {
-            default: { full: 50, sprint: 30, math: 50 },
-            set2:    { full: 30, sprint: 20, math: 40 },
-            set3:    { full: 120, sprint: 20, math: 40 },
-            set4:    { full: 40, sprint: 20, math: 40 },
-            set5:    { full: 10, sprint: 20, math: 40 }
-        };
-
         const SUBJECT_LABELS = {
             math: "Maths",
             mental: "Mental Ability",
@@ -1039,14 +1031,47 @@
         }
 
         function getSetLabel(setKey) {
+            // Placeholder during initial set creation; updateSetLabels() assigns final names.
             if (!setKey) return 'Default Set';
             const key = String(setKey).trim().toLowerCase();
-            if (key === 'set1' || key === 'default' || key === '') return 'Practice Set 1';
-            if (key === 'set2' || key === 'science' || key === 'sci') return 'Practice Set 2 (Science)';
             const m = key.match(/^set(\d+)$/);
             if (m) return `Practice Set ${m[1]}`;
-            const cleaned = key.replace(/[_-]+/g, ' ').replace(/\b\w/g, s => s.toUpperCase());
-            return `Set: ${cleaned}`;
+            return `Set: ${key}`;
+        }
+
+        // Assigns smart labels after all questions are merged.
+        // Single-category set  →  "<Subject> Set NN"  (e.g. "Science Set 01")
+        // Multi-category set   →  "Practice Set NN"
+        // Serial numbers are per label-type and reset independently.
+        function updateSetLabels() {
+            const CATEGORY_DISPLAY = {
+                math:    'Maths',
+                mental:  'Mental Ability',
+                hindi:   'Hindi',
+                gk:      'GK',
+                science: 'Science'
+            };
+            const counters = {};
+            const sortedKeys = Object.keys(EXAM_SETS).sort((a, b) => {
+                const na = parseInt(a.replace(/\D/g, '')) || 0;
+                const nb = parseInt(b.replace(/\D/g, '')) || 0;
+                return na - nb;
+            });
+            sortedKeys.forEach(setKey => {
+                const s = EXAM_SETS[setKey];
+                const activeCats = Object.keys(CATEGORY_DISPLAY).filter(
+                    cat => Array.isArray(s[cat]) && s[cat].length > 0
+                );
+                let prefix;
+                if (activeCats.length === 1) {
+                    prefix = CATEGORY_DISPLAY[activeCats[0]];
+                } else {
+                    prefix = 'Practice';
+                }
+                counters[prefix] = (counters[prefix] || 0) + 1;
+                const serial = String(counters[prefix]).padStart(2, '0');
+                s.label = `${prefix} Set ${serial}`;
+            });
         }
 
         function convertSheetRowsToQuestions(rows) {
@@ -1265,6 +1290,7 @@
                 chosenSetKey = importedSetKeys.has('set1') ? 'set1' : [...importedSetKeys][0];
             }
             console.info("Spreadsheet Questions merged:", summary);
+            updateSetLabels();
         }
 
         // ==================================================================
@@ -1439,8 +1465,17 @@
         // INTERACTIVE EXAM GAMEPLAY CONTROLLERS
         // ==================================================================
         function getTimeLimitMinutes(mode) {
-            const modeMap = TIME_MODE_CONFIG[chosenSetKey] || TIME_MODE_CONFIG.default;
-            return modeMap[mode] || modeMap.full || 120;
+            // Compute the number of questions for the given mode
+            const activeSet = EXAM_SETS[chosenSetKey] || {};
+            const total = ['math','mental','hindi','gk','science']
+                .reduce((n, c) => n + ((activeSet[c] || []).length), 0);
+            let qCount;
+            if (mode === 'sprint') qCount = Math.min(30, total);
+            else if (mode === 'math') qCount = Math.min(25, total);
+            else qCount = total; // 'full'
+
+            // Rule: <50 questions → 1 min per question; ≥50 questions → 120 min
+            return qCount < 50 ? Math.max(1, qCount) : 120;
         }
 
         function getTimeLimitInSeconds(mode) {
@@ -1594,8 +1629,6 @@
             if (commentMarkup) { const d = document.createElement('div'); d.innerHTML = commentMarkup; qEngEl.appendChild(d); }
             document.getElementById('displayQHin').innerHTML = hindiText;
 
-            if (window.MathJax) MathJax.typesetPromise().catch(err => console.log(err));
-
             const container = document.getElementById('displayOptionsGrid');
             container.innerHTML = "";
             const qCard = document.getElementById('questionMainCard');
@@ -1629,6 +1662,9 @@
                 `;
                 container.appendChild(btn);
             });
+
+            // Typeset AFTER options are in the DOM so LaTeX inside options renders correctly
+            if (window.MathJax) MathJax.typesetPromise().catch(err => console.log(err));
 
             const isFlagged = flaggedQuestions[q.id];
             document.getElementById('flagIcon').className = isFlagged ? "fas fa-flag text-amber-500" : "far fa-flag";
