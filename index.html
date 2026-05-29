@@ -1265,9 +1265,541 @@ footer.rr-footer {
   background: rgba(14,165,233,0.06);
 }
 
+
+/* ═══════════════════════════════════
+   RANKRUSH PREMIUM LOADER — STYLES
+   ═══════════════════════════════════ */
+
+/* Lock scroll while loader is active */
+body.rr-loading {
+  overflow: hidden;
+}
+
+#rr-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #020408;
+  will-change: opacity, transform;
+  transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1), filter 0.9s cubic-bezier(0.4,0,0.2,1);
+}
+
+#rr-loader.rr-loader--exit {
+  opacity: 0;
+  filter: blur(18px) saturate(0.3);
+  pointer-events: none;
+}
+
+/* ── GRADIENT MESH BACKGROUND ── */
+.rl-mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.rl-mesh-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform, opacity;
+}
+.rl-mesh-orb-1 {
+  width: 600px; height: 600px;
+  top: -120px; left: -180px;
+  background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%);
+  animation: rlOrb1 12s ease-in-out infinite alternate;
+}
+.rl-mesh-orb-2 {
+  width: 500px; height: 500px;
+  bottom: -100px; right: -150px;
+  background: radial-gradient(circle, rgba(168,85,247,0.14) 0%, transparent 70%);
+  animation: rlOrb2 15s ease-in-out infinite alternate;
+}
+.rl-mesh-orb-3 {
+  width: 350px; height: 350px;
+  top: 40%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(212,175,55,0.07) 0%, transparent 70%);
+  animation: rlOrb3 9s ease-in-out infinite alternate;
+}
+@keyframes rlOrb1 {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(60px, 40px) scale(1.15); }
+}
+@keyframes rlOrb2 {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(-50px, -30px) scale(1.1); }
+}
+@keyframes rlOrb3 {
+  from { transform: translate(-50%,-50%) scale(1); opacity: 0.6; }
+  to   { transform: translate(-48%,-52%) scale(1.2); opacity: 1; }
+}
+
+/* Grid overlay */
+.rl-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(14,165,233,0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14,165,233,0.028) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+/* ── PARTICLE CANVAS ── */
+#rl-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── CENTER STAGE ── */
+.rl-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  opacity: 0;
+  transform: scale(0.88) translateY(12px);
+  transition: opacity 0.7s cubic-bezier(0.34,1.56,0.64,1), transform 0.7s cubic-bezier(0.34,1.56,0.64,1);
+}
+.rl-stage.rl-stage--visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* ── PROGRESS RING ── */
+.rl-ring-wrap {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 28px;
+  flex-shrink: 0;
+}
+.rl-ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  position: absolute;
+  inset: 0;
+}
+.rl-ring-track {
+  fill: none;
+  stroke: rgba(14,165,233,0.1);
+  stroke-width: 3;
+}
+.rl-ring-fill {
+  fill: none;
+  stroke: url(#rlRingGrad);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 408.41; /* 2π × 65 */
+  stroke-dashoffset: 408.41;
+  transition: stroke-dashoffset 0.04s linear;
+  filter: drop-shadow(0 0 6px rgba(14,165,233,0.6));
+}
+.rl-ring-glow {
+  fill: none;
+  stroke: rgba(14,165,233,0.15);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 408.41;
+  stroke-dashoffset: 408.41;
+  transition: stroke-dashoffset 0.04s linear;
+  filter: blur(4px);
+}
+
+/* ── LOGO INSIDE RING ── */
+.rl-logo-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.rl-logo-box {
+  width: 54px;
+  height: 54px;
+  border-radius: 13px;
+  border: 1px solid rgba(212,175,55,0.35);
+  background: rgba(212,175,55,0.08);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 1px rgba(212,175,55,0.1),
+    0 0 20px rgba(212,175,55,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  animation: rlLogoPulse 3s ease-in-out infinite;
+  overflow: hidden;
+  position: relative;
+}
+.rl-logo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+.rl-logo-box-fallback {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #aa771c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
+}
+@keyframes rlLogoPulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(212,175,55,0.12), 0 0 20px rgba(212,175,55,0.12), inset 0 1px 0 rgba(255,255,255,0.06); }
+  50%       { box-shadow: 0 0 0 1px rgba(212,175,55,0.35), 0 0 32px rgba(212,175,55,0.28), 0 0 60px rgba(212,175,55,0.1), inset 0 1px 0 rgba(255,255,255,0.08); }
+}
+.rl-logo-box.rl-logo--complete {
+  animation: rlLogoComplete 0.6s ease forwards;
+}
+@keyframes rlLogoComplete {
+  0%   { box-shadow: 0 0 0 1px rgba(212,175,55,0.35), 0 0 20px rgba(212,175,55,0.2); }
+  40%  { box-shadow: 0 0 0 8px rgba(212,175,55,0.0), 0 0 60px rgba(212,175,55,0.55), 0 0 100px rgba(212,175,55,0.25); transform: scale(1.08); }
+  100% { box-shadow: 0 0 0 1px rgba(212,175,55,0.3), 0 0 30px rgba(212,175,55,0.2); transform: scale(1); }
+}
+
+.rl-logo-wordmark {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.48rem;
+  letter-spacing: 0.22em;
+  background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #aa771c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* ── BRAND TEXT ── */
+.rl-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 45%, #d4af37 70%, #aa771c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(212,175,55,0.5));
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+/* ── KEYWORD ROTATOR ── */
+.rl-keyword-wrap {
+  height: 22px;
+  overflow: hidden;
+  margin-bottom: 26px;
+  position: relative;
+  width: 220px;
+  text-align: center;
+}
+.rl-keyword {
+  position: absolute;
+  inset: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  text-align: center;
+}
+.rl-keyword.rl-kw--active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.rl-keyword.rl-kw--exit {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* ── TYPING TEXT ── */
+.rl-typing-wrap {
+  margin-bottom: 20px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rl-typing {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-2);
+  text-transform: uppercase;
+}
+.rl-cursor {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: var(--cyan);
+  margin-left: 2px;
+  animation: rlBlink 0.9s step-end infinite;
+  vertical-align: middle;
+}
+@keyframes rlBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── PROGRESS BAR ── */
+.rl-progress-track {
+  width: 240px;
+  height: 2px;
+  background: rgba(14,165,233,0.12);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.rl-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  border-radius: 999px;
+  transition: width 0.08s linear;
+  box-shadow: 0 0 10px rgba(14,165,233,0.6);
+}
+.rl-pct {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  tabular-nums: 1;
+}
+
+/* ── RANK BARS DECORATION ── */
+.rl-rank-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin-bottom: 28px;
+  height: 30px;
+}
+.rl-bar {
+  width: 5px;
+  border-radius: 3px 3px 0 0;
+  background: rgba(14,165,233,0.25);
+  animation: rlBarBounce 1.4s ease-in-out infinite;
+  transform-origin: bottom;
+}
+.rl-bar:nth-child(1) { height: 40%; animation-delay: 0s; }
+.rl-bar:nth-child(2) { height: 65%; animation-delay: 0.1s; }
+.rl-bar:nth-child(3) { height: 85%; animation-delay: 0.2s; }
+.rl-bar:nth-child(4) { height: 55%; animation-delay: 0.3s; }
+.rl-bar:nth-child(5) { height: 100%; animation-delay: 0.4s; background: rgba(212,175,55,0.5); }
+.rl-bar:nth-child(6) { height: 70%; animation-delay: 0.5s; }
+.rl-bar:nth-child(7) { height: 45%; animation-delay: 0.6s; }
+@keyframes rlBarBounce {
+  0%, 100% { transform: scaleY(1); opacity: 0.5; }
+  50%       { transform: scaleY(1.35); opacity: 1; }
+}
+
+/* Accelerate bars on complete */
+.rl-rank-bars.rl-bars--fast .rl-bar {
+  animation-duration: 0.5s;
+}
+
+/* ── CORNER DECORATIONS ── */
+.rl-corner {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  opacity: 0.35;
+}
+.rl-corner--tl { top: 24px; left: 24px; border-top: 1px solid var(--cyan); border-left: 1px solid var(--cyan); }
+.rl-corner--tr { top: 24px; right: 24px; border-top: 1px solid var(--purple); border-right: 1px solid var(--purple); }
+.rl-corner--bl { bottom: 24px; left: 24px; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+.rl-corner--br { bottom: 24px; right: 24px; border-bottom: 1px solid var(--cyan); border-right: 1px solid var(--cyan); }
+
+/* ── ANALYTICS PILL ── */
+.rl-analytics-pill {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(14,25,45,0.8);
+  border: 1px solid rgba(14,165,233,0.2);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  pointer-events: none;
+  opacity: 0;
+  animation: rlPillFloat 0.6s ease forwards;
+}
+.rl-analytics-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: rlDotPulse 1.4s ease-in-out infinite;
+}
+@keyframes rlDotPulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%     { opacity: 0.5; transform: scale(0.8); }
+}
+@keyframes rlPillFloat {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rl-pill--tl {
+  top: clamp(30px, 12%, 100px);
+  left: clamp(20px, 10%, 140px);
+  animation-delay: 0.8s;
+}
+.rl-pill--tr {
+  top: clamp(50px, 16%, 130px);
+  right: clamp(20px, 10%, 140px);
+  animation-delay: 1.1s;
+}
+.rl-pill--bl {
+  bottom: clamp(30px, 12%, 100px);
+  left: clamp(20px, 10%, 140px);
+  animation-delay: 1.4s;
+}
+.rl-pill--br {
+  bottom: clamp(50px, 16%, 130px);
+  right: clamp(20px, 10%, 140px);
+  animation-delay: 1.7s;
+}
+
+@media (max-width: 640px) {
+  .rl-analytics-pill { display: none; }
+  .rl-progress-track { width: 200px; }
+  .rl-keyword-wrap { width: 180px; }
+  .rl-ring-wrap { width: 120px; height: 120px; }
+  .rl-logo-box { width: 44px; height: 44px; }
+}
 </style>
 </head>
-<body>
+<body class="rr-loading">
+
+<!-- ══════════════════════════════════════
+     RANKRUSH PREMIUM LOADER
+     ══════════════════════════════════════ -->
+<div id="rr-loader" role="status" aria-label="Loading RankRush" aria-live="polite">
+
+  <!-- Gradient mesh orbs -->
+  <div class="rl-mesh" aria-hidden="true">
+    <div class="rl-mesh-orb rl-mesh-orb-1"></div>
+    <div class="rl-mesh-orb rl-mesh-orb-2"></div>
+    <div class="rl-mesh-orb rl-mesh-orb-3"></div>
+    <div class="rl-grid"></div>
+  </div>
+
+  <!-- Floating particle canvas -->
+  <canvas id="rl-particles" aria-hidden="true"></canvas>
+
+  <!-- Corner decorations -->
+  <div class="rl-corner rl-corner--tl" aria-hidden="true"></div>
+  <div class="rl-corner rl-corner--tr" aria-hidden="true"></div>
+  <div class="rl-corner rl-corner--bl" aria-hidden="true"></div>
+  <div class="rl-corner rl-corner--br" aria-hidden="true"></div>
+
+  <!-- Floating analytics pills -->
+  <div class="rl-analytics-pill rl-pill--tl" aria-hidden="true">
+    <span class="rl-analytics-pill-dot" style="background:var(--green)"></span>
+    Rank Prediction Active
+  </div>
+  <div class="rl-analytics-pill rl-pill--tr" aria-hidden="true">
+    <span class="rl-analytics-pill-dot" style="background:var(--cyan)"></span>
+    1200+ Questions Loaded
+  </div>
+  <div class="rl-analytics-pill rl-pill--bl" aria-hidden="true">
+    <span class="rl-analytics-pill-dot" style="background:var(--gold)"></span>
+    PYQ Vault Ready
+  </div>
+  <div class="rl-analytics-pill rl-pill--br" aria-hidden="true">
+    <span class="rl-analytics-pill-dot" style="background:var(--purple)"></span>
+    Analytics Synced
+  </div>
+
+  <!-- Center stage -->
+  <div class="rl-stage" id="rl-stage">
+
+    <!-- Progress ring + logo -->
+    <div class="rl-ring-wrap">
+      <svg class="rl-ring-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="rlRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#0ea5e9"/>
+            <stop offset="50%"  stop-color="#22d3ee"/>
+            <stop offset="100%" stop-color="#a855f7"/>
+          </linearGradient>
+        </defs>
+        <circle class="rl-ring-glow" cx="70" cy="70" r="65" id="rl-ring-glow"/>
+        <circle class="rl-ring-track" cx="70" cy="70" r="65"/>
+        <circle class="rl-ring-fill"  cx="70" cy="70" r="65" id="rl-ring-fill"/>
+      </svg>
+      <div class="rl-logo-inner">
+        <div class="rl-logo-box" id="rl-logo-box">
+          <img src="rankrush.png" alt="RankRush" onerror="this.style.display='none'">
+          <span class="rl-logo-box-fallback"></span>
+        </div>
+        <span class="rl-logo-wordmark">RankRush</span>
+      </div>
+    </div>
+
+    <!-- Brand title -->
+    <div class="rl-brand">RANKRUSH</div>
+
+    <!-- Rank bars decoration -->
+    <div class="rl-rank-bars" id="rl-bars" aria-hidden="true">
+      <div class="rl-bar"></div>
+      <div class="rl-bar"></div>
+      <div class="rl-bar"></div>
+      <div class="rl-bar"></div>
+      <div class="rl-bar"></div>
+      <div class="rl-bar"></div>
+      <div class="rl-bar"></div>
+    </div>
+
+    <!-- Keyword rotator -->
+    <div class="rl-keyword-wrap" aria-live="polite">
+      <span class="rl-keyword rl-kw--active" id="rl-kw-0">Mock Tests</span>
+      <span class="rl-keyword" id="rl-kw-1">Performance Analytics</span>
+      <span class="rl-keyword" id="rl-kw-2">Practice Sets</span>
+      <span class="rl-keyword" id="rl-kw-3">Rank Prediction</span>
+      <span class="rl-keyword" id="rl-kw-4">Exam Preparation</span>
+    </div>
+
+    <!-- Typing text -->
+    <div class="rl-typing-wrap">
+      <span class="rl-typing" id="rl-typing" aria-label="Preparing Your Learning Experience"></span><span class="rl-cursor" aria-hidden="true"></span>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="rl-progress-track">
+      <div class="rl-progress-fill" id="rl-progress-fill"></div>
+    </div>
+    <div class="rl-pct" id="rl-pct" aria-live="polite">0%</div>
+
+  </div>
+</div>
+<!-- end #rr-loader -->
 
 <!-- Ambient layers -->
 <div class="ambient" aria-hidden="true"></div>
@@ -2214,6 +2746,219 @@ async function submitFeedback() {
 window.addEventListener('DOMContentLoaded', () => {
   fetchFeedbacks();
 });
+</script>
+
+<script>
+/* ═══════════════════════════════════════════════
+   RANKRUSH PREMIUM LOADER — ENGINE
+   ═══════════════════════════════════════════════ */
+(function() {
+  'use strict';
+
+  /* ── CONFIG ── */
+  const TOTAL_DURATION  = 2600; // ms total (minimum on-screen)
+  const TYPING_TEXT     = 'Preparing Your Learning Experience';
+  const KEYWORDS        = ['Mock Tests','Performance Analytics','Practice Sets','Rank Prediction','Exam Preparation'];
+  const KW_INTERVAL     = 820;  // ms between keyword swaps
+
+  /* ── ELEMENT REFS ── */
+  const loader     = document.getElementById('rr-loader');
+  const stage      = document.getElementById('rl-stage');
+  const ringFill   = document.getElementById('rl-ring-fill');
+  const ringGlow   = document.getElementById('rl-ring-glow');
+  const progressEl = document.getElementById('rl-progress-fill');
+  const pctEl      = document.getElementById('rl-pct');
+  const typingEl   = document.getElementById('rl-typing');
+  const barsEl     = document.getElementById('rl-bars');
+  const logoBox    = document.getElementById('rl-logo-box');
+
+  if (!loader) return;
+
+  const CIRCUMFERENCE = 2 * Math.PI * 65; // ≈ 408.41
+
+  /* ── PARTICLE SYSTEM ── */
+  const pCanvas  = document.getElementById('rl-particles');
+  const pCtx    = pCanvas ? pCanvas.getContext('2d') : null;
+  let particles  = [];
+  let particleSpeedMult = 1;
+  let rafId;
+
+  function resizeParticleCanvas() {
+    if (!pCanvas) return;
+    pCanvas.width  = window.innerWidth;
+    pCanvas.height = window.innerHeight;
+  }
+
+  function createParticle() {
+    return {
+      x:     Math.random() * window.innerWidth,
+      y:     Math.random() * window.innerHeight,
+      r:     Math.random() * 2 + 0.5,
+      vx:    (Math.random() - 0.5) * 0.3,
+      vy:    -(Math.random() * 0.4 + 0.1),
+      alpha: Math.random() * 0.5 + 0.1,
+      color: Math.random() > 0.7
+        ? `rgba(212,175,55,`
+        : (Math.random() > 0.5 ? `rgba(14,165,233,` : `rgba(168,85,247,`),
+    };
+  }
+
+  function initParticles(count) {
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      const p = createParticle();
+      p.y = Math.random() * window.innerHeight; // distribute initially
+      particles.push(p);
+    }
+  }
+
+  function animateParticles() {
+    if (!pCtx) return;
+    pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+    const speed = particleSpeedMult;
+    particles.forEach(p => {
+      p.x  += p.vx * speed;
+      p.y  += p.vy * speed;
+      p.alpha -= 0.0008 * speed;
+      if (p.y < -10 || p.alpha <= 0) {
+        Object.assign(p, createParticle());
+        p.y = window.innerHeight + 5;
+      }
+      pCtx.beginPath();
+      pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      pCtx.fillStyle = p.color + p.alpha + ')';
+      pCtx.fill();
+    });
+    rafId = requestAnimationFrame(animateParticles);
+  }
+
+  /* ── TYPING ANIMATION ── */
+  let typingIndex  = 0;
+  let typingTimer;
+
+  function typeNext() {
+    if (!typingEl) return;
+    if (typingIndex <= TYPING_TEXT.length) {
+      typingEl.textContent = TYPING_TEXT.slice(0, typingIndex);
+      typingIndex++;
+      typingTimer = setTimeout(typeNext, 42 + Math.random() * 30);
+    }
+  }
+
+  /* ── KEYWORD ROTATOR ── */
+  let kwIndex   = 0;
+  let kwTimer;
+
+  function rotateKeyword() {
+    const all = document.querySelectorAll('.rl-keyword');
+    if (!all.length) return;
+    const current = all[kwIndex];
+    current.classList.remove('rl-kw--active');
+    current.classList.add('rl-kw--exit');
+    setTimeout(() => current.classList.remove('rl-kw--exit'), 400);
+
+    kwIndex = (kwIndex + 1) % all.length;
+    const next = all[kwIndex];
+    next.classList.add('rl-kw--active');
+    kwTimer = setTimeout(rotateKeyword, KW_INTERVAL);
+  }
+
+  /* ── PROGRESS ── */
+  function setProgress(pct) {
+    // Ring
+    const offset = CIRCUMFERENCE * (1 - pct / 100);
+    if (ringFill) {
+      ringFill.style.strokeDashoffset = offset;
+      ringGlow.style.strokeDashoffset = offset;
+    }
+    // Bar
+    if (progressEl) progressEl.style.width = pct + '%';
+    // Text
+    if (pctEl) pctEl.textContent = Math.round(pct) + '%';
+  }
+
+  /* ── EASING ── */
+  function easeInOutQuart(t) {
+    return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+  }
+
+  /* ── MAIN SEQUENCE ── */
+  function runLoader() {
+    resizeParticleCanvas();
+    initParticles(55);
+    animateParticles();
+
+    // Stage appear after tiny delay
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        if (stage) stage.classList.add('rl-stage--visible');
+      }, 80);
+    });
+
+    // Start typing after stage appears
+    setTimeout(typeNext, 350);
+
+    // Start keyword rotation
+    kwTimer = setTimeout(rotateKeyword, KW_INTERVAL);
+
+    // Animate progress
+    const startTime = performance.now();
+    let completed = false;
+
+    function tick(now) {
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / TOTAL_DURATION, 1);
+      const eased = easeInOutQuart(t);
+      const pct = eased * 100;
+      setProgress(pct);
+
+      if (t < 1) {
+        requestAnimationFrame(tick);
+      } else if (!completed) {
+        completed = true;
+        onComplete();
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ── COMPLETION ── */
+  function onComplete() {
+    setProgress(100);
+
+    // Logo pulse
+    if (logoBox) logoBox.classList.add('rl-logo--complete');
+
+    // Accelerate particles
+    particleSpeedMult = 2.4;
+
+    // Speed up bars
+    if (barsEl) barsEl.classList.add('rl-bars--fast');
+
+    // Exit after brief pause
+    setTimeout(() => {
+      if (loader) loader.classList.add('rr-loader--exit');
+
+      loader.addEventListener('transitionend', () => {
+        loader.style.display = 'none';
+        document.body.classList.remove('rr-loading');
+        cancelAnimationFrame(rafId);
+        clearTimeout(kwTimer);
+        clearTimeout(typingTimer);
+      }, { once: true });
+    }, 520);
+  }
+
+  /* ── INIT ── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runLoader);
+  } else {
+    runLoader();
+  }
+
+  window.addEventListener('resize', resizeParticleCanvas);
+
+})();
 </script>
 </body>
 </html>
