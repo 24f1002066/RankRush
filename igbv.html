@@ -1285,6 +1285,433 @@ header + div, header ~ main { margin-top: 64px; }
   .rr-mobile-drawer { display: none !important; }
 }
 
+
+/* ── REPORT ISSUE BUTTON ── */
+.rr-report-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid rgba(251, 191, 36, 0.18);
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(148, 163, 184, 0.6);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  outline: none;
+}
+.rr-report-trigger:hover {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.45);
+  background: rgba(251, 191, 36, 0.05);
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.08);
+  transform: translateY(-1px);
+}
+.rr-report-trigger:active { transform: translateY(0); }
+.rr-report-trigger .rr-rt-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(251, 191, 36, 0.5);
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.rr-report-trigger:hover .rr-rt-dot { background: #fbbf24; }
+.rr-report-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0 2px 0;
+  border-top: 1px solid rgba(148, 163, 184, 0.06);
+  margin-top: 6px;
+}
+
+/* ── BACKDROP ── */
+#rrReportBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(2, 4, 8, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+#rrReportBackdrop.rr-open {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 0;
+}
+#rrReportBackdrop.rr-visible { opacity: 1; }
+
+/* ── MODAL PANEL ── */
+#rrReportModal {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: rgba(6, 10, 18, 0.96);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(14, 165, 233, 0.15);
+  border-bottom: none;
+  border-radius: 24px 24px 0 0;
+  box-shadow:
+    0 -20px 80px rgba(14, 165, 233, 0.08),
+    0 -2px 0 rgba(14, 165, 233, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  padding: 0;
+  max-width: 540px;
+  margin: 0 auto;
+  transform: translateY(100%);
+  transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+  overflow: hidden;
+}
+#rrReportModal.rr-modal-open { transform: translateY(0); }
+.rr-modal-drag-pill {
+  width: 40px; height: 4px;
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 99px;
+  margin: 12px auto 0;
+}
+.rr-modal-header {
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.rr-modal-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 20px; right: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.3), rgba(212, 175, 55, 0.3), transparent);
+}
+.rr-modal-title-group { display: flex; align-items: center; gap: 10px; }
+.rr-modal-icon {
+  width: 34px; height: 34px;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  color: #fbbf24;
+  flex-shrink: 0;
+}
+.rr-modal-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #f0f6ff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.rr-modal-subtitle {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.58rem;
+  color: rgba(148, 163, 184, 0.6);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.rr-close-btn {
+  width: 28px; height: 28px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: rgba(148, 163, 184, 0.5);
+  font-size: 0.7rem;
+  transition: all 0.2s;
+  outline: none;
+}
+.rr-close-btn:hover {
+  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.3);
+  color: #f87171;
+}
+.rr-context-strip {
+  padding: 12px 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.rr-ctx-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(14, 165, 233, 0.06);
+  border: 1px solid rgba(14, 165, 233, 0.14);
+  border-radius: 99px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.58rem;
+  color: rgba(148, 163, 184, 0.7);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.rr-ctx-pill span { color: #22d3ee; font-weight: 600; }
+.rr-modal-body {
+  padding: 14px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(14, 165, 233, 0.2) transparent;
+}
+.rr-field-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  color: rgba(148, 163, 184, 0.55);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.rr-field-label .rr-required { color: #f87171; font-size: 0.65rem; }
+#rrIssueType { display: none !important; }
+.rr-issue-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+.rr-issue-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  background: rgba(6, 12, 20, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 11px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  outline: none;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+.rr-issue-chip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+.rr-issue-chip:hover {
+  border-color: rgba(34, 211, 238, 0.3);
+  background: rgba(14, 165, 233, 0.06);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.08);
+}
+.rr-issue-chip.rr-chip-active {
+  border-color: rgba(34, 211, 238, 0.6) !important;
+  background: rgba(14, 165, 233, 0.12) !important;
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.15), 0 4px 20px rgba(14, 165, 233, 0.12) !important;
+  transform: translateY(-1px);
+}
+.rr-issue-chip.rr-chip-active .rr-chip-emoji {
+  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.5));
+  transform: scale(1.15);
+}
+.rr-chip-emoji { font-size: 1rem; flex-shrink: 0; transition: all 0.2s; line-height: 1; }
+.rr-chip-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(148, 163, 184, 0.75);
+  line-height: 1.3;
+  transition: color 0.2s;
+}
+.rr-issue-chip:hover .rr-chip-label { color: #e2e8f0; }
+.rr-issue-chip.rr-chip-active .rr-chip-label { color: #22d3ee !important; }
+.rr-chip-check {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(148, 163, 184, 0.2);
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.5rem;
+  color: transparent;
+  transition: all 0.2s;
+  background: transparent;
+}
+.rr-issue-chip.rr-chip-active .rr-chip-check {
+  background: #22d3ee;
+  border-color: #22d3ee;
+  color: #020408;
+}
+.rr-issue-grid.rr-field-error .rr-issue-chip:not(.rr-chip-active) {
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.04);
+}
+#rrIssueDesc {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 10px 14px;
+  background: rgba(2, 4, 8, 0.8) !important;
+  border: 1px solid rgba(14, 165, 233, 0.12) !important;
+  border-radius: 12px !important;
+  color: #f0f6ff !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 0.8rem !important;
+  line-height: 1.6 !important;
+  outline: none;
+  transition: all 0.25s !important;
+}
+#rrIssueDesc:focus {
+  border-color: #22d3ee !important;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08) !important;
+}
+#rrIssueDesc::placeholder { color: rgba(148, 163, 184, 0.35) !important; }
+.rr-upload-zone {
+  border: 1.5px dashed rgba(14, 165, 233, 0.2);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  background: rgba(14, 165, 233, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+.rr-upload-zone:hover { border-color: rgba(14, 165, 233, 0.4); background: rgba(14, 165, 233, 0.04); }
+.rr-upload-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  border: none !important;
+  background: transparent !important;
+}
+.rr-upload-icon { font-size: 1.2rem; color: rgba(14, 165, 233, 0.4); margin-bottom: 5px; }
+.rr-upload-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; color: rgba(148, 163, 184, 0.5); line-height: 1.5; }
+.rr-upload-text strong { color: #22d3ee; font-weight: 600; }
+#rrFilePreview {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(34, 211, 238, 0.06);
+  border: 1px solid rgba(34, 211, 238, 0.15);
+  border-radius: 8px;
+  margin-top: 6px;
+}
+#rrFilePreview .rr-fp-name {
+  flex: 1;
+  font-size: 0.72rem;
+  color: #22d3ee;
+  font-family: 'Fira Code', monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#rrFilePreview .rr-fp-remove {
+  color: rgba(248, 113, 113, 0.7);
+  cursor: pointer;
+  font-size: 0.7rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  outline: none;
+}
+#rrFilePreview .rr-fp-remove:hover { color: #f87171; }
+#rrSubmitBtn {
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #22d3ee 100%);
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+#rrSubmitBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+#rrSubmitBtn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14, 165, 233, 0.45); }
+#rrSubmitBtn:active:not(:disabled) { transform: translateY(0); }
+#rrSubmitBtn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+#rrSubmitBtn .rr-spinner {
+  width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: rrSpin 0.6s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes rrSpin { to { transform: rotate(360deg); } }
+#rrSuccessState {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px 28px;
+  text-align: center;
+  gap: 10px;
+}
+.rr-success-ring {
+  width: 60px; height: 60px;
+  background: rgba(74, 222, 128, 0.1);
+  border: 2px solid rgba(74, 222, 128, 0.35);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  animation: rrSuccessPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes rrSuccessPop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.rr-success-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: #4ade80; margin-top: 4px; }
+.rr-success-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; color: rgba(148, 163, 184, 0.7); max-width: 260px; line-height: 1.5; }
+.rr-success-meta { font-family: 'Fira Code', monospace; font-size: 0.58rem; color: rgba(148, 163, 184, 0.35); letter-spacing: 0.08em; text-transform: uppercase; }
+@keyframes rrShake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
+.rr-shake { animation: rrShake 0.35s ease; }
+.rr-field-error { border-color: rgba(248, 113, 113, 0.5) !important; box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.08) !important; }
+@media (min-width: 640px) {
+  #rrReportModal {
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    bottom: 0;
+    border-radius: 20px 20px 0 0;
+    width: 540px;
+    margin: 0;
+  }
+  #rrReportModal.rr-modal-open { transform: translateX(-50%) translateY(0); }
+}
+@media (max-width: 639px) { #rrReportModal { max-width: 100%; } }
 </style>
         <!-- MathJax for rendering mathematical notation -->
     <script>
@@ -1594,6 +2021,13 @@ document.addEventListener('click', function(e) {
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mt-6" id="displayOptionsGrid"></div>
+                    <!-- ⚠ RANKRUSH REPORT ISSUE TRIGGER -->
+                    <div class="rr-report-row" id="rrReportButtonRow">
+                      <button class="rr-report-trigger" onclick="rrOpenReport()" type="button" aria-haspopup="dialog" aria-label="Report an issue with this question">
+                        <span class="rr-rt-dot"></span>
+                        ⚠&thinsp; Report Issue
+                      </button>
+                    </div>
 
                     <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700/40 pt-4 mt-6">
                         <button onclick="clearSelectedOption()" class="text-xs font-extrabold text-rose-500 hover:bg-rose-500/10 border border-rose-500/20 rounded-lg px-3 py-2 transition">
@@ -1824,7 +2258,7 @@ document.addEventListener('click', function(e) {
             LEADERBOARD_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQCjMmc8lKBNc1EhclhxdXqZkaJXwUmz3lU-g66ewM6bqUXdN6uE3JKVBtkszBaeLOXDEpmNTEjweU8/pub?output=csv",
             
             // 3. Google Apps Script Web App URL for score submission
-            APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxxAv4TfJEkzCmb1SmTHf-hG-7ioo8w5OXOxJ6bRSHxBQhIf0prXpHExo1lFpqHMo8/exec",
+            APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzSXItN_kzSFxfCwGjyuAQGpcp6GtY43TV7doR-jemmjuDBbp2_qal6MqwbD0dpMPg/exec",
             
             // Top entries to load on the dashboard
             LEADERBOARD_TOP_N: 5
@@ -3215,6 +3649,422 @@ document.addEventListener('click', function(e) {
             const hidden  = panel.classList.toggle('hidden');
             chevron.style.transform = hidden ? '' : 'rotate(180deg)';
         }
+const RR_REPORT_CONFIG = {
+  // ── GOOGLE APPS SCRIPT ENDPOINT ─────────────────────────────
+  // Paste your deployed Apps Script Web App URL below.
+  // Get it from: Apps Script → Deploy → New Deployment → Web App
+  // Set "Who has access" to "Anyone"
+  ENDPOINT: "https://script.google.com/macros/s/AKfycbzSXItN_kzSFxfCwGjyuAQGpcp6GtY43TV7doR-jemmjuDBbp2_qal6MqwbD0dpMPg/exec",  // ← PASTE YOUR URL HERE e.g. "https://script.google.com/macros/s/ABC.../exec"
+  EXAM_NAME: 'IGBV Mock Exam',
+  MAX_FILE_SIZE_MB: 5,
+  // Sheet name in the linked spreadsheet where reports are written
+  SHEET_NAME: 'Reports',
+};
+
+let _rrActiveReportData = null;
+let _rrSelectedFile = null;
+
+// ── OPEN MODAL ────────────────────────────────────────────────
+function rrOpenReport() {
+  // Auto-capture context from running exam state
+  const currentQ = (typeof examQuestionsList !== 'undefined' && examQuestionsList.length)
+                  ? examQuestionsList[currentQuestionIndex]
+                  : null;
+  const qId   = currentQ?.id ?? '—';
+  const qNo   = (typeof currentQuestionIndex !== 'undefined' && typeof examQuestionsList !== 'undefined' && examQuestionsList.length)
+                  ? (currentQuestionIndex + 1)
+                  : '—';
+  const ans   = (typeof selectedAnswers !== 'undefined' && qId !== '—')
+                  ? (selectedAnswers[qId] || 'None')
+                  : 'None';
+  const exam  = RR_REPORT_CONFIG.EXAM_NAME;
+  const setKey      = currentQ?.setKey ?? (typeof chosenSetKey !== 'undefined' ? chosenSetKey : '—');
+  const correctAns  = currentQ?.correct ?? '—';
+  const qText       = currentQ?.qEng   ?? '';
+
+  _rrActiveReportData = { qId, qNo, ans, exam, setKey, correctAns, qText };
+
+  // Update context pills
+  const safe = v => String(v).substring(0, 40);
+  document.getElementById('rrCtxQid').textContent     = safe(qId);
+  document.getElementById('rrCtxQno').textContent     = safe(qNo);
+  document.getElementById('rrCtxExam').textContent    = safe(exam);
+  document.getElementById('rrCtxAns').textContent     = safe(ans);
+  document.getElementById('rrCtxSetKey').textContent  = safe(setKey);
+  document.getElementById('rrCtxCorrect').textContent = safe(correctAns);
+
+  // Reset form — clear chips + hidden select + textarea
+  document.getElementById('rrIssueType').value = '';
+  document.querySelectorAll('#rrIssueGrid .rr-issue-chip').forEach(c => {
+    c.classList.remove('rr-chip-active');
+    c.removeAttribute('aria-checked');
+  });
+  const grid = document.getElementById('rrIssueGrid');
+  if (grid) grid.classList.remove('rr-field-error', 'rr-shake');
+  document.getElementById('rrIssueDesc').value = '';
+  rrRemoveFile();
+  document.getElementById('rrFormState').style.display = '';
+  document.getElementById('rrSuccessState').style.display = 'none';
+  rrResetSubmitBtn();
+
+  // Open backdrop + modal
+  const backdrop = document.getElementById('rrReportBackdrop');
+  const modal    = document.getElementById('rrReportModal');
+
+  backdrop.style.display = 'flex';
+  requestAnimationFrame(() => {
+    backdrop.classList.add('rr-visible');
+    modal.classList.add('rr-modal-open');
+  });
+  document.body.style.overflow = 'hidden';
+
+  // Focus first focusable element for a11y
+  setTimeout(() => {
+    const sel = document.getElementById('rrIssueType');
+    if (sel) sel.focus();
+  }, 380);
+}
+
+// ── CLOSE MODAL ───────────────────────────────────────────────
+function rrCloseReport() {
+  const backdrop = document.getElementById('rrReportBackdrop');
+  const modal    = document.getElementById('rrReportModal');
+
+  modal.classList.remove('rr-modal-open');
+  backdrop.classList.remove('rr-visible');
+
+  setTimeout(() => {
+    backdrop.style.display = 'none';
+  }, 320);
+  document.body.style.overflow = '';
+}
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('rrReportModal');
+    if (modal && modal.classList.contains('rr-modal-open')) rrCloseReport();
+  }
+});
+
+// ── FILE HANDLING ─────────────────────────────────────────────
+function rrHandleFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const maxBytes = RR_REPORT_CONFIG.MAX_FILE_SIZE_MB * 1024 * 1024;
+  if (file.size > maxBytes) {
+    alert('Screenshot too large. Max ' + RR_REPORT_CONFIG.MAX_FILE_SIZE_MB + ' MB.');
+    input.value = '';
+    return;
+  }
+  _rrSelectedFile = file;
+  const preview = document.getElementById('rrFilePreview');
+  document.getElementById('rrFileName').textContent = file.name;
+  preview.style.display = 'flex';
+}
+
+function rrRemoveFile() {
+  _rrSelectedFile = null;
+  const input = document.getElementById('rrScreenshot');
+  if (input) input.value = '';
+  document.getElementById('rrFilePreview').style.display = 'none';
+}
+
+// ── SUBMIT REPORT ─────────────────────────────────────────────
+async function rrSubmitReport() {
+  const issueType = document.getElementById('rrIssueType').value;
+  const desc      = document.getElementById('rrIssueDesc').value.trim();
+
+  // Validation — shake the chip grid if nothing selected
+  if (!issueType) {
+    const grid = document.getElementById('rrIssueGrid');
+    if (grid) {
+      grid.classList.add('rr-field-error', 'rr-shake');
+      setTimeout(() => grid.classList.remove('rr-shake'), 400);
+      setTimeout(() => grid.classList.remove('rr-field-error'), 1800);
+    }
+    return;
+  }
+
+  // Build report payload
+  const report = {
+    ref:        'RR-' + Date.now().toString(36).toUpperCase(),
+    timestamp:  new Date().toISOString(),
+    exam:          _rrActiveReportData?.exam        ?? '—',
+    questionId:    _rrActiveReportData?.qId         ?? '—',
+    questionNo:    _rrActiveReportData?.qNo         ?? '—',
+    selected:      _rrActiveReportData?.ans         ?? 'None',
+    setKey:        _rrActiveReportData?.setKey      ?? '—',
+    correctAnswer: _rrActiveReportData?.correctAns  ?? '—',
+    questionText:  _rrActiveReportData?.qText       ?? '',
+    issueType,
+    description: desc || null,
+    hasScreenshot: !!_rrSelectedFile,
+    screenshotName: _rrSelectedFile?.name ?? null,
+    userAgent:  navigator.userAgent.substring(0, 120),
+  };
+
+  // UI: loading state
+  rrSetSubmitLoading(true);
+
+  try {
+    await rrSendReport(report, _rrSelectedFile);
+
+    // ── SUCCESS ──
+    document.getElementById('rrFormState').style.display = 'none';
+    const successEl = document.getElementById('rrSuccessState');
+    successEl.style.display = 'flex';
+    document.getElementById('rrSuccessRef').textContent = 'REF: ' + report.ref;
+
+    // Auto-close after 2.8s
+    setTimeout(() => rrCloseReport(), 2800);
+  } catch (err) {
+    console.error('[RankRush Report]', err);
+    rrSetSubmitLoading(false);
+    // Shake button to indicate error
+    const btn = document.getElementById('rrSubmitBtn');
+    btn.classList.add('rr-shake');
+    const lbl = document.getElementById('rrSubmitLabel');
+    lbl.textContent = 'Failed — Retry';
+    const ico = document.getElementById('rrBtnIcon');
+    ico.textContent = '⚠';
+    setTimeout(() => { btn.classList.remove('rr-shake'); }, 400);
+  }
+}
+
+// ── API SUBMISSION FUNCTION ───────────────────────────────────
+// Async, Firebase/Supabase/MongoDB/Apps Script ready
+// Replace the body of this function with your actual integration
+async function rrSendReport(report, file) {
+  // ══════════════════════════════════════════════════════════
+  // GOOGLE APPS SCRIPT INTEGRATION
+  // Sends report as URL params via GET (no-cors safe, no CORS
+  // preflight needed — same pattern as your score submission).
+  // ══════════════════════════════════════════════════════════
+
+  // Dev mode: store in localStorage and simulate delay
+  if (!RR_REPORT_CONFIG.ENDPOINT) {
+    await new Promise(r => setTimeout(r, 800));
+    try {
+      const existing = JSON.parse(localStorage.getItem('rr_reports') || '[]');
+      existing.unshift(report);
+      localStorage.setItem('rr_reports', JSON.stringify(existing.slice(0, 200)));
+    } catch(e) {}
+    console.info('[RankRush Report] Stored locally (no endpoint set):', report);
+    return; // ← remove this line once you set the ENDPOINT above
+  }
+
+  // Build query params — same pattern your APPS_SCRIPT_URL score submission uses
+  const params = new URLSearchParams({
+    action:        'reportIssue',           // lets you handle multiple actions in one script
+    ref:           report.ref,
+    timestamp:     report.timestamp,
+    exam:          report.exam,
+    questionId:    String(report.questionId),
+    questionNo:    String(report.questionNo),
+    selected:      String(report.selected),
+    setKey:        String(report.setKey),
+    correctAnswer: String(report.correctAnswer),
+    questionText:  String(report.questionText || '').substring(0, 300),
+    issueType:     report.issueType,
+    description:   report.description || '',
+    hasScreenshot: String(report.hasScreenshot),
+    screenshotName: report.screenshotName || '',
+    sheetName:     RR_REPORT_CONFIG.SHEET_NAME,
+    sendMail:      'true',
+  });
+
+  // no-cors GET — same as your existing score submission (mode: "no-cors")
+  await fetch(RR_REPORT_CONFIG.ENDPOINT + '?' + params.toString(), {
+    method: 'GET',
+    mode: 'no-cors',
+  });
+
+  // Note: no-cors means we can't read the response status, but the
+  // Apps Script will have received it. Treat every fetch that doesn't
+  // throw a network error as success (standard pattern for GAS).
+  console.info('[RankRush Report] Sent to Apps Script:', report.ref);
+}
+
+// ── UI HELPERS ────────────────────────────────────────────────
+function rrSetSubmitLoading(loading) {
+  const btn = document.getElementById('rrSubmitBtn');
+  const lbl = document.getElementById('rrSubmitLabel');
+  const ico = document.getElementById('rrBtnIcon');
+  if (loading) {
+    btn.disabled = true;
+    lbl.textContent = 'Submitting…';
+    ico.outerHTML = '<span id="rrBtnIcon" class="rr-spinner"></span>';
+  } else {
+    btn.disabled = false;
+    rrResetSubmitBtn();
+  }
+}
+
+function rrResetSubmitBtn() {
+  const btn = document.getElementById('rrSubmitBtn');
+  if (btn) btn.disabled = false;
+  const lbl = document.getElementById('rrSubmitLabel');
+  if (lbl) lbl.textContent = 'Submit Report';
+  const spinner = document.getElementById('rrBtnIcon');
+  if (spinner) {
+    spinner.className = '';
+    spinner.textContent = '→';
+    spinner.id = 'rrBtnIcon';
+  }
+}
+
+// ── CHIP SELECTOR ─────────────────────────────────────────────
+function rrSelectChip(chip, value) {
+  // Deselect all chips
+  document.querySelectorAll('#rrIssueGrid .rr-issue-chip').forEach(c => {
+    c.classList.remove('rr-chip-active');
+    c.setAttribute('aria-checked', 'false');
+  });
+  // Activate clicked chip
+  chip.classList.add('rr-chip-active');
+  chip.setAttribute('aria-checked', 'true');
+  // Sync hidden native select
+  const sel = document.getElementById('rrIssueType');
+  if (sel) sel.value = value;
+  // Remove error state if present
+  const grid = document.getElementById('rrIssueGrid');
+  if (grid) grid.classList.remove('rr-field-error', 'rr-shake');
+}
+// ══ END REPORT SYSTEM ══
+
+</script>
+
+
+<!-- ══════════════════════════════════════════════════════
+     RANKRUSH PREMIUM REPORT ISSUE SYSTEM
+     ══════════════════════════════════════════════════════ -->
+<div id="rrReportBackdrop" onclick="rrCloseReport()"></div>
+
+<div id="rrReportModal" role="dialog" aria-modal="true" aria-labelledby="rrModalTitle">
+  <div class="rr-modal-drag-pill"></div>
+
+  <!-- Header -->
+  <div class="rr-modal-header">
+    <div class="rr-modal-title-group">
+      <div class="rr-modal-icon">⚠</div>
+      <div>
+        <div class="rr-modal-title" id="rrModalTitle">Report a Question Issue</div>
+        <div class="rr-modal-subtitle">Help us improve quality · RankRush QA</div>
+      </div>
+    </div>
+    <button class="rr-close-btn" onclick="rrCloseReport()" aria-label="Close report modal">✕</button>
+  </div>
+
+  <!-- Auto-captured context pills -->
+  <div class="rr-context-strip" id="rrContextStrip">
+    <div class="rr-ctx-pill"><span>Q.ID</span> <span id="rrCtxQid">—</span></div>
+    <div class="rr-ctx-pill"><span>Q.No</span> <span id="rrCtxQno">—</span></div>
+    <div class="rr-ctx-pill"><span>Exam</span> <span id="rrCtxExam">—</span></div>
+    <div class="rr-ctx-pill"><span>Selected</span> <span id="rrCtxAns">None</span></div>
+    <div class="rr-ctx-pill" style="border-color:rgba(168,85,247,0.25);background:rgba(168,85,247,0.06);"><span style="color:#c084fc;">Set</span> <span id="rrCtxSetKey" style="color:#c084fc;">—</span></div>
+    <div class="rr-ctx-pill" style="border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.06);"><span style="color:#4ade80;">Correct Ans</span> <span id="rrCtxCorrect" style="color:#4ade80;">—</span></div>
+  </div>
+
+  <!-- Form state -->
+  <div id="rrFormState">
+    <div class="rr-modal-body">
+      <!-- Issue type — premium chip grid -->
+      <div>
+        <div class="rr-field-label">Issue Type <span class="rr-required">✱</span></div>
+        <!-- Hidden native select keeps value for form logic -->
+        <select id="rrIssueType" aria-label="Issue type" style="display:none">
+          <option value="">— Select the problem type —</option>
+          <option value="Wrong Answer">Wrong Answer</option>
+          <option value="Typo/Error">Typo / Error</option>
+          <option value="Wrong Translation">Wrong Translation</option>
+          <option value="Image Not Loading">Image Not Loading</option>
+          <option value="Duplicate Question">Duplicate Question</option>
+          <option value="Incorrect Options">Incorrect Options</option>
+          <option value="Out of Syllabus">Out of Syllabus</option>
+          <option value="Other">Other</option>
+        </select>
+        <div class="rr-issue-grid" id="rrIssueGrid" role="radiogroup" aria-label="Issue type">
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Wrong Answer')" data-val="Wrong Answer">
+            <span class="rr-chip-emoji">❌</span>
+            <span class="rr-chip-label">Wrong Answer</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Typo/Error')" data-val="Typo/Error">
+            <span class="rr-chip-emoji">✏️</span>
+            <span class="rr-chip-label">Typo / Error</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Wrong Translation')" data-val="Wrong Translation">
+            <span class="rr-chip-emoji">🌐</span>
+            <span class="rr-chip-label">Wrong Translation</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Image Not Loading')" data-val="Image Not Loading">
+            <span class="rr-chip-emoji">🖼️</span>
+            <span class="rr-chip-label">Image Not Loading</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Duplicate Question')" data-val="Duplicate Question">
+            <span class="rr-chip-emoji">♻️</span>
+            <span class="rr-chip-label">Duplicate Question</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Incorrect Options')" data-val="Incorrect Options">
+            <span class="rr-chip-emoji">🔀</span>
+            <span class="rr-chip-label">Incorrect Options</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Out of Syllabus')" data-val="Out of Syllabus">
+            <span class="rr-chip-emoji">📚</span>
+            <span class="rr-chip-label">Out of Syllabus</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Other')" data-val="Other">
+            <span class="rr-chip-emoji">💬</span>
+            <span class="rr-chip-label">Other</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <div class="rr-field-label">Describe the Issue <span style="color:rgba(148,163,184,0.4);font-size:0.55rem;">(optional)</span></div>
+        <textarea id="rrIssueDesc" placeholder="Describe the issue clearly… e.g. 'Option B should be 48 not 84'" rows="3"></textarea>
+      </div>
+
+      <!-- Screenshot upload -->
+      <div>
+        <div class="rr-field-label">Screenshot <span style="color:rgba(148,163,184,0.4);font-size:0.55rem;">(optional)</span></div>
+        <div class="rr-upload-zone">
+          <input type="file" id="rrScreenshot" accept="image/*" onchange="rrHandleFile(this)" aria-label="Upload screenshot">
+          <div class="rr-upload-icon">📎</div>
+          <div class="rr-upload-text"><strong>Click to attach</strong> or drag a screenshot here<br>PNG, JPG, WEBP — max 5 MB</div>
+        </div>
+        <div id="rrFilePreview">
+          <span class="rr-fp-name" id="rrFileName">file.png</span>
+          <button class="rr-fp-remove" onclick="rrRemoveFile()" aria-label="Remove file">✕</button>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button id="rrSubmitBtn" onclick="rrSubmitReport()">
+        <span id="rrSubmitLabel">Submit Report</span>
+        <span id="rrBtnIcon" style="font-size:0.9rem;">→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Success state -->
+  <div id="rrSuccessState">
+    <div class="rr-success-ring">✅</div>
+    <div class="rr-success-title">Report Submitted!</div>
+    <div class="rr-success-sub">Thanks for helping improve <strong style="color:#f0f6ff;">RankRush</strong>. Our team reviews every report to maintain exam quality.</div>
+    <div class="rr-success-meta" id="rrSuccessRef">REF: —</div>
+  </div>
+</div>
+<!-- ══ END REPORT SYSTEM ══ -->
 
     </script>
 </body>
