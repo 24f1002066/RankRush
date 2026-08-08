@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RKMS Deoghar Photo Gallery | Campus & Vidyapith Moments | RankRush</title>
+<meta name="description" content="Explore Ramakrishna Mission Vidyapith Deoghar's campus, academic environment, and Vidyapith moments through this photo gallery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/rkms.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-1); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+</style>
+</head>
+<body class="rk">
+<div class="rk-ambient"></div>
 
+<nav class="rr-nav" id="rr-nav">
+  <a href="../index.html" class="rr-logo"><div class="rr-logo-icon" style="position:relative;overflow:hidden;"><img src="../rankrush.png" alt="RankRush Logo" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:2;background:var(--bg-1);" onerror="this.style.display=\x27none\x27;this.parentElement.textContent=\x27RR\x27;"></div><span class="rr-logo-text">RANKRUSH</span><span class="rk-nav-tag">RKMS</span></a>
+  <ul class="rr-nav-links">
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="study-material.html">Study Material</a></li>
+    <li><a href="tests.html">Test Arena</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="progress.html">My Progress</a></li>
+  </ul>
+  <button class="rr-hamburger" id="rr-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="rr-mobile-menu" id="rr-mobile-menu">
+  <a href="../index.html"><i class="fas fa-house" style="margin-right:8px;color:var(--blue);"></i>RankRush Home</a>
+  <a href="index.html"><i class="fas fa-compass" style="margin-right:8px;color:var(--rk-saffron);"></i>Overview</a>
+  <a href="study-material.html"><i class="fas fa-book" style="margin-right:8px;color:var(--cyan);"></i>Study Material</a>
+  <a href="tests.html"><i class="fas fa-pen" style="margin-right:8px;color:var(--purple);"></i>Test Arena</a>
+  <a href="gallery.html"><i class="fas fa-images" style="margin-right:8px;color:var(--gold);"></i>Gallery</a>
+  <a href="progress.html"><i class="fas fa-chart-line" style="margin-right:8px;color:var(--green);"></i>My Progress</a>
+</div>
+
+<section class="rk-section" style="padding-top:120px;">
+  <div class="rk-container">
+    <div class="rk-section-head rk-reveal" style="margin-bottom:2rem;">
+      <div class="rk-eyebrow">🌿 Experience Vidyapith</div>
+      <h1 class="rk-section-title">Photo Gallery</h1>
+      <p class="rk-section-sub">More than an examination. A journey towards knowledge, discipline and character.</p>
+    </div>
+
+    <div class="rk-gallery-tabs" id="rkGalleryTabs"></div>
+    <div class="rk-gallery-grid" id="rkGalleryGrid"></div>
+  </div>
+</section>
+
+<div class="rk-lightbox" id="rkLightbox">
+  <button class="rk-lightbox-close" aria-label="Close"><i class="fas fa-xmark"></i></button>
+  <button class="rk-lightbox-prev" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
+  <div>
+    <img class="rk-lightbox-img" src="" alt="">
+    <div class="rk-lightbox-cap"></div>
+  </div>
+  <button class="rk-lightbox-next" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<footer class="rr-footer">
+  <div class="rr-footer-inner">
+    <div class="rr-footer-brand">RANKRUSH</div>
+    <div class="rr-footer-links">
+      <a href="../index.html">Home</a><a href="index.html">RKMS Overview</a><a href="study-material.html">Study Material</a><a href="tests.html">Test Arena</a><a href="progress.html">My Progress</a>
+    </div>
+    <div class="rr-footer-copy">© 2026 RANKRUSH. Built for students of Bihar & Jharkhand.</div>
+  </div>
+</footer>
+
+<script src="../js/rkms-data.js"></script>
+<script src="../js/rkms-common.js"></script>
+<script>
+  rkInitGallery('rkGalleryGrid', 'rkGalleryTabs', 'rkLightbox');
+</script>
+</body>
+</html>

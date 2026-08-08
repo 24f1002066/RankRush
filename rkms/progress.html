@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My RKMS Preparation | Progress Dashboard | RankRush</title>
+<meta name="description" content="Track your RKMS Deoghar preparation — overall progress, subject-wise scores, tests attempted and weak areas to focus on.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/rkms.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-1); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+</style>
+</head>
+<body class="rk">
+<div class="rk-ambient"></div>
+
+<nav class="rr-nav" id="rr-nav">
+  <a href="../index.html" class="rr-logo"><div class="rr-logo-icon" style="position:relative;overflow:hidden;"><img src="../rankrush.png" alt="RankRush Logo" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:2;background:var(--bg-1);" onerror="this.style.display=\x27none\x27;this.parentElement.textContent=\x27RR\x27;"></div><span class="rr-logo-text">RANKRUSH</span><span class="rk-nav-tag">RKMS</span></a>
+  <ul class="rr-nav-links">
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="study-material.html">Study Material</a></li>
+    <li><a href="tests.html">Test Arena</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="progress.html" class="active">My Progress</a></li>
+  </ul>
+  <button class="rr-hamburger" id="rr-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="rr-mobile-menu" id="rr-mobile-menu">
+  <a href="../index.html"><i class="fas fa-house" style="margin-right:8px;color:var(--blue);"></i>RankRush Home</a>
+  <a href="index.html"><i class="fas fa-compass" style="margin-right:8px;color:var(--rk-saffron);"></i>Overview</a>
+  <a href="study-material.html"><i class="fas fa-book" style="margin-right:8px;color:var(--cyan);"></i>Study Material</a>
+  <a href="tests.html"><i class="fas fa-pen" style="margin-right:8px;color:var(--purple);"></i>Test Arena</a>
+  <a href="gallery.html"><i class="fas fa-images" style="margin-right:8px;color:var(--gold);"></i>Gallery</a>
+  <a href="progress.html"><i class="fas fa-chart-line" style="margin-right:8px;color:var(--green);"></i>My Progress</a>
+</div>
+
+<section class="rk-section" style="padding-top:120px;">
+  <div class="rk-container">
+    <div class="rk-section-head rk-reveal" style="margin-bottom:2rem;text-align:left;max-width:100%;">
+      <div class="rk-eyebrow">📊 My Progress</div>
+      <h1 class="rk-section-title">My RKMS Preparation</h1>
+      <p class="rk-section-sub" id="rkProgressNote">Tracked on this device. Attempt a test to see your stats here.</p>
+    </div>
+
+    <div style="margin-bottom:2rem;">
+      <div class="rk-progress-row"><span>Overall Progress</span><span id="rkOverallPct">0%</span></div>
+      <div class="rk-progress-track" style="height:14px;"><div class="rk-progress-fill" id="rkOverallFill" style="width:0%"></div></div>
+    </div>
+
+    <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:1rem;">Subject Progress</h3>
+    <div id="rkSubjectProgress" style="margin-bottom:2.5rem;"></div>
+
+    <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:1rem;">Statistics</h3>
+    <div class="rk-stat-grid" id="rkStatGrid" style="margin-bottom:2.5rem;"></div>
+
+    <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:1rem;">Areas to Improve</h3>
+    <div id="rkWeakAreas" style="margin-bottom:2.5rem;display:grid;gap:0.8rem;"></div>
+
+    <button class="btn-ghost btn-sm" onclick="rkHandleReset()"><i class="fas fa-rotate-left"></i> Reset Progress (this device)</button>
+    <!-- <p style="font-size:0.7rem;color:var(--text-3);margin-top:1.5rem;max-width:600px;">
+      RankRush doesn't yet have user accounts, so this dashboard is saved locally on this device/browser only.
+      The data shape mirrors what a future logged-in profile API would return, so this page is ready to
+      connect to real accounts later without a redesign — see comments in <code>js/rkms-common.js</code>.
+    </p> -->
+  </div>
+</section>
+
+<footer class="rr-footer">
+  <div class="rr-footer-inner">
+    <div class="rr-footer-brand">RANKRUSH</div>
+    <div class="rr-footer-links">
+      <a href="../index.html">Home</a><a href="index.html">RKMS Overview</a><a href="study-material.html">Study Material</a><a href="tests.html">Test Arena</a><a href="gallery.html">Gallery</a>
+    </div>
+    <div class="rr-footer-copy">© 2026 RANKRUSH. Built for students of Bihar & Jharkhand.</div>
+  </div>
+</footer>
+
+<script src="../js/rkms-data.js"></script>
+<script src="../js/rkms-common.js"></script>
+<script>
+function paintProgressDashboard() {
+  const p = rkGetProgress();
+
+  document.getElementById('rkOverallPct').textContent = `${p.totalScorePct}%`;
+  document.getElementById('rkOverallFill').style.width = `${p.totalScorePct}%`;
+  document.getElementById('rkProgressNote').textContent = p.testsAttempted
+    ? `${p.testsAttempted} test(s) attempted on this device · ${p.streak > 0 ? `🔥 ${p.streak} day streak` : 'no active streak yet'}`
+    : 'Tracked on this device. Attempt a test in the Test Arena to see your stats here.';
+
+  document.getElementById('rkSubjectProgress').innerHTML = RKMS_SUBJECTS.map(s => {
+    const stat = p.subjects[s.id] || { attempted: 0, totalScorePct: 0 };
+    return `
+    <div style="margin-bottom:0.9rem;">
+      <div class="rk-progress-row"><span>${s.name}</span><span>${stat.totalScorePct}%</span></div>
+      <div class="rk-progress-track"><div class="rk-progress-fill" style="width:${stat.totalScorePct}%;background:linear-gradient(90deg, ${s.color}, var(--gold));"></div></div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('rkStatGrid').innerHTML = `
+    <div class="rk-stat-card"><div class="rk-stat-num">${p.testsAttempted}</div><div class="rk-stat-label">Tests Attempted</div></div>
+    <div class="rk-stat-card"><div class="rk-stat-num">${p.totalScorePct}%</div><div class="rk-stat-label">Average Score</div></div>
+    <div class="rk-stat-card"><div class="rk-stat-num">${p.highestScorePct}%</div><div class="rk-stat-label">Highest Score</div></div>
+    <div class="rk-stat-card"><div class="rk-stat-num">${p.questionsSolved}</div><div class="rk-stat-label">Questions Solved</div></div>
+    <div class="rk-stat-card"><div class="rk-stat-num">${p.streak}</div><div class="rk-stat-label">Current Streak</div></div>`;
+
+  // Weakest subject (lowest score among attempted subjects)
+  const weakEl = document.getElementById('rkWeakAreas');
+  const attemptedSubjects = Object.entries(p.subjects).filter(([, s]) => s.attempted > 0);
+  if (!attemptedSubjects.length) {
+    weakEl.innerHTML = `<p style="color:var(--text-2);font-size:0.85rem;">Attempt a few tests across subjects and your weakest areas will show up here automatically.</p>`;
+    return;
+  }
+  attemptedSubjects.sort((a, b) => a[1].totalScorePct - b[1].totalScorePct);
+  const [weakId, weakStat] = attemptedSubjects[0];
+  const weakSubject = RKMS_SUBJECTS.find(s => s.id === weakId);
+  weakEl.innerHTML = `
+    <div class="rk-weak-card">
+      <div class="rk-weak-left">
+        <i class="fas fa-triangle-exclamation"></i>
+        <div>
+          <b>${weakSubject ? weakSubject.name : weakId}</b>
+          <div style="font-size:0.78rem;color:var(--text-2);">Accuracy: ${weakStat.totalScorePct}%</div>
+        </div>
+      </div>
+      <a class="btn-ghost btn-sm" href="tests.html?subject=${weakId}">Practice Now <i class="fas fa-arrow-right"></i></a>
+    </div>`;
+}
+
+function rkHandleReset() {
+  if (confirm('Reset all locally saved RKMS progress on this device? This cannot be undone.')) {
+    rkResetProgress();
+    paintProgressDashboard();
+  }
+}
+
+paintProgressDashboard();
+</script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RKMS Deoghar Study Material | Notes, PDFs & Practice Questions | RankRush</title>
+<meta name="description" content="Browse RKMS Deoghar study material by subject, topic, level and type — notes, concept explanations, PDFs, practice and revision material.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/rkms.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-1); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+</style>
+</head>
+<body class="rk">
+<div class="rk-ambient"></div>
+
+<nav class="rr-nav" id="rr-nav">
+  <a href="../index.html" class="rr-logo">
+    <div class="rr-logo-icon" style="position:relative;overflow:hidden;"><img src="../rankrush.png" alt="RankRush Logo" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:2;background:var(--bg-1);" onerror="this.style.display='none';this.parentElement.textContent='RR';"></div><span class="rr-logo-text">RANKRUSH</span><span class="rk-nav-tag">RKMS</span>
+  </a>
+  <ul class="rr-nav-links">
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="study-material.html" class="active">Study Material</a></li>
+    <li><a href="tests.html">Test Arena</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="progress.html">My Progress</a></li>
+  </ul>
+  <button class="rr-hamburger" id="rr-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="rr-mobile-menu" id="rr-mobile-menu">
+  <a href="../index.html"><i class="fas fa-house" style="margin-right:8px;color:var(--blue);"></i>RankRush Home</a>
+  <a href="index.html"><i class="fas fa-compass" style="margin-right:8px;color:var(--rk-saffron);"></i>Overview</a>
+  <a href="study-material.html"><i class="fas fa-book" style="margin-right:8px;color:var(--cyan);"></i>Study Material</a>
+  <a href="tests.html"><i class="fas fa-pen" style="margin-right:8px;color:var(--purple);"></i>Test Arena</a>
+  <a href="gallery.html"><i class="fas fa-images" style="margin-right:8px;color:var(--gold);"></i>Gallery</a>
+  <a href="progress.html"><i class="fas fa-chart-line" style="margin-right:8px;color:var(--green);"></i>My Progress</a>
+</div>
+
+<section class="rk-section" style="padding-top:120px;">
+  <div class="rk-container">
+    <div class="rk-section-head rk-reveal" style="margin-bottom:2rem;">
+      <div class="rk-eyebrow">📚 Study Material</div>
+      <h1 class="rk-section-title">RKMS Deoghar Study Material</h1>
+      <p class="rk-section-sub">Search or filter by subject, topic, level and material type.</p>
+    </div>
+
+    <div class="rk-filter-bar rk-reveal">
+      <input type="text" id="rkSearch" class="rk-search-input" placeholder="Search RKMS study material...">
+      <select id="rkFilterSubject" class="rk-select">
+        <option value="">All Subjects</option>
+      </select>
+      <select id="rkFilterType" class="rk-select">
+        <option value="">All Types</option>
+      </select>
+      <select id="rkFilterLevel" class="rk-select">
+        <option value="">All Levels</option>
+      </select>
+    </div>
+
+    <div id="rkMaterialResults" class="rk-material-grid"></div>
+    <div id="rkMaterialEmpty" class="rk-empty-state" style="display:none;">
+      <i class="fas fa-magnifying-glass" style="font-size:1.6rem;color:var(--text-3);margin-bottom:0.75rem;display:block;"></i>
+      No material matches your filters yet. Try clearing a filter, or check back soon — new material is added regularly.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SYLLABUS (quick reference) ═══════════ -->
+<section class="rk-section" id="syllabus">
+  <div class="rk-container">
+    <div class="rk-section-head rk-reveal">
+      <div class="rk-eyebrow">📖 Syllabus</div>
+      <h2 class="rk-section-title">Complete RKMS Preparation Syllabus</h2>
+    </div>
+    <div class="rk-subject-grid" id="rkSyllabusGrid"></div>
+  </div>
+</section>
+
+<footer class="rr-footer">
+  <div class="rr-footer-inner">
+    <div class="rr-footer-brand">RANKRUSH</div>
+    <div class="rr-footer-links">
+      <a href="../index.html">Home</a>
+      <a href="index.html">RKMS Overview</a>
+      <a href="tests.html">Test Arena</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="progress.html">My Progress</a>
+    </div>
+    <div class="rr-footer-copy">© 2026 RANKRUSH. Built for students of Bihar & Jharkhand.</div>
+  </div>
+</footer>
+
+<script src="../js/rkms-data.js"></script>
+<script src="../js/rkms-common.js"></script>
+<script>
+  // Populate filter dropdowns from data
+  const subjSel = document.getElementById('rkFilterSubject');
+  const typeSel = document.getElementById('rkFilterType');
+  const levelSel = document.getElementById('rkFilterLevel');
+
+  RKMS_SUBJECTS.forEach(s => subjSel.insertAdjacentHTML('beforeend', `<option value="${s.id}">${s.name}</option>`));
+  Object.entries(RKMS_MATERIAL_TYPE_LABELS).forEach(([key, label]) => typeSel.insertAdjacentHTML('beforeend', `<option value="${key}">${label}</option>`));
+  [...new Set(RKMS_STUDY_MATERIALS.map(m => m.level))].forEach(l => levelSel.insertAdjacentHTML('beforeend', `<option value="${l}">${l}</option>`));
+
+  // Pre-fill from URL query (?type=important etc.)
+  const params = new URLSearchParams(location.search);
+  if (params.get('type')) typeSel.value = params.get('type');
+  if (params.get('subject')) subjSel.value = params.get('subject');
+
+  function renderMaterials() {
+    const q = document.getElementById('rkSearch').value.trim().toLowerCase();
+    const subject = subjSel.value, type = typeSel.value, level = levelSel.value;
+
+    const filtered = RKMS_STUDY_MATERIALS.filter(m => {
+      if (subject && m.subject !== subject) return false;
+      if (type && m.type !== type) return false;
+      if (level && m.level !== level) return false;
+      if (q && !(m.title.toLowerCase().includes(q) || m.topic.toLowerCase().includes(q))) return false;
+      return true;
+    });
+
+    const grid = document.getElementById('rkMaterialResults');
+    const empty = document.getElementById('rkMaterialEmpty');
+
+    if (!filtered.length) {
+      grid.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    grid.innerHTML = filtered.map(m => {
+      const subjName = (RKMS_SUBJECTS.find(s => s.id === m.subject) || {}).name || m.subject;
+      return `
+      <div class="rk-material-card rk-reveal">
+        <span class="rk-material-type">${RKMS_MATERIAL_TYPE_LABELS[m.type] || m.type}</span>
+        <div class="rk-material-title">${m.title}</div>
+        <div class="rk-material-meta">${subjName} · ${m.topic} · ${m.level}</div>
+        <a class="btn-ghost btn-sm" href="${m.fileUrl}" target="_blank" rel="noopener">Open <i class="fas fa-arrow-up-right-from-square"></i></a>
+      </div>`;
+    }).join('');
+    rkInitScrollReveal();
+  }
+
+  document.getElementById('rkSearch').addEventListener('input', renderMaterials);
+  subjSel.addEventListener('change', renderMaterials);
+  typeSel.addEventListener('change', renderMaterials);
+  levelSel.addEventListener('change', renderMaterials);
+  renderMaterials();
+
+  // Syllabus grid reuses subject cards
+  rkRenderSubjectCards('rkSyllabusGrid');
+</script>
+</body>
+</html>
