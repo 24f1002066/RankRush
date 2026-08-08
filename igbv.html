@@ -1,0 +1,4073 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGBV - RANKRUSH  Exam Prep</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        'premium-dark': '#0B0F19',
+                        'premium-darker': '#1A2333',
+                        'neon-orange': '#FF6B35',
+                        'metal-gold': '#D4AF37',
+                        'teal-sea': '#0F7B8E',
+                        'brand': {
+                            50: '#f0f9fa',
+                            100: '#dcf2f5',
+                            200: '#bde2e8',
+                            500: '#0F7B8E',
+                            600: '#0d6575',
+                            700: '#0a4f5d',
+                            800: '#083f4b',
+                            900: '#052a32',
+                            950: '#02161b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+        <style>
+/* ═══════════════════════════════════════════════════════════
+   RANKRUSH UNIFIED THEME — EXAM PAGES
+   Matches index.html design system exactly
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── RESET & BASE ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:        #020408;
+  --bg-1:      #060c14;
+  --bg-2:      #0a1220;
+  --bg-3:      #0e1928;
+  --blue:      #0ea5e9;
+  --cyan:      #22d3ee;
+  --purple:    #a855f7;
+  --gold:      #d4af37;
+  --orange:    #f97316;
+  --green:     #4ade80;
+  --red:       #f87171;
+  --text-1:    #f0f6ff;
+  --text-2:    #94a3b8;
+  --text-3:    #475569;
+  --glass:     rgba(14,25,45,0.65);
+  --glass-b:   rgba(10,18,32,0.88);
+  --border:    rgba(148,163,184,0.1);
+  --border-b:  rgba(14,165,233,0.2);
+  --gold-b:    rgba(212,175,55,0.25);
+  --brand-500: #0ea5e9;
+  --brand-600: #0284c7;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  background: var(--bg) !important;
+  color: var(--text-1) !important;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px !important; }
+::-webkit-scrollbar-track { background: var(--bg) !important; }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--blue), var(--purple)) !important; border-radius: 10px !important; }
+
+/* ── AMBIENT BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 15% 5%, rgba(14,165,233,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 80%, rgba(168,85,247,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 60% at 50% 45%, rgba(212,175,55,0.04) 0%, transparent 65%);
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(14,165,233,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14,165,233,0.018) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+header, main, footer { position: relative; z-index: 5; }
+
+/* ── FONTS ── */
+h1, h2, h3, .font-serif {
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+code, .font-mono, [class*="mono"], [class*="countdown"] {
+  font-family: 'Fira Code', monospace !important;
+}
+
+/* ── GLASS CLASSES ── */
+.glass {
+  background: var(--glass) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid var(--border) !important;
+}
+.glass-gold {
+  background: rgba(14,25,45,0.7) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1.5px solid var(--gold-b) !important;
+  box-shadow: 0 0 32px rgba(212,175,55,0.1), inset 0 0 20px rgba(212,175,55,0.04) !important;
+}
+.panel-surface {
+  background: rgba(6,12,20,0.88) !important;
+  backdrop-filter: blur(24px) !important;
+}
+
+/* ── HEADER / NAV ── */
+header {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  z-index: 200 !important;
+  background: rgba(2,4,8,0.88) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-bottom: 1px solid rgba(14,165,233,0.08) !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  height: 64px !important;
+}
+/* Hide the old decorative blob divs injected by the original header markup */
+header > div.absolute {
+  display: none !important;
+}
+
+.rr-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* Logo */
+.rr-logo-box {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.rr-logo-img-wrap {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--gold-b);
+  background: rgba(212,175,55,0.08);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+.rr-logo-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  position: absolute; inset: 0; z-index: 2;
+}
+.rr-logo-img-wrap i {
+  font-size: 0.85rem; color: var(--gold); z-index: 1;
+}
+.rr-logo-name {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700; font-size: 1.1rem;
+  background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #aa771c 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.05em;
+  animation: logoGlowPulse 4s ease-in-out infinite;
+}
+@keyframes logoGlowPulse {
+  0%,100% { filter: drop-shadow(0 0 4px rgba(212,175,55,0.4)); }
+  50%      { filter: drop-shadow(0 0 10px rgba(212,175,55,0.8)); }
+}
+
+/* Nav links */
+.rr-nav-links-bar {
+  display: flex; align-items: center; gap: 2rem;
+  list-style: none; flex-shrink: 0;
+}
+.rr-nav-links-bar a {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.68rem; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-2) !important;
+  text-decoration: none;
+  transition: color 0.2s;
+  position: relative;
+  padding-bottom: 2px;
+}
+.rr-nav-links-bar a::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1.5px;
+  background: linear-gradient(90deg, var(--cyan), var(--blue));
+  transition: width 0.3s ease;
+}
+.rr-nav-links-bar a:hover { color: var(--cyan) !important; }
+.rr-nav-links-bar a:hover::after { width: 100%; }
+
+/* Nav actions */
+.rr-nav-actions-bar {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.rr-sound-btn {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  padding: 7px 12px !important;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  color: var(--text-2) !important;
+  transition: all 0.2s;
+}
+.rr-sound-btn:hover {
+  color: var(--cyan) !important;
+  background: rgba(14,165,233,0.08) !important;
+  border-color: rgba(14,165,233,0.3) !important;
+  transform: none !important;
+}
+
+/* ── PAGE TITLE BAND ── */
+.rr-page-title-band {
+  border-bottom: 1px solid rgba(14,165,233,0.06);
+  background: linear-gradient(180deg, rgba(14,165,233,0.03) 0%, transparent 100%);
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 4vw, 2.5rem);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.rr-page-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 12px;
+  border: 1px solid rgba(14,165,233,0.25);
+  border-radius: 999px;
+  background: rgba(14,165,233,0.06);
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.62rem; letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.75rem;
+}
+.rr-page-title-main {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 30%, #fcf6ba 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.rr-page-tagline {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  margin-top: 0.4rem;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+/* Badge / neon badge */
+.badge-neon {
+  background: rgba(14,165,233,0.1) !important;
+  border: 1px solid rgba(14,165,233,0.3) !important;
+  color: var(--cyan) !important;
+  border-radius: 999px !important;
+}
+.text-gradient {
+  background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #aa771c 100%) !important;
+  -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  animation: logoGlowPulse 4s ease-in-out infinite !important;
+  background-size: unset !important;
+}
+
+/* ── LOBBY CARD ── */
+.lobby-card-header {
+  background: linear-gradient(135deg, rgba(6,12,20,0.98) 0%, rgba(10,18,32,0.95) 100%) !important;
+  border-bottom: 2px solid rgba(212,175,55,0.3) !important;
+}
+
+/* ── CARD CONTAINERS ── */
+.dark\:bg-slate-800,
+.bg-white.dark\:bg-slate-800,
+[class*="bg-slate-800"] {
+  background: var(--glass) !important;
+  border-color: var(--border) !important;
+}
+[class*="bg-premium-darker"] {
+  background: rgba(6,12,20,0.8) !important;
+}
+[class*="bg-premium-dark"] {
+  background: var(--bg-1) !important;
+}
+[class*="bg-slate-700"],
+[class*="dark:bg-slate-700"] {
+  background: rgba(14,25,45,0.7) !important;
+}
+[class*="bg-gray-800"] {
+  background: rgba(10,18,32,0.85) !important;
+}
+[class*="bg-gray-700"] {
+  background: rgba(14,25,45,0.6) !important;
+}
+
+/* Borders */
+[class*="border-slate-700"],
+[class*="dark:border-slate-700"],
+[class*="border-gray-700"] {
+  border-color: var(--border) !important;
+}
+[class*="border-slate-200"],
+[class*="dark:border-slate-200"] {
+  border-color: var(--border-b) !important;
+}
+
+/* ── INPUTS ── */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  background: rgba(2,4,8,0.7) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  color: var(--text-1) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  transition: all 0.25s !important;
+  outline: none !important;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--cyan) !important;
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.12) !important;
+}
+input[readonly] {
+  background: rgba(10,18,32,0.8) !important;
+  color: var(--text-2) !important;
+}
+
+/* ── LABELS ── */
+label.block, label.text-xs {
+  color: var(--text-2) !important;
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+/* ── BUTTONS ── */
+/* Primary / launch */
+#launchBtn {
+  background: linear-gradient(135deg, var(--blue) 0%, rgba(14,165,233,0.75) 100%) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  color: white !important;
+  box-shadow: 0 4px 28px rgba(14,165,233,0.35), 0 0 0 1px rgba(14,165,233,0.2) !important;
+  animation: none !important;
+  transition: all 0.25s !important;
+}
+#launchBtn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 36px rgba(14,165,233,0.55), 0 0 0 1px rgba(14,165,233,0.4) !important;
+}
+
+/* Submit / evaluate button */
+button[onclick*="promptSubmitTest"],
+button[onclick*="submitTest"] {
+  background: linear-gradient(135deg, #dc2626, #e11d48) !important;
+  border-radius: 10px !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 20px rgba(220,38,38,0.35) !important;
+  transition: all 0.25s !important;
+  border: none !important;
+}
+button[onclick*="promptSubmitTest"]:hover,
+button[onclick*="submitTest"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 28px rgba(220,38,38,0.5) !important;
+}
+
+/* Next button */
+#nextBtn {
+  background: var(--blue) !important;
+  border-radius: 10px !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  transition: all 0.2s !important;
+  border: none !important;
+}
+#nextBtn:hover { background: var(--cyan) !important; }
+
+/* Back button */
+#prevBtn {
+  background: var(--glass) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  color: var(--text-2) !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  transition: all 0.2s !important;
+}
+#prevBtn:hover {
+  border-color: rgba(14,165,233,0.3) !important;
+  color: var(--cyan) !important;
+}
+
+/* Clear answer button */
+button[onclick*="clearSelected"] {
+  border: 1px solid rgba(248,113,113,0.25) !important;
+  border-radius: 8px !important;
+  color: var(--red) !important;
+  background: transparent !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 600 !important;
+  transition: all 0.2s !important;
+}
+button[onclick*="clearSelected"]:hover {
+  background: rgba(248,113,113,0.08) !important;
+}
+
+/* Flag button */
+button[onclick*="toggleFlag"] {
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  color: var(--text-2) !important;
+  background: transparent !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  transition: all 0.2s !important;
+}
+button[onclick*="toggleFlag"]:hover {
+  color: var(--gold) !important;
+  border-color: var(--gold-b) !important;
+}
+
+/* Roll regenerate button */
+button[onclick*="generateCustomRoll"] {
+  background: var(--glass) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  color: var(--text-2) !important;
+  transition: all 0.2s !important;
+}
+button[onclick*="generateCustomRoll"]:hover {
+  border-color: var(--border-b) !important;
+  color: var(--cyan) !important;
+}
+
+/* Modal buttons */
+#modalActions button {
+  border-radius: 8px !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  transition: all 0.2s !important;
+}
+#modalActions button:last-child {
+  background: var(--blue) !important;
+  color: white !important;
+  box-shadow: 0 4px 14px rgba(14,165,233,0.3) !important;
+}
+#modalActions button:last-child:hover {
+  background: var(--cyan) !important;
+}
+#modalActions button:first-child {
+  background: var(--glass) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-2) !important;
+}
+
+/* ── RADIO INPUTS ── */
+input[type="radio"] { accent-color: var(--blue) !important; }
+label.flex.items-center.gap-4 {
+  border-radius: 12px !important;
+  border-color: var(--border) !important;
+  transition: all 0.2s !important;
+}
+label.flex.items-center.gap-4:hover {
+  background: rgba(14,165,233,0.04) !important;
+  border-color: rgba(14,165,233,0.25) !important;
+}
+label input[type="radio"]:checked + div { color: var(--text-1) !important; }
+
+/* ── QUESTION CARD ── */
+.question-card, #questionMainCard {
+  background: var(--glass-b) !important;
+  border: 1px solid var(--border-b) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(14,165,233,0.06) !important;
+  position: relative;
+  overflow: hidden;
+}
+.question-card::before, #questionMainCard::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--blue), var(--gold), transparent);
+  opacity: 0.7;
+}
+#questionMainCard .border-b {
+  border-color: var(--border) !important;
+}
+#questionMainCard .border-t {
+  border-color: var(--border) !important;
+}
+
+/* Question text */
+#displayQEng {
+  color: var(--text-1) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+#displayQHin {
+  color: var(--text-2) !important;
+  border-left-color: var(--blue) !important;
+  background: rgba(14,165,233,0.03) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 0.9rem !important;
+}
+
+/* Category badge */
+#questionCategoryBadge {
+  background: rgba(14,165,233,0.15) !important;
+  color: var(--cyan) !important;
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.1em !important;
+  border-radius: 999px !important;
+  padding: 4px 10px !important;
+}
+#questionCounterHeader {
+  color: var(--text-2) !important;
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.72rem !important;
+}
+
+/* ── OPTION BUTTONS ── */
+.option-btn {
+  background: rgba(6,12,20,0.7) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  color: var(--text-2) !important;
+  transition: all 0.2s cubic-bezier(0.23,1,0.32,1) !important;
+  position: relative;
+  overflow: hidden;
+}
+.option-btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.025) 0%, transparent 60%);
+  pointer-events: none;
+}
+.option-btn:hover:not(:disabled) {
+  transform: translateX(4px) !important;
+  border-color: rgba(212,175,55,0.35) !important;
+  box-shadow: -3px 0 0 0 var(--gold), 0 4px 20px rgba(212,175,55,0.1) !important;
+  color: var(--text-1) !important;
+}
+.option-btn.selected {
+  border-color: var(--blue) !important;
+  background: rgba(14,165,233,0.1) !important;
+  color: var(--text-1) !important;
+  box-shadow: -3px 0 0 0 var(--blue), 0 4px 24px rgba(14,165,233,0.18) !important;
+}
+.option-btn.correct { border-color: var(--green) !important; background: rgba(74,222,128,0.08) !important; }
+.option-btn.wrong { border-color: var(--red) !important; background: rgba(248,113,113,0.08) !important; }
+
+/* ── SUBJECT TABS ── */
+.exam-sec-btn {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.06em !important;
+  color: var(--text-3) !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 8px !important;
+  transition: all 0.2s !important;
+  padding: 7px 14px !important;
+}
+.exam-sec-btn:hover {
+  color: var(--cyan) !important;
+  background: rgba(14,165,233,0.06) !important;
+  border-color: rgba(14,165,233,0.2) !important;
+  transform: none !important;
+}
+.exam-sec-btn.active-tab,
+.exam-sec-btn[class*="bg-brand"],
+.exam-sec-btn[class*="text-white"] {
+  background: rgba(14,165,233,0.15) !important;
+  border-color: rgba(14,165,233,0.4) !important;
+  color: var(--cyan) !important;
+}
+
+/* Tab container */
+[class*="bg-slate-200/50"],
+[class*="dark:bg-slate-800/50"] {
+  background: rgba(10,18,32,0.6) !important;
+  border-radius: 10px !important;
+}
+
+/* ── EXAM HEADER / MONITOR BAR ── */
+#monitorCandidateName {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  color: var(--text-1) !important;
+}
+#monitorCandidateRoll {
+  font-family: 'Fira Code', monospace !important;
+  color: var(--text-3) !important;
+  font-size: 0.65rem !important;
+}
+
+/* Progress bar */
+#progressBarFill {
+  background: linear-gradient(90deg, var(--blue), var(--cyan), var(--gold)) !important;
+  background-size: 200% 100% !important;
+  animation: progress-shimmer 2.5s linear infinite !important;
+  border-radius: 999px !important;
+}
+@keyframes progress-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.w-full[class*="bg-slate-200"],
+.w-full[class*="bg-slate-700"],
+div[class*="rounded-full"][class*="overflow-hidden"] {
+  background: rgba(14,165,233,0.1) !important;
+  border-radius: 999px !important;
+}
+
+/* Timer */
+#examCountdown {
+  font-family: 'Fira Code', monospace !important;
+  font-weight: 900 !important;
+  color: var(--gold) !important;
+  text-shadow: 0 0 10px rgba(212,175,55,0.5), 0 0 20px rgba(212,175,55,0.25) !important;
+  letter-spacing: 0.1em !important;
+  font-variant-numeric: tabular-nums;
+}
+#examCountdown.danger {
+  color: var(--red) !important;
+  text-shadow: 0 0 10px rgba(248,113,113,0.6) !important;
+  animation: blink-danger 0.7s ease-in-out infinite !important;
+}
+@keyframes blink-danger {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Timer container */
+[class*="bg-amber-500/10"],
+[class*="border-amber-500"] {
+  background: rgba(212,175,55,0.06) !important;
+  border-color: rgba(212,175,55,0.25) !important;
+  border-radius: 12px !important;
+}
+
+/* Profile icon area */
+[class*="bg-brand-100"],
+[class*="dark:bg-brand-950"] {
+  background: rgba(14,165,233,0.08) !important;
+  border-color: rgba(14,165,233,0.2) !important;
+}
+[class*="text-brand-600"],
+[class*="dark:text-brand-400"] {
+  color: var(--cyan) !important;
+}
+
+/* ── OMR PANEL ── */
+.omr-panel, #omrBubblesGrid {
+  /* no override needed for grid */
+}
+/* OMR legend */
+[class*="bg-gray-800"][class*="text-slate-400"],
+[class*="py-1"][class*="rounded"][class*="text-slate-400"] {
+  background: rgba(10,18,32,0.8) !important;
+  color: var(--text-3) !important;
+  border-radius: 6px !important;
+}
+[class*="bg-brand-500/20"][class*="text-brand-400"] {
+  background: rgba(14,165,233,0.1) !important;
+  color: var(--cyan) !important;
+  border: 1px solid rgba(14,165,233,0.2) !important;
+  border-radius: 6px !important;
+}
+[class*="bg-brand-500"][class*="text-white"][class*="py-1"] {
+  background: var(--blue) !important;
+  border-radius: 6px !important;
+}
+[class*="bg-amber-500"][class*="text-white"][class*="py-1"] {
+  background: var(--gold) !important;
+  border-radius: 6px !important;
+}
+
+/* OMR scrollbox */
+#omrBubblesScrollBox {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) transparent;
+}
+
+/* OMR active */
+.omr-active {
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--blue) !important;
+  transform: scale(1.15) !important;
+}
+
+/* ─── OMR PANEL CONTAINER ─── */
+.lg\:col-span-1 > div {
+  background: var(--glass-b) !important;
+  border: 1px solid var(--border-b) !important;
+}
+
+/* ── LEADERBOARD ── */
+[class*="from-orange-950"],
+[class*="via-amber-950"] {
+  background: linear-gradient(135deg, rgba(10,18,32,0.98), rgba(20,10,5,0.95)) !important;
+}
+[class*="border-amber-500/50"] { border-color: rgba(212,175,55,0.3) !important; }
+[class*="bg-amber-500/20"] { background: rgba(212,175,55,0.1) !important; }
+[class*="border-amber-500/40"] { border-color: rgba(212,175,55,0.25) !important; }
+[class*="text-amber-300"] { color: var(--gold) !important; }
+[class*="text-amber-400"] { color: var(--gold) !important; }
+[class*="text-amber-200"] { color: rgba(212,175,55,0.75) !important; }
+.text-amber-500 { color: var(--gold) !important; }
+
+/* Leaderboard refresh btn */
+#lbRefreshBtn {
+  background: rgba(212,175,55,0.08) !important;
+  border: 1px solid var(--gold-b) !important;
+  color: var(--gold) !important;
+  border-radius: 8px !important;
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.65rem !important;
+  transition: all 0.2s !important;
+}
+#lbRefreshBtn:hover {
+  background: rgba(212,175,55,0.15) !important;
+}
+
+/* Leaderboard table */
+table thead tr { border-color: var(--border) !important; }
+table tbody tr { border-color: rgba(148,163,184,0.06) !important; }
+
+/* ── RESULT SCREEN ── */
+#resultScreen .rounded-3xl,
+.bg-white.dark\:bg-slate-800.panel-surface.border-2 {
+  background: var(--glass-b) !important;
+  border-color: var(--border-b) !important;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(14,165,233,0.08) !important;
+}
+/* Result header */
+[class*="from-brand-900"][class*="via-brand-800"],
+.bg-gradient-to-r.from-brand-900 {
+  background: linear-gradient(135deg, rgba(2,10,20,0.98) 0%, rgba(6,20,40,0.95) 100%) !important;
+  border-bottom-color: rgba(212,175,55,0.4) !important;
+}
+
+/* Score ring */
+#scoreProgressCircle { stroke: url(#scoreGradResult) !important; }
+.score-ring-glow { filter: drop-shadow(0 0 10px rgba(212,175,55,0.5)) !important; }
+
+/* Result stat boxes */
+[class*="bg-emerald-500/10"],
+[class*="bg-rose-500/10"],
+[class*="bg-blue-500/10"],
+[class*="bg-amber-500/10"] {
+  backdrop-filter: blur(8px);
+}
+
+/* Grade band colors */
+[class*="bg-emerald-900/50"] { background: rgba(74,222,128,0.08) !important; border-color: rgba(74,222,128,0.25) !important; color: var(--green) !important; }
+[class*="bg-blue-900/50"] { background: rgba(14,165,233,0.08) !important; border-color: rgba(14,165,233,0.25) !important; color: var(--cyan) !important; }
+[class*="bg-amber-900/50"] { background: rgba(245,158,11,0.08) !important; border-color: rgba(245,158,11,0.25) !important; }
+[class*="bg-yellow-900/50"] { background: rgba(234,179,8,0.08) !important; border-color: rgba(234,179,8,0.25) !important; }
+[class*="bg-red-900/50"] { background: rgba(248,113,113,0.08) !important; border-color: rgba(248,113,113,0.25) !important; color: var(--red) !important; }
+
+/* ── ANSWER REVIEW CARDS ── */
+[class*="p-5"][class*="rounded-2xl"][class*="border"] {
+  background: var(--glass) !important;
+  border-color: var(--border) !important;
+}
+[class*="bg-gray-800"][class*="text-slate-200"] {
+  background: rgba(14,165,233,0.12) !important;
+  color: var(--cyan) !important;
+  border-radius: 5px !important;
+}
+/* Correct/wrong/unattempted card borders */
+[class*="border-emerald"] { border-color: rgba(74,222,128,0.35) !important; }
+[class*="border-rose"] { border-color: rgba(248,113,113,0.35) !important; }
+[class*="border-gray-700"] { border-color: var(--border) !important; }
+
+/* Explanation block */
+[class*="bg-premium-dark"][class*="border-gray-800"] {
+  background: rgba(2,4,8,0.9) !important;
+  border: 1px solid rgba(14,165,233,0.12) !important;
+  border-radius: 10px !important;
+}
+[class*="text-brand-400"][class*="uppercase"] { color: var(--cyan) !important; }
+
+/* ── MODAL ── */
+#modalOverlay {
+  background: rgba(2,4,8,0.85) !important;
+  backdrop-filter: blur(12px) !important;
+}
+#modalContainer {
+  background: var(--bg-1) !important;
+  border: 1px solid var(--border-b) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.8) !important;
+}
+#modalTitle {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  color: var(--text-1) !important;
+}
+#modalBodyText { color: var(--text-2) !important; font-size: 0.9rem !important; }
+
+/* ── FOOTER ── */
+footer {
+  background: rgba(2,4,8,0.92) !important;
+  border-top: 1px solid rgba(14,165,233,0.08) !important;
+}
+footer p { 
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.06em !important;
+  color: var(--text-3) !important;
+}
+
+/* ── STATUS COLORS ── */
+[class*="text-emerald-400"] { color: var(--green) !important; }
+[class*="text-emerald-300"] { color: rgba(74,222,128,0.85) !important; }
+[class*="text-rose-500"] { color: var(--red) !important; }
+[class*="text-slate-300"] { color: var(--text-2) !important; }
+[class*="text-slate-400"] { color: var(--text-3) !important; }
+[class*="text-slate-500"] { color: rgba(71,85,105,0.85) !important; }
+[class*="text-white"] { color: var(--text-1) !important; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-slide-up { animation: fadeUp 0.6s ease both !important; }
+.animate-fade-in { animation: fadeIn 0.5s ease both !important; }
+
+/* Ring pulse for correct answers */
+@keyframes ring-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+}
+.ring-pulse { animation: ring-pulse 1.5s ease-out 1 !important; }
+
+/* Question entrance */
+@keyframes question-enter {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.question-enter { animation: question-enter 0.3s ease-out forwards !important; }
+
+/* ── QUESTION IMAGE ── */
+.q-image-wrap {
+  border: 1px solid var(--gold-b) !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,0.97) !important;
+  padding: 8px !important;
+  display: inline-block !important;
+}
+
+/* ── MISC ── */
+.header-divider {
+  background: linear-gradient(90deg, transparent, rgba(14,165,233,0.3), rgba(212,175,55,0.3), transparent) !important;
+  height: 1px !important;
+}
+.hidden { display: none !important; }
+.no-scrollbar::-webkit-scrollbar { display: none !important; }
+
+/* Set selection buttons */
+#setButtonsGrid button {
+  font-family: 'Space Grotesk', sans-serif !important;
+  border-radius: 10px !important;
+  transition: all 0.2s !important;
+}
+
+/* Info hint text */
+[class*="text-blue-400"] { color: var(--cyan) !important; }
+[class*="bg-blue-500/5"] { background: rgba(14,165,233,0.04) !important; }
+[class*="border-blue-500/20"] { border-color: rgba(14,165,233,0.15) !important; }
+
+/* Sheet load badge */
+#sheetLoadBadge[style*="background"] {
+  border-radius: 999px !important;
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.62rem !important;
+}
+
+/* Marking scheme panel */
+#markingSchemePanel {
+  background: var(--glass) !important;
+  border: 1px solid var(--border-b) !important;
+  border-radius: 12px !important;
+}
+#markPctBar {
+  background: linear-gradient(90deg, var(--blue), var(--cyan)) !important;
+  border-radius: 999px !important;
+}
+
+/* Score progress circle gradient def */
+.score-gradient-stop-1 { stop-color: var(--blue); }
+.score-gradient-stop-2 { stop-color: var(--gold); }
+
+/* Accessibility focus */
+:focus-visible { outline: 2px solid var(--cyan) !important; outline-offset: 2px !important; }
+
+/* Animate glow pulse fix */
+.animate-glow-pulse { animation: glow-pulse-rr 3s ease-in-out infinite !important; }
+@keyframes glow-pulse-rr {
+  0%,100% { box-shadow: 0 0 20px rgba(14,165,233,0.2), 0 0 40px rgba(212,175,55,0.08); }
+  50%      { box-shadow: 0 0 30px rgba(14,165,233,0.4), 0 0 60px rgba(212,175,55,0.15); }
+}
+
+/* Animate float */
+.animate-float { animation: float-rr 3.5s ease-in-out infinite !important; }
+@keyframes float-rr {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .rr-nav-links-bar { display: none !important; }
+  .rr-header-inner { gap: 0.5rem; }
+}
+
+
+/* ── MAIN CONTENT OFFSET (accounts for 64px fixed navbar) ── */
+main {
+  padding-top: 2rem !important;
+}
+/* The page title band also needs to sit below the fixed nav */
+header + div {
+  margin-top: 64px;
+}
+
+/* ── LOBBY CARD REFINEMENTS ── */
+#lobbyScreen .glass.rounded-2xl,
+#lobbyScreen .glass.rounded-2xl.overflow-hidden {
+  border: 1px solid var(--border-b) !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(14,165,233,0.06) !important;
+}
+
+/* Lobby banner gradient */
+#lobbyScreen .glass > div:first-child,
+[class*="from-brand-800"][class*="to-brand-900"] {
+  background: linear-gradient(135deg, rgba(6,20,40,0.98) 0%, rgba(2,10,20,0.96) 100%) !important;
+  border-bottom: 1px solid var(--gold-b) !important;
+}
+
+/* Question count badge in lobby */
+[class*="bg-white/10"][class*="border-white/20"] {
+  background: rgba(14,165,233,0.06) !important;
+  border-color: rgba(14,165,233,0.2) !important;
+  border-radius: 16px !important;
+}
+#totalQuestionsDisplay { color: var(--cyan) !important; font-family: 'Space Grotesk', sans-serif !important; }
+#timeLimitDisplay { color: var(--green) !important; font-family: 'Space Grotesk', sans-serif !important; }
+
+/* Section headings inside lobby */
+#lobbyScreen h3[class*="text-metal-gold"],
+#lobbyScreen h3.text-metal-gold {
+  color: var(--gold) !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* EXAM-HEADER candidate bar */
+section#examScreen > div:first-child > div:first-child {
+  background: var(--glass-b) !important;
+  border: 1px solid var(--border-b) !important;
+  border-radius: 16px !important;
+}
+
+/* Leaderboard card */
+#lobbyScreen .dark\:bg-slate-800.panel-surface {
+  background: var(--glass-b) !important;
+  border: 1px solid var(--border-b) !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4) !important;
+}
+
+/* Result back/retake buttons */
+button[onclick*="backToLobby"],
+button[onclick*="retakeExam"] {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  border-radius: 10px !important;
+  transition: all 0.2s !important;
+}
+
+/* Marking scheme toggle */
+button[onclick*="toggleMarkingScheme"] {
+  font-family: 'Space Grotesk', sans-serif !important;
+  background: var(--glass) !important;
+  border: 1px solid var(--border-b) !important;
+  color: var(--text-2) !important;
+  border-radius: 8px !important;
+  transition: all 0.2s !important;
+}
+button[onclick*="toggleMarkingScheme"]:hover {
+  color: var(--gold) !important;
+  border-color: var(--gold-b) !important;
+}
+
+/* Score save button */
+button[onclick*="saveScore"],
+button[onclick*="saveLbScore"] {
+  background: rgba(212,175,55,0.1) !important;
+  border: 1px solid var(--gold-b) !important;
+  color: var(--gold) !important;
+  border-radius: 10px !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  transition: all 0.2s !important;
+}
+button[onclick*="saveScore"]:hover,
+button[onclick*="saveLbScore"]:hover {
+  background: rgba(212,175,55,0.18) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Result screen section headers */
+#resultScreen h3, 
+[class*="text-amber-400"][class*="font-serif"],
+[class*="text-amber-400"][class*="font-black"] {
+  font-family: 'Space Grotesk', sans-serif !important;
+  color: var(--gold) !important;
+}
+
+/* Back to lobby / review answers wrapper */
+#resultScreen .flex.gap-3 button,
+#resultScreen .flex.gap-4 button {
+  border-radius: 10px !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* lbStatusMsg */
+#lbStatusMsg { color: var(--text-2) !important; font-size: 0.85rem !important; }
+
+/* Scrollable set buttons */
+#setButtonsGrid { scrollbar-width: thin; scrollbar-color: var(--blue) transparent; }
+
+/* Active set button highlight */
+#setButtonsGrid .bg-brand-500,
+#setButtonsGrid [class*="bg-brand-500"] {
+  background: rgba(14,165,233,0.15) !important;
+  border: 1px solid rgba(14,165,233,0.4) !important;
+  color: var(--cyan) !important;
+}
+
+/* Pulse animation on fa-spin */
+.fa-spin { color: var(--gold) !important; }
+
+
+/* ══════════════════════════════════════════
+   RR NAVBAR — FIXED, MOBILE-FIRST
+══════════════════════════════════════════ */
+header {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  z-index: 500 !important;
+  height: 64px !important;
+  background: rgba(2,4,8,0.92) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-bottom: 1px solid rgba(14,165,233,0.1) !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+.rr-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+/* Logo */
+.rr-logo-box {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; flex-shrink: 0;
+}
+.rr-logo-img-wrap {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(212,175,55,0.25);
+  background: rgba(212,175,55,0.08);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0; position: relative;
+}
+.rr-logo-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  position: absolute; inset: 0; z-index: 2;
+}
+.rr-logo-img-wrap i { font-size: 0.85rem; color: var(--gold); z-index: 1; }
+.rr-logo-name {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700; font-size: 1.05rem;
+  background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #aa771c 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; letter-spacing: 0.05em;
+  animation: logoGlowPulse 4s ease-in-out infinite;
+}
+@keyframes logoGlowPulse {
+  0%,100% { filter: drop-shadow(0 0 4px rgba(212,175,55,0.35)); }
+  50%      { filter: drop-shadow(0 0 10px rgba(212,175,55,0.75)); }
+}
+/* Desktop nav links */
+.rr-nav-desktop {
+  display: flex; align-items: center; gap: 0.25rem;
+  list-style: none; flex: 1; justify-content: center;
+}
+.rr-nav-desktop li a {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.68rem; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.rr-nav-desktop li a:hover {
+  color: var(--cyan);
+  background: rgba(14,165,233,0.06);
+}
+/* Sound button */
+.rr-sound-btn {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(148,163,184,0.1) !important;
+  border-radius: 8px !important;
+  padding: 7px 12px !important;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 0.72rem !important; font-weight: 600 !important;
+  color: var(--text-2) !important;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.rr-sound-btn:hover {
+  color: var(--cyan) !important;
+  background: rgba(14,165,233,0.08) !important;
+  border-color: rgba(14,165,233,0.3) !important;
+}
+/* Hamburger */
+.rr-hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(148,163,184,0.1);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.rr-hamburger span {
+  display: block; width: 20px; height: 2px;
+  background: var(--text-2); border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.rr-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.rr-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.rr-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* Mobile drawer */
+.rr-mobile-drawer {
+  display: none;
+  position: fixed;
+  top: 64px; left: 0; right: 0;
+  background: rgba(2,4,8,0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(14,165,233,0.12);
+  z-index: 499;
+  padding: 1rem 1.25rem 1.5rem;
+  flex-direction: column; gap: 4px;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+.rr-mobile-drawer.open { display: flex; }
+.rr-mobile-drawer a {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--text-2); text-decoration: none;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.78rem; letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+.rr-mobile-drawer a:hover {
+  color: var(--cyan);
+  background: rgba(14,165,233,0.06);
+}
+.rr-mobile-drawer .rr-mob-section-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.58rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-3);
+  padding: 8px 12px 4px;
+  margin-top: 4px;
+}
+.rr-mobile-drawer .rr-mob-divider {
+  height: 1px;
+  background: rgba(148,163,184,0.08);
+  margin: 6px 0;
+}
+.rr-mob-exam-item {
+  padding-left: 18px !important;
+  font-size: 0.72rem !important;
+}
+.rr-mob-cta {
+  margin-top: 8px;
+  background: rgba(14,165,233,0.12) !important;
+  border: 1px solid rgba(14,165,233,0.25) !important;
+  color: var(--cyan) !important;
+  font-weight: 700 !important;
+  border-radius: 10px !important;
+}
+/* Offset content below fixed nav */
+header + div, header ~ main { margin-top: 64px; }
+/* The page-title band */
+.rr-page-band { margin-top: 64px; }
+
+@media (max-width: 768px) {
+  .rr-nav-desktop { display: none !important; }
+  .rr-hamburger { display: flex !important; }
+  .rr-sound-btn span { display: none; }
+  .rr-sound-btn { padding: 7px 9px !important; }
+}
+@media (min-width: 769px) {
+  .rr-mobile-drawer { display: none !important; }
+}
+
+
+/* ── REPORT ISSUE BUTTON ── */
+.rr-report-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid rgba(251, 191, 36, 0.18);
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(148, 163, 184, 0.6);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  outline: none;
+}
+.rr-report-trigger:hover {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.45);
+  background: rgba(251, 191, 36, 0.05);
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.08);
+  transform: translateY(-1px);
+}
+.rr-report-trigger:active { transform: translateY(0); }
+.rr-report-trigger .rr-rt-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(251, 191, 36, 0.5);
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.rr-report-trigger:hover .rr-rt-dot { background: #fbbf24; }
+.rr-report-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0 2px 0;
+  border-top: 1px solid rgba(148, 163, 184, 0.06);
+  margin-top: 6px;
+}
+
+/* ── BACKDROP ── */
+#rrReportBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(2, 4, 8, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+#rrReportBackdrop.rr-open {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 0;
+}
+#rrReportBackdrop.rr-visible { opacity: 1; }
+
+/* ── MODAL PANEL ── */
+#rrReportModal {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: rgba(6, 10, 18, 0.96);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(14, 165, 233, 0.15);
+  border-bottom: none;
+  border-radius: 24px 24px 0 0;
+  box-shadow:
+    0 -20px 80px rgba(14, 165, 233, 0.08),
+    0 -2px 0 rgba(14, 165, 233, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  padding: 0;
+  max-width: 540px;
+  margin: 0 auto;
+  transform: translateY(100%);
+  transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+  overflow: hidden;
+}
+#rrReportModal.rr-modal-open { transform: translateY(0); }
+.rr-modal-drag-pill {
+  width: 40px; height: 4px;
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 99px;
+  margin: 12px auto 0;
+}
+.rr-modal-header {
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.rr-modal-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 20px; right: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.3), rgba(212, 175, 55, 0.3), transparent);
+}
+.rr-modal-title-group { display: flex; align-items: center; gap: 10px; }
+.rr-modal-icon {
+  width: 34px; height: 34px;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  color: #fbbf24;
+  flex-shrink: 0;
+}
+.rr-modal-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #f0f6ff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.rr-modal-subtitle {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.58rem;
+  color: rgba(148, 163, 184, 0.6);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.rr-close-btn {
+  width: 28px; height: 28px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: rgba(148, 163, 184, 0.5);
+  font-size: 0.7rem;
+  transition: all 0.2s;
+  outline: none;
+}
+.rr-close-btn:hover {
+  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.3);
+  color: #f87171;
+}
+.rr-context-strip {
+  padding: 12px 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.rr-ctx-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(14, 165, 233, 0.06);
+  border: 1px solid rgba(14, 165, 233, 0.14);
+  border-radius: 99px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.58rem;
+  color: rgba(148, 163, 184, 0.7);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.rr-ctx-pill span { color: #22d3ee; font-weight: 600; }
+.rr-modal-body {
+  padding: 14px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(14, 165, 233, 0.2) transparent;
+}
+.rr-field-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  color: rgba(148, 163, 184, 0.55);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.rr-field-label .rr-required { color: #f87171; font-size: 0.65rem; }
+#rrIssueType { display: none !important; }
+.rr-issue-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+.rr-issue-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  background: rgba(6, 12, 20, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 11px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  outline: none;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+.rr-issue-chip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+.rr-issue-chip:hover {
+  border-color: rgba(34, 211, 238, 0.3);
+  background: rgba(14, 165, 233, 0.06);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.08);
+}
+.rr-issue-chip.rr-chip-active {
+  border-color: rgba(34, 211, 238, 0.6) !important;
+  background: rgba(14, 165, 233, 0.12) !important;
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.15), 0 4px 20px rgba(14, 165, 233, 0.12) !important;
+  transform: translateY(-1px);
+}
+.rr-issue-chip.rr-chip-active .rr-chip-emoji {
+  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.5));
+  transform: scale(1.15);
+}
+.rr-chip-emoji { font-size: 1rem; flex-shrink: 0; transition: all 0.2s; line-height: 1; }
+.rr-chip-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(148, 163, 184, 0.75);
+  line-height: 1.3;
+  transition: color 0.2s;
+}
+.rr-issue-chip:hover .rr-chip-label { color: #e2e8f0; }
+.rr-issue-chip.rr-chip-active .rr-chip-label { color: #22d3ee !important; }
+.rr-chip-check {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(148, 163, 184, 0.2);
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.5rem;
+  color: transparent;
+  transition: all 0.2s;
+  background: transparent;
+}
+.rr-issue-chip.rr-chip-active .rr-chip-check {
+  background: #22d3ee;
+  border-color: #22d3ee;
+  color: #020408;
+}
+.rr-issue-grid.rr-field-error .rr-issue-chip:not(.rr-chip-active) {
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.04);
+}
+#rrIssueDesc {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 10px 14px;
+  background: rgba(2, 4, 8, 0.8) !important;
+  border: 1px solid rgba(14, 165, 233, 0.12) !important;
+  border-radius: 12px !important;
+  color: #f0f6ff !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 0.8rem !important;
+  line-height: 1.6 !important;
+  outline: none;
+  transition: all 0.25s !important;
+}
+#rrIssueDesc:focus {
+  border-color: #22d3ee !important;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08) !important;
+}
+#rrIssueDesc::placeholder { color: rgba(148, 163, 184, 0.35) !important; }
+.rr-upload-zone {
+  border: 1.5px dashed rgba(14, 165, 233, 0.2);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  background: rgba(14, 165, 233, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+.rr-upload-zone:hover { border-color: rgba(14, 165, 233, 0.4); background: rgba(14, 165, 233, 0.04); }
+.rr-upload-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  border: none !important;
+  background: transparent !important;
+}
+.rr-upload-icon { font-size: 1.2rem; color: rgba(14, 165, 233, 0.4); margin-bottom: 5px; }
+.rr-upload-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; color: rgba(148, 163, 184, 0.5); line-height: 1.5; }
+.rr-upload-text strong { color: #22d3ee; font-weight: 600; }
+#rrFilePreview {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(34, 211, 238, 0.06);
+  border: 1px solid rgba(34, 211, 238, 0.15);
+  border-radius: 8px;
+  margin-top: 6px;
+}
+#rrFilePreview .rr-fp-name {
+  flex: 1;
+  font-size: 0.72rem;
+  color: #22d3ee;
+  font-family: 'Fira Code', monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#rrFilePreview .rr-fp-remove {
+  color: rgba(248, 113, 113, 0.7);
+  cursor: pointer;
+  font-size: 0.7rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  outline: none;
+}
+#rrFilePreview .rr-fp-remove:hover { color: #f87171; }
+#rrSubmitBtn {
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #22d3ee 100%);
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+#rrSubmitBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+#rrSubmitBtn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14, 165, 233, 0.45); }
+#rrSubmitBtn:active:not(:disabled) { transform: translateY(0); }
+#rrSubmitBtn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+#rrSubmitBtn .rr-spinner {
+  width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: rrSpin 0.6s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes rrSpin { to { transform: rotate(360deg); } }
+#rrSuccessState {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px 28px;
+  text-align: center;
+  gap: 10px;
+}
+.rr-success-ring {
+  width: 60px; height: 60px;
+  background: rgba(74, 222, 128, 0.1);
+  border: 2px solid rgba(74, 222, 128, 0.35);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  animation: rrSuccessPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes rrSuccessPop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.rr-success-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: #4ade80; margin-top: 4px; }
+.rr-success-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; color: rgba(148, 163, 184, 0.7); max-width: 260px; line-height: 1.5; }
+.rr-success-meta { font-family: 'Fira Code', monospace; font-size: 0.58rem; color: rgba(148, 163, 184, 0.35); letter-spacing: 0.08em; text-transform: uppercase; }
+@keyframes rrShake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
+.rr-shake { animation: rrShake 0.35s ease; }
+.rr-field-error { border-color: rgba(248, 113, 113, 0.5) !important; box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.08) !important; }
+@media (min-width: 640px) {
+  #rrReportModal {
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    bottom: 0;
+    border-radius: 20px 20px 0 0;
+    width: 540px;
+    margin: 0;
+  }
+  #rrReportModal.rr-modal-open { transform: translateX(-50%) translateY(0); }
+}
+@media (max-width: 639px) { #rrReportModal { max-width: 100%; } }
+</style>
+        <!-- MathJax for rendering mathematical notation -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                renderActions: {
+                    addMenu: [0, '', '']
+                }
+            },
+            startup: {
+                typeset: false
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="text-white font-sans">
+
+    <!-- Premium Header -->
+    <header>
+  <div class="rr-header-inner">
+    <!-- Logo -->
+    <a href="index.html" class="rr-logo-box" onclick="typeof playChime!=='undefined'&&playChime('click')">
+      <div class="rr-logo-img-wrap">
+        
+        <img src="rankrush.png" alt="RankRush" onerror="this.style.display='none'">
+      </div>
+      <span class="rr-logo-name">RANKRUSH</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="rr-nav-desktop">
+      <li><a href="index.html"><i class="fas fa-home" style="margin-right:5px;"></i>Home</a></li>
+      <li><a href="jnvst.html"><i class="fas fa-file-lines" style="margin-right:5px;color:#c084fc;"></i>JNV</a></li>
+      <li><a href="netarhat.html"><i class="fas fa-book" style="margin-right:5px;color:#4ade80;"></i>Netarhat</a></li>
+      <li><a href="rkms/index.html"><i class="fas fa-om" style="margin-right:5px;color:#e08a1e;"></i>RKMS Deoghar</a></li>
+      
+    </ul>
+
+    <!-- Right actions -->
+    <div style="display:flex;align-items:center;gap:0.6rem;flex-shrink:0;">
+      <button id="soundToggleBtn" onclick="toggleSound()" class="rr-sound-btn">
+        <i id="soundIcon" class="fas fa-volume-up" style="color:var(--green);font-size:0.85rem;"></i>
+        <span>Sound On</span>
+      </button>
+      <!-- Hamburger -->
+      <button class="rr-hamburger" id="rr-hamburger" aria-label="Menu" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div class="rr-mobile-drawer" id="rr-mobile-drawer">
+  <a href="index.html"><i class="fas fa-home" style="color:var(--blue);"></i>Home</a>
+  <div class="rr-mob-divider"></div>
+  <span class="rr-mob-section-label"><i class="fas fa-graduation-cap" style="margin-right:6px;"></i>Exams</span>
+  <a href="jnvst.html" class="rr-mob-exam-item"><i class="fas fa-file-lines" style="color:#c084fc;font-size:0.9rem;"></i>JNV</a>
+    <a href="netarhat.html" class="rr-mob-exam-item"><i class="fas fa-book" style="color:#4ade80;font-size:0.9rem;"></i>Netarhat</a>
+    <a href="rkms/index.html" class="rr-mob-exam-item"><i class="fas fa-om" style="color:#e08a1e;font-size:0.9rem;"></i>RKMS Deoghar</a>
+    
+  <div class="rr-mob-divider"></div>
+  <a href="index.html#reviews" class="rr-mob-cta"><i class="fas fa-comment" style="font-size:0.9rem;"></i>Feedback</a>
+</div>
+
+
+<div class="rr-page-band" style="background:linear-gradient(135deg,rgba(2,4,8,0.95),rgba(6,12,20,0.9));border-bottom:1px solid rgba(14,165,233,0.08);position:relative;z-index:5;">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(1.5rem,3vw,2.5rem) clamp(1rem,4vw,2.5rem);">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid rgba(14,165,233,0.25);border-radius:999px;background:rgba(14,165,233,0.06);font-family:'Fira Code',monospace;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:0.75rem;">
+      <i class="fas fa-graduation-cap"></i> IGBV · Mock Platform
+    </div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;background:linear-gradient(135deg,#ffffff 30%,#fcf6ba 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.02em;line-height:1.1;">IGBV MOCK ARENA</h2>
+    <p style="font-size:0.88rem;color:var(--text-2);margin-top:0.4rem;font-family:'Plus Jakarta Sans',sans-serif;">Simulate. Score. Dominate the Indira Gandhi Balika Vidyalaya Entrance.</p>
+  </div>
+</div>
+
+    <!-- Main Workspace -->
+<script>
+/* ── RR MOBILE NAV TOGGLE ── */
+function toggleMobileNav() {
+  var drawer = document.getElementById('rr-mobile-drawer');
+  var btn    = document.getElementById('rr-hamburger');
+  var open   = drawer.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+document.addEventListener('click', function(e) {
+  var drawer = document.getElementById('rr-mobile-drawer');
+  var btn    = document.getElementById('rr-hamburger');
+  if (drawer && btn && !drawer.contains(e.target) && !btn.contains(e.target)) {
+    drawer.classList.remove('open');
+    btn.classList.remove('open');
+  }
+});
+</script>
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col justify-start">
+        <section id="lobbyScreen" class="w-full max-w-4xl mx-auto my-auto space-y-6 py-6 animate-slide-up">
+            <div class="glass rounded-2xl overflow-hidden border border-gray-700">
+                <div class="p-6 md:p-8 bg-gradient-to-br from-brand-800 to-brand-900 text-white flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="space-y-3 max-w-xl text-center md:text-left">
+                        <div class="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
+                            <span class="bg-amber-400/30 text-amber-300 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-widest border border-amber-400/40">
+                                IGBV
+                            </span>
+                            <span id="sheetLoadBadge" class="hidden text-xs font-bold px-3 py-1 rounded-full border"></span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">IGBV MOCK QUESTIONS</h2>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                           Prepare dynamically for the prestigious residential entrance exam for girls in Hazaribagh, Jharkhand. Simulates actual entrance questions spanning Mathematics, Mental Ability, Language, Science and General Studies.
+                        </p>
+                    </div>
+                    <div class="bg-white/10 p-5 rounded-2xl border border-white/20 text-center flex-shrink-0 w-full md:w-auto">
+                        <div class="text-4xl font-extrabold text-amber-400" id="totalQuestionsDisplay">0</div>
+                        <div class="text-[10px] uppercase font-bold text-slate-200 tracking-wider">Total Questions</div>
+                        <div class="border-t border-white/15 my-2.5"></div>
+                        <div class="text-4xl font-extrabold text-emerald-400" id="timeLimitDisplay">120</div>
+                        <div class="text-[10px] uppercase font-bold text-slate-200 tracking-wider">Minutes Limit</div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 space-y-6 bg-premium-darker/60">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-bold uppercase tracking-wider border-b pb-2 border-gray-700 flex items-center gap-2 text-metal-gold">
+                                <i class="fas fa-id-badge"></i> Profile Setup
+                            </h3>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Student Name / नाम</label>
+                                <input type="text" id="candidateNameInput" placeholder="E.g., Candidate Name"  class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-premium-dark text-white font-semibold focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Roll Number / अनुक्रमांक</label>
+                                <div class="flex gap-2">
+                                    <input type="text" id="candidateRollInput" readonly class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-800 font-mono font-bold text-slate-300">
+                                    <button onclick="generateCustomRoll()" class="px-4 bg-gray-700 hover:bg-gray-600 rounded-xl transition" title="Generate New Roll">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="setSelectionContainer" class="space-y-3">
+                            <h3 class="text-sm font-bold uppercase tracking-wider border-b pb-2 border-gray-700 flex items-center justify-between text-metal-gold">
+                                <span class="flex items-center gap-2"><i class="fas fa-layer-group"></i> Question Sets</span>
+                                <span id="setCountLabel" class="text-[10px] font-bold text-slate-500 normal-case tracking-normal"></span>
+                            </h3>
+                            <div id="setButtonsGrid" class="space-y-2 overflow-y-auto pr-1" style="max-height:172px;scrollbar-width:thin;scrollbar-color:#D4AF37 transparent;"></div>
+                            <p class="text-[10px] text-slate-500 flex items-center gap-1"><i class="fas fa-info-circle"></i> New sets will appear here once Admin adds them.</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-bold uppercase tracking-wider border-b pb-2 border-gray-700 flex items-center gap-2 text-metal-gold">
+                                <i class="fas fa-cog"></i> Choose Practice Mode
+                            </h3>
+                            <div class="grid grid-cols-1 gap-3">
+                                <label class="flex items-center gap-4 p-3 rounded-xl border border-brand-500/30 bg-brand-500/5 cursor-pointer hover:bg-brand-500/10 transition-all">
+                                    <input type="radio" name="examMode" value="full" checked onchange="changeExamMode('full')" class="w-5 h-5 accent-brand-500">
+                                    <div>
+                                        <span class="text-sm font-bold block text-white">Full length Exam</span>
+                                        <span class="text-[11px] text-slate-400">Complete question set practice </span>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-4 p-3 rounded-xl border border-gray-700 cursor-pointer hover:bg-gray-800 transition-all">
+                                    <input type="radio" name="examMode" value="sprint" onchange="changeExamMode('sprint')" class="w-5 h-5 accent-brand-500">
+                                    <div>
+                                        <span class="text-sm font-bold block text-white">Quick Practice </span>
+                                        <span class="text-[11px] text-slate-400">Limited-time focused practice </span>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-4 p-3 rounded-xl border border-gray-700 cursor-pointer hover:bg-gray-800 transition-all">
+                                    <input type="radio" name="examMode" value="math" onchange="changeExamMode('math')" class="w-5 h-5 accent-brand-500">
+                                    <div>
+                                        <span class="text-sm font-bold block text-white">Topic Focus Practice</span>
+                                        <span class="text-[11px] text-slate-400">Focus solely on Mathematics</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-gray-700">
+                        <p class="text-xs text-slate-400 text-center sm:text-left">
+                            <i class="fas fa-clock"></i> Simulates actual exam. Closing this tab clears temporary progress.
+                        </p>
+                        <button id="launchBtn" onclick="launchExam()" class="w-full sm:w-auto px-8 py-4 text-white text-lg font-black rounded-xl shadow-lg flex items-center justify-center gap-3">
+                            <i class="fas fa-rocket"></i> ENTER MOCK ARENA <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEADERBOARD CARD — shows inside lobby before exam starts -->
+            <div class="bg-white dark:bg-slate-800 panel-surface border border-slate-200 dark:border-slate-700/80 shadow-2xl rounded-2xl overflow-hidden">
+                <div class="p-5 bg-gradient-to-r from-orange-950 via-amber-950 to-orange-950 text-white flex items-center justify-between border-b-2 border-amber-500/50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center">
+                            <i class="fas fa-trophy text-amber-400 text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-sm uppercase tracking-wider text-amber-300"> Hall of Fame — Top 5 Rankers</h3>
+                            <p class="text-amber-200/60 text-[11px] mt-0.5">Live leaderboard </p>
+                        </div>
+                    </div>
+                    <button onclick="fetchLeaderboard()" id="lbRefreshBtn"
+                        class="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 transition text-xs font-bold">
+                        <i class="fas fa-sync-alt" id="lbRefreshIcon"></i> Refresh
+                    </button>
+                </div>
+
+                <div class="p-5">
+                    <div id="lbStatusMsg" class="text-center py-6 text-slate-400 text-sm">
+                        <i class="fas fa-circle-notch fa-spin text-amber-400 text-xl mb-2 block"></i>
+                        Loading leaderboard...
+                    </div>
+
+                    <div id="lbTableWrap" class="hidden overflow-x-auto">
+                        <table class="w-full min-w-[760px] text-sm whitespace-nowrap">
+                            <thead>
+                                <tr class="text-[10px] uppercase font-black text-slate-400 border-b border-slate-100 dark:border-slate-700">
+                                    <th class="pb-2 text-center w-10">Rank</th>
+                                    <th class="pb-2 text-left pl-3">Name</th>
+                                    <th class="pb-2 text-center">Score</th>
+                                    <th class="pb-2 text-center">Set</th>
+                                    <th class="pb-2 text-center">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lbTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="examScreen" class="hidden w-full flex-grow grid grid-cols-1 lg:grid-cols-4 gap-6 relative">
+            <div class="lg:col-span-3 flex flex-col space-y-4">
+                <div class="bg-white dark:bg-slate-800 panel-surface rounded-2xl p-4 shadow-md flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-brand-100 dark:bg-brand-950/50 p-2.5 rounded-lg border border-brand-200 dark:border-brand-900">
+                            <i class="fas fa-user-edit text-brand-600 dark:text-brand-400"></i>
+                        </div>
+                        <div>
+                            <div class="font-extrabold text-sm" id="monitorCandidateName"></div>
+                            <div class="text-xs font-mono font-bold text-slate-400" id="monitorCandidateRoll">Roll: IGBV-2026-0000</div>
+                        </div>
+                    </div>
+
+                    <div class="flex-grow max-w-sm hidden sm:block">
+                        <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                            <span>Exam Completion Progress / प्रगति</span>
+                            <span id="progressBarText">0/200 (0%)</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                            <div id="progressBarFill" class="bg-brand-600 h-full w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-500/10 dark:bg-amber-500/5 px-4 py-2 rounded-xl border border-amber-500/20 flex items-center gap-2.5">
+                        <i class="fas fa-hourglass-half text-amber-500 animate-pulse"></i>
+                        <div>
+                            <div class="text-[9px] uppercase font-bold text-amber-600 tracking-wider">Timer Limit</div>
+                            <div class="text-lg font-mono font-black text-amber-500" id="examCountdown">120:00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-1.5 overflow-x-auto p-1.5 bg-slate-200/50 dark:bg-slate-800/50 rounded-xl no-scrollbar">
+                    <button onclick="filterExamSection('math')" id="secTab-math" class="exam-sec-btn px-4 py-2 rounded-lg text-xs font-extrabold uppercase transition-all flex-shrink-0 flex items-center gap-1.5">
+                        <i class="fas fa-calculator"></i> Maths / गणित
+                    </button>
+                    <button onclick="filterExamSection('mental')" id="secTab-mental" class="exam-sec-btn px-4 py-2 rounded-lg text-xs font-extrabold uppercase transition-all flex-shrink-0 flex items-center gap-1.5">
+                        <i class="fas fa-brain"></i> Reasoning / मानसिक
+                    </button>
+                    <button onclick="filterExamSection('hindi')" id="secTab-hindi" class="exam-sec-btn px-4 py-2 rounded-lg text-xs font-extrabold uppercase transition-all flex-shrink-0 flex items-center gap-1.5">
+                        <i class="fas fa-language"></i> Hindi / हिन्दी
+                    </button>
+                    <button onclick="filterExamSection('gk')" id="secTab-gk" class="exam-sec-btn px-4 py-2 rounded-lg text-xs font-extrabold uppercase transition-all flex-shrink-0 flex items-center gap-1.5">
+                        <i class="fas fa-flask"></i> Sci/SST/GK / सामान्य ज्ञान
+                    </button>
+                    <button onclick="filterExamSection('science')" id="secTab-science" class="exam-sec-btn px-4 py-2 rounded-lg text-xs font-extrabold uppercase transition-all flex-shrink-0 flex items-center gap-1.5">
+                        <i class="fas fa-atom"></i> Science / विज्ञान
+                    </button>
+                </div>
+
+                <div id="questionMainCard" class="question-card bg-white dark:bg-slate-800 panel-surface shadow-lg rounded-2xl p-6 md:p-8 min-h-[380px] flex flex-col justify-between relative">
+                    <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700/40 pb-3 mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-brand-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full" id="questionCategoryBadge">MATH</span>
+                            <span class="text-xs text-slate-400 font-bold" id="questionCounterHeader">Question 1 of 100</span>
+                        </div>
+                        <button onclick="toggleFlagCurrentQuestion()" class="text-slate-400 hover:text-amber-500 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs font-bold transition flex items-center gap-1 hover:bg-slate-50 dark:hover:bg-slate-700">
+                            <i id="flagIcon" class="far fa-flag"></i> <span id="flagText">Flag Question</span>
+                        </button>
+                    </div>
+
+                    <div class="space-y-4 my-auto">
+                        <div class="text-base md:text-lg font-bold text-slate-800 dark:text-white leading-relaxed" id="displayQEng">
+                            Question loading...
+                        </div>
+                        <div class="text-sm md:text-base font-semibold text-slate-500 dark:text-slate-300 border-l-4 border-brand-500 pl-3 italic bg-brand-500/[0.02] py-2 rounded-r-lg" id="displayQHin">
+                            प्रशन लोड हो रहा है...
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mt-6" id="displayOptionsGrid"></div>
+                    <!-- ⚠ RANKRUSH REPORT ISSUE TRIGGER -->
+                    <div class="rr-report-row" id="rrReportButtonRow">
+                      <button class="rr-report-trigger" onclick="rrOpenReport()" type="button" aria-haspopup="dialog" aria-label="Report an issue with this question">
+                        <span class="rr-rt-dot"></span>
+                        ⚠&thinsp; Report Issue
+                      </button>
+                    </div>
+
+                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700/40 pt-4 mt-6">
+                        <button onclick="clearSelectedOption()" class="text-xs font-extrabold text-rose-500 hover:bg-rose-500/10 border border-rose-500/20 rounded-lg px-3 py-2 transition">
+                            Clear Answer / उत्तर मिटाएं
+                        </button>
+                        <div class="flex gap-2">
+                            <button onclick="stepQuestion(-1)" id="prevBtn" class="bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 px-4 py-2.5 rounded-xl text-sm font-extrabold transition flex items-center gap-1.5">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button onclick="stepQuestion(1)" id="nextBtn" class="bg-brand-600 hover:bg-brand-500 text-white px-5 py-2.5 rounded-xl text-sm font-extrabold transition flex items-center gap-1.5">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-4">
+                <div class="glass shadow-lg rounded-2xl p-5 flex flex-col justify-between h-[520px] border border-gray-700">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-gray-700 pb-2">
+                            <h3 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fas fa-th"></i> Live OMR Response
+                            </h3>
+                            <span class="text-[10px] bg-gray-700 px-2 py-0.5 rounded font-bold text-white" id="omrCategoryLabel">All (0)</span>
+                        </div>
+
+                        <div class="grid grid-cols-4 gap-1 text-[8px] font-extrabold text-center uppercase">
+                            <div class="bg-gray-800 py-1 rounded text-slate-400">Unread</div>
+                            <div class="bg-brand-500/20 text-brand-400 py-1 rounded border border-brand-500/20">Visited</div>
+                            <div class="bg-brand-500 text-white py-1 rounded">Answered</div>
+                            <div class="bg-amber-500 text-white py-1 rounded">Flagged</div>
+                        </div>
+
+                        <div class="overflow-y-auto max-h-[300px] pr-1" id="omrBubblesScrollBox">
+                            <div class="grid grid-cols-5 gap-2" id="omrBubblesGrid"></div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-700 pt-4 space-y-2">
+                        <button onclick="promptSubmitTest()" class="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-500 hover:from-red-500 hover:to-rose-400 text-white font-black text-sm rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                            <i class="fas fa-check-double"></i> EVALUATE & SCORE NOW
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resultScreen" class="hidden w-full max-w-5xl mx-auto space-y-6 py-4 animate-fade-in">
+            <div class="bg-white dark:bg-slate-800 panel-surface border-2 border-slate-200 dark:border-slate-700/80 shadow-2xl rounded-3xl overflow-hidden">
+                <div class="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-900 text-white p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border-b-4 border-amber-500">
+                    <div class="space-y-2.5 text-center md:text-left">
+                        <span class="bg-emerald-500 text-brand-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                            Examination Complete
+                        </span>
+                        <h2 class="text-3xl font-serif font-black text-amber-400 drop-shadow">IGBV MOCK EXAM REPORT CARD</h2>
+                        <div class="text-slate-300 text-xs font-medium">
+                            <p id="resultCandidateLabel">Name: Candidate Name | Roll: IGBV-2026-2001</p>
+                            <p class="mt-1">Date: <span id="resultTimeStamp">May 25 - 2026</span></p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 p-4 rounded-2xl flex items-center gap-4">
+                        <div class="relative w-24 h-24 flex items-center justify-center">
+                            <svg class="absolute inset-0 transform -rotate-90" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" stroke="rgba(255, 255, 255, 0.1)" stroke-width="10" fill="transparent"></circle>
+                                <circle id="scoreProgressCircle" cx="50" cy="50" r="40" stroke="#f59e0b" stroke-width="10" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="0" class="transition-all duration-1000"></circle>
+                            </svg>
+                            <div class="text-center z-10">
+                                <div class="text-2xl font-black text-amber-400" id="resultTotalScore">0/200</div>
+                                <div class="text-[9px] uppercase font-bold text-slate-300">Marks</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] uppercase font-bold text-slate-300">Passing Status</div>
+                            <div class="text-lg font-black" id="resultPassBadge">PROVISIONALLY PASS</div>
+                            <div class="text-xs text-slate-400" id="resultPercentage">Success: 0%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 md:p-8">
+                    <div class="bg-emerald-500/10 dark:bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Correct Attempts</div>
+                        <div class="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-1" id="statCorrect">0</div>
+                    </div>
+                    <div class="bg-red-500/10 dark:bg-red-500/5 border border-red-500/20 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Wrong </div>
+                        <div class="text-3xl font-black text-red-600 dark:text-red-400 mt-1" id="statWrong">0</div>
+                    </div>
+                    <div class="bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Skipped / Left</div>
+                        <div class="text-3xl font-black text-amber-500 mt-1" id="statSkipped">0</div>
+                    </div>
+                    <div class="bg-brand-500/10 dark:bg-brand-500/5 border border-brand-500/20 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Time Elapsed</div>
+                        <div class="text-3xl font-black text-brand-600 dark:text-brand-400 mt-1" id="statTime">00:00</div>
+                    </div>
+                </div>
+
+                <!-- ── MARKING SCHEME PANEL ── -->
+                <div class="px-6 md:px-8 pb-2">
+                    <div class="rounded-2xl border border-amber-500/30 bg-amber-500/5 overflow-hidden">
+                        <button onclick="toggleMarkingScheme()"
+                                class="w-full flex items-center justify-between px-5 py-3 text-left hover:bg-amber-500/10 transition">
+                            <span class="flex items-center gap-2 text-sm font-black text-amber-400 uppercase tracking-wider">
+                                <i class="fas fa-balance-scale"></i> Marking Scheme &amp; Score Breakdown
+                            </span>
+                            <i id="markingChevron" class="fas fa-chevron-down text-amber-400 text-xs transition-transform"></i>
+                        </button>
+                        <div id="markingSchemePanel" class="hidden border-t border-amber-500/20">
+                            <!-- Rule strip -->
+                            <div class="grid grid-cols-3 gap-px bg-amber-500/10 text-center text-xs font-bold">
+                                <div class="bg-premium-darker px-3 py-3">
+                                    <div class="text-emerald-400 text-base mb-0.5">+1</div>
+                                    <div class="text-slate-400 uppercase tracking-wide">per correct</div>
+                                </div>
+                                <div class="bg-premium-darker px-3 py-3">
+                                    <div class="text-red-400 text-base mb-0.5">0</div>
+                                    <div class="text-slate-400 uppercase tracking-wide">wrong (no penalty)</div>
+                                </div>
+                                <div class="bg-premium-darker px-3 py-3">
+                                    <div class="text-amber-400 text-base mb-0.5">0</div>
+                                    <div class="text-slate-400 uppercase tracking-wide">skipped</div>
+                                </div>
+                            </div>
+                            <!-- Computed score table -->
+                            <div class="p-5 space-y-4">
+                                <div class="grid grid-cols-3 gap-3 text-center">
+                                    <div class="bg-emerald-500/10 border border-emerald-500/25 rounded-xl p-3">
+                                        <div class="text-[10px] text-slate-400 uppercase font-bold">Correct × 1</div>
+                                        <div class="text-2xl font-black text-emerald-400 mt-1" id="markCorrectScore">+0</div>
+                                    </div>
+                                    <div class="bg-red-500/10 border border-red-500/25 rounded-xl p-3">
+                                        <div class="text-[10px] text-slate-400 uppercase font-bold">Wrong × 0</div>
+                                        <div class="text-2xl font-black text-red-400 mt-1" id="markWrongScore">0</div>
+                                    </div>
+                                    <div class="bg-amber-500/10 border border-amber-500/25 rounded-xl p-3">
+                                        <div class="text-[10px] text-slate-400 uppercase font-bold">Net Score</div>
+                                        <div class="text-2xl font-black text-amber-400 mt-1" id="markNetScore">0</div>
+                                    </div>
+                                </div>
+                                <!-- Percentage bar -->
+                                <div>
+                                    <div class="flex items-center justify-between text-xs font-bold mb-1.5">
+                                        <span class="text-slate-400">Score out of total marks</span>
+                                        <span id="markPctLabel" class="text-amber-400">0%</span>
+                                    </div>
+                                    <div class="h-3 rounded-full bg-gray-800 overflow-hidden">
+                                        <div id="markPctBar" class="h-full rounded-full bg-gradient-to-r from-amber-500 to-emerald-500 transition-all duration-700" style="width:0%"></div>
+                                    </div>
+                                </div>
+                                <!-- Grade band -->
+                                <div id="markGradeBand" class="text-center text-xs font-bold py-2 rounded-xl bg-gray-800 text-slate-400"></div>
+                                <p class="text-[10px] text-slate-500 text-center">
+                                    IGBV uses +1 per correct answer, 0 for wrong/skipped. No negative marking.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="px-6 md:px-8 pb-8 space-y-4">
+                    <h3 class="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b pb-2 border-slate-100 dark:border-slate-700/50 flex items-center gap-1.5">
+                        <i class="fas fa-chart-bar text-brand-500"></i> Subject-wise Accuracy breakdown
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="subjectBreakdownContainer"></div>
+                </div>
+
+                <div class="p-6 md:p-8 flex flex-col sm:flex-row gap-4 border-t border-slate-100 dark:border-slate-700/50 bg-white/5">
+                    <button onclick="backToLobby()" class="flex-1 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fas fa-arrow-left"></i> Back to Lobby
+                    </button>
+                    <button onclick="retakeExam()" class="flex-1 px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-black rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                        <i class="fas fa-redo"></i> Retake Exam
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass border border-gray-700 rounded-2xl shadow-lg p-6 md:p-8 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-700 pb-4">
+                    <h3 class="text-xl font-black text-white flex items-center gap-2">
+                        <i class="fas fa-book-open text-brand-400"></i> Question Review & Explanations
+                    </h3>
+                    <div class="flex flex-wrap gap-2" id="reviewFilterControls">
+                        <button id="revFilter-all" onclick="changeReviewFilter('all')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-600 text-white border border-brand-600">All</button>
+                        <button id="revFilter-correct" onclick="changeReviewFilter('correct')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-800 text-slate-300 border border-gray-700">Correct</button>
+                        <button id="revFilter-wrong" onclick="changeReviewFilter('wrong')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-800 text-slate-300 border border-gray-700">Mistakes</button>
+                        <button id="revFilter-skipped" onclick="changeReviewFilter('skipped')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-800 text-slate-300 border border-gray-700">Skipped</button>
+                    </div>
+                </div>
+                <div class="space-y-6" id="diagnosticReviewList"></div>
+            </div>
+        </section>
+    </main>
+    <!-- Premium Footer -->
+    <footer class="border-t border-white/5 mt-20 py-8 px-4 text-center text-gray-500 text-sm">
+        <div class="max-w-7xl mx-auto">
+            <p class="mb-2">© 2026 RANKRUSH • Premium Exam Preparation Platform</p>
+            <p>Engineered for Excellence | Designed for Success</p>
+        </div>
+    </footer>
+
+    <!-- Modal Overlay -->
+    <div id="modalOverlay" class="hidden fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-all">
+        <div id="modalContainer" class="bg-premium-darker rounded-2xl max-w-md w-full border border-gray-700 shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all">
+            <div class="bg-gradient-to-r from-brand-900 to-brand-800 p-4 text-white flex items-center justify-between border-b-2 border-amber-500">
+                <h4 id="modalTitle" class="font-extrabold text-xs uppercase text-amber-400">Confirmation Required</h4>
+                <button onclick="closeModal()" class="text-white hover:text-red-400"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <p id="modalBodyText" class="text-sm font-semibold text-slate-300 leading-relaxed">Confirm action.</p>
+            </div>
+            <div class="p-4 bg-premium-dark border-t border-gray-800 flex justify-end gap-3" id="modalActions"></div>
+        </div>
+    </div>
+
+
+<script>
+        // ==================================================================
+        // UNIFIED PORTAL CONFIGURATIONS
+        // ==================================================================
+        const CONFIG = {
+            // 1. Google Sheets Published CSV URL for Question Database
+            QUESTIONS_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSS6pg6QYlTfo2jz5whNxWOmFKVCes1G_-wH0tH2gIVND4R4Rz57huPI1GGA6V8qKslc1lMgNBk8VXJ/pub?gid=1458878714&single=true&output=csv",
+            
+            // 2. Google Sheets Published CSV URL for Leaderboard (Responses)
+            LEADERBOARD_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQCjMmc8lKBNc1EhclhxdXqZkaJXwUmz3lU-g66ewM6bqUXdN6uE3JKVBtkszBaeLOXDEpmNTEjweU8/pub?output=csv",
+            
+            // 3. Google Apps Script Web App URL for score submission
+            APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzSXItN_kzSFxfCwGjyuAQGpcp6GtY43TV7doR-jemmjuDBbp2_qal6MqwbD0dpMPg/exec",
+            
+            // Top entries to load on the dashboard
+            LEADERBOARD_TOP_N: 5
+        };
+
+        // ==================================================================
+        // DATABASE FALLBACK ROUTINES & GLOBAL BUCKETS (Preloaded Questions)
+        // ==================================================================
+        let MATH_DATA_FROM_PDF = [];
+
+        let REASONING_DATA_FROM_PDF = [];
+
+        let HINDI_DATA_FROM_PDF = [];
+
+        let GK_DATA_FROM_PDF = [];
+
+        let SCIENCE_SET1 = [];
+
+        let chosenSetKey = "set1";
+
+        // Structured Exam Database Sets
+        const EXAM_SETS = {
+            "set1": { 
+                "label": "Practice Set 01", 
+                "math": MATH_DATA_FROM_PDF, 
+                "mental": REASONING_DATA_FROM_PDF, 
+                "hindi": HINDI_DATA_FROM_PDF, 
+                "gk": GK_DATA_FROM_PDF,
+            },
+            "set2": {
+                "label": "Science only 01",
+                "science": SCIENCE_SET1
+            }
+        };
+
+        let COMPLETE_200_DATABASE = [];
+        let examQuestionsList = [];
+        let currentQuestionIndex = 0;
+        let selectedAnswers = {};
+        let flaggedQuestions = {};
+        let countdownTimer = null;
+        let scoreSavedThisSession = false;
+
+        const SUBJECT_LABELS = {
+            math: "Maths",
+            mental: "Mental Ability",
+            hindi: "Hindi",
+            gk: "General Knowledge",
+            science: "Science"
+        };
+
+        let timeRemainingSeconds = 120 * 60;
+        let isPracticeActive = false;
+        let activeExamMode = 'full';
+        let currentReviewFilter = 'all';
+        let soundOn = true;
+        let audioContext = null;
+
+        // ==================================================================
+        // SOUND SYSTEM
+        // ==================================================================
+        function playChime(chimeType) {
+            if (!soundOn) return;
+            try {
+                if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioContext.state === 'suspended' && audioContext.resume) {
+                    audioContext.resume().catch(() => {});
+                }
+                const osc = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                osc.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                if (chimeType === 'click') {
+                    osc.type = 'triangle'; 
+                    osc.frequency.setValueAtTime(550, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.04, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+                    osc.start(); 
+                    osc.stop(audioContext.currentTime + 0.1);
+                } else if (chimeType === 'success') {
+                    osc.type = 'sine'; 
+                    osc.frequency.setValueAtTime(600, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.06, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
+                    osc.start(); 
+                    osc.stop(audioContext.currentTime + 0.3);
+                }
+            } catch (e) { 
+                console.warn("Sound generation block", e); 
+            }
+        }
+
+        function toggleSound() {
+            soundOn = !soundOn;
+            try { localStorage.setItem('rankrush_sound', soundOn ? '1' : '0'); } catch(e) {}
+            updateSoundUI();
+            if (soundOn) playChime('click');
+        }
+
+        function updateSoundUI() {
+            const btn = document.getElementById('soundToggleBtn');
+            if (!btn) return;
+            const icon = document.getElementById('soundIcon');
+            const label = btn.querySelector('span');
+            if (soundOn) {
+                icon.className = "fas fa-volume-up text-emerald-400";
+                label.innerText = "Sound On";
+            } else {
+                icon.className = "fas fa-volume-mute text-slate-400";
+                label.innerText = "Sound Off";
+            }
+        }
+
+        // ==================================================================
+        // CUSTOM ROLL GENERATOR
+        // ==================================================================
+        let rollCounter = Math.floor(Math.random() * 9000) + 1000;
+        function generateCustomRoll() {
+            document.getElementById('candidateRollInput').value = `IGBV-2026-${rollCounter}`;
+            rollCounter++;
+        }
+
+        // ==================================================================
+        // RECOVERY & PARSING STRATEGIES (GOOGLE SHEETS CSV)
+        // ==================================================================
+        function parseCSV(text) {
+            const lines = [];
+            const len = text.length;
+            let i = 0;
+            
+            while (i < len) {
+                const row = [];
+                while (i < len) {
+                    let cell = "";
+                    // Handle quoted fields safely (RFC-4180 standard)
+                    if (text[i] === '"') {
+                        i++; // skip open quote
+                        while (i < len) {
+                            if (text[i] === '"') {
+                                if (text[i + 1] === '"') {
+                                    cell += '"';
+                                    i += 2; // escaped double quote
+                                } else {
+                                    i++; // skip close quote
+                                    break;
+                                }
+                            } else {
+                                cell += text[i];
+                                i++;
+                            }
+                        }
+                        // Consume characters up to next separator/newline
+                        while (i < len && text[i] !== ',' && text[i] !== '\n' && text[i] !== '\r') {
+                            i++;
+                        }
+                    } else {
+                        // Standard unquoted field parsing
+                        while (i < len && text[i] !== ',' && text[i] !== '\n' && text[i] !== '\r') {
+                            cell += text[i];
+                            i++;
+                        }
+                    }
+                    row.push(cell.trim());
+                    
+                    if (i < len && text[i] === ',') {
+                        i++;
+                    } else {
+                        break;
+                    }
+                }
+                
+                // Advance line break characters cleanly
+                if (i < len && text[i] === '\r') {
+                    i++;
+                }
+                if (i < len && text[i] === '\n') {
+                    i++;
+                }
+                
+                if (row.length > 0 && !(row.length === 1 && row[0] === "")) {
+                    lines.push(row);
+                }
+            }
+            return lines;
+        }
+
+        function isUrl(str) {
+            if (!str) return false;
+            str = String(str).trim();
+            if (str.startsWith("http://") || str.startsWith("https://")) {
+                const lower = str.toLowerCase();
+                if (lower.match(/\.(png|jpg|jpeg|gif|webp|svg|bmp|avif)(\?|$|#)/)) return true;
+                if (lower.includes("googleusercontent.com")) return true;
+                if (lower.includes("drive.google.com")) return true;
+                if (lower.includes("docs.google.com/drawings")) return true;
+                if (lower.includes("supabase.co/storage")) return true;
+                if (lower.includes("imgur.com")) return true;
+                if (lower.includes("cloudinary.com")) return true;
+                if (lower.includes("i.ibb.co")) return true;
+                if (lower.includes("postimg.cc")) return true;
+                if (lower.includes("imagekit.io")) return true;
+            }
+            return false;
+        }
+
+        function toDirectImageUrl(url) {
+            if (!url) return url;
+            url = String(url).trim();
+            const driveMatch = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (driveMatch) return `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`;
+            const openMatch = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+            if (openMatch) return `https://drive.google.com/uc?export=view&id=${openMatch[1]}`;
+            return url;
+        }
+
+        function escapeHtml(str) {
+            return String(str || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function normalizeQuestionCategory(value) {
+            if (!value) return "";
+            // Strip out Hindi and non-alphanumeric chars to guarantee bilingual mapping match
+            const normalized = String(value).trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+            if (["mental", "reasoning", "mentalability", "mat", "verbal", "nonverbal", "non-verbal"].includes(normalized)) return "mental";
+            if (["hindi", "hindilang", "hindilanguage"].includes(normalized)) return "hindi";
+            if (["math", "maths", "mathematics", "quant"].includes(normalized)) return "math";
+            if (["gk", "generalknowledge", "sst", "socialscience", "socialstudies", "history", "geography"].includes(normalized)) return "gk";
+            if (["science", "sci", "evs", "environmental"].includes(normalized)) return "science";
+            return normalized;
+        }
+
+        function normalizeQuestionSet(value, category) {
+            if (!value) {
+                if (category === 'science') return 'set2';
+                return 'set1';
+            }
+            const normalized = String(value).trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+            if (normalized === "set2" || normalized === "science" || normalized === "sci") return "set2";
+            if (normalized === "set1" || normalized === "default") return "set1";
+            
+            const match = normalized.match(/set(\d+)/);
+            if (match) return `set${match[1]}`;
+            
+            return normalized;
+        }
+
+        function ensureExamSetArrays(setKey) {
+            if (!EXAM_SETS[setKey]) {
+                EXAM_SETS[setKey] = { label: getSetLabel(setKey), math: [], mental: [], hindi: [], gk: [], science: [] };
+            }
+            const target = EXAM_SETS[setKey];
+            if (!target.math) target.math = [];
+            if (!target.mental) target.mental = [];
+            if (!target.hindi) target.hindi = [];
+            if (!target.gk) target.gk = [];
+            if (!target.science) target.science = [];
+            return target;
+        }
+
+        function getSetLabel(setKey) {
+            // Placeholder during initial set creation; updateSetLabels() assigns final names.
+            if (!setKey) return 'Default Set';
+            const key = String(setKey).trim().toLowerCase();
+            const m = key.match(/^set(\d+)$/);
+            if (m) return `Practice Set ${m[1]}`;
+            return `Set: ${key}`;
+        }
+
+        // Assigns smart labels after all questions are merged.
+        // Single-category set  →  "<Subject> Set NN"  (e.g. "Science Set 01")
+        // Multi-category set   →  "Practice Set NN"
+        // Serial numbers are per label-type and reset independently.
+        function updateSetLabels() {
+            const CATEGORY_DISPLAY = {
+                math:    'Maths',
+                mental:  'Mental Ability',
+                hindi:   'Hindi',
+                gk:      'GK',
+                science: 'Science'
+            };
+            const counters = {};
+            const sortedKeys = Object.keys(EXAM_SETS).sort((a, b) => {
+                const na = parseInt(a.replace(/\D/g, '')) || 0;
+                const nb = parseInt(b.replace(/\D/g, '')) || 0;
+                return na - nb;
+            });
+            sortedKeys.forEach(setKey => {
+                const s = EXAM_SETS[setKey];
+                const activeCats = Object.keys(CATEGORY_DISPLAY).filter(
+                    cat => Array.isArray(s[cat]) && s[cat].length > 0
+                );
+                let prefix;
+                if (activeCats.length === 1) {
+                    prefix = CATEGORY_DISPLAY[activeCats[0]];
+                } else {
+                    prefix = 'Practice';
+                }
+                counters[prefix] = (counters[prefix] || 0) + 1;
+                const serial = String(counters[prefix]).padStart(2, '0');
+                s.label = `${prefix} Set ${serial}`;
+            });
+        }
+
+        function convertSheetRowsToQuestions(rows) {
+            if (!Array.isArray(rows) || rows.length < 2) return [];
+            
+            // Map headers stripping special/Hindi characters so bilingually mapped spreadsheets match seamlessly
+            const headers = rows[0].map(h => String(h || "").trim().toLowerCase().replace(/[^a-z0-9]/g, ""));
+            
+            const hasCategoryHeader = headers.some(h => ["category", "subject", "section"].includes(h));
+            const hasCorrectHeader = headers.some(h => ["correct", "answer", "correctanswer", "ans"].includes(h));
+            
+            let usePositionalFallback = false;
+            if (!hasCategoryHeader || !hasCorrectHeader) {
+                console.info("Spreadsheet headers look mismatched or missing. Activating fallback positional index parser.");
+                usePositionalFallback = true;
+            }
+
+            let results = [];
+
+            function parseSingleRow(row, idx, isPositional) {
+                let id, category, setKey, qEng, qHin, qImg, optA, optB, optC, optD, optAImg, optBImg, optCImg, optDImg, correct, explain, comment;
+
+                if (isPositional) {
+                    const get = i => (row[i] || "").trim();
+                    id = parseInt(get(0)) || (Date.now() + idx);
+                    category = normalizeQuestionCategory(get(1));
+                    setKey = normalizeQuestionSet(row[15] || "", category);
+                    
+                    qEng = get(2);
+                    qHin = get(3);
+                    qImg = get(10);
+                    
+                    optA = get(4);
+                    optB = get(5);
+                    optC = get(6);
+                    optD = get(7);
+                    
+                    optAImg = get(11);
+                    optBImg = get(12);
+                    optCImg = get(13);
+                    optDImg = get(14);
+                    
+                    correct = get(8).trim().toUpperCase();
+                    explain = get(9);
+                    comment = get(16) || "";
+                } else {
+                    const cols = {};
+                    headers.forEach((h, i) => {
+                        cols[h] = String(row[i] || "").trim();
+                    });
+                    
+                    const rawId = cols.id || cols.questionid || cols.qid || "";
+                    id = parseInt(rawId) || (Date.now() + idx);
+                    
+                    const rawCategory = cols.category || cols.subject || cols.section || "";
+                    category = normalizeQuestionCategory(rawCategory);
+                    
+                    const setRaw = cols.set || cols.setkey || cols.sheetset || cols.setid || "";
+                    setKey = normalizeQuestionSet(setRaw, category);
+                    
+                    qEng = cols.qeng || cols.question || cols.questionenglish || cols.engquestion || "";
+                    qHin = cols.qhin || cols.questionhindi || cols.hindiquestion || cols.hindi || "";
+                    
+                    qImg = cols.questionimage || cols.imageurl || cols.image || cols.imgqsrc || "";
+                    
+                    optA = cols.optiona || cols.opta || cols.a || "";
+                    optB = cols.optionb || cols.optb || cols.b || "";
+                    optC = cols.optionc || cols.optc || cols.c || "";
+                    optD = cols.optiond || cols.optd || cols.d || "";
+                    
+                    optAImg = cols.optionaimage || cols.optaimage || cols.imga || cols.imgasrc || "";
+                    optBImg = cols.optionbimage || cols.optbimage || cols.imgb || cols.imgbsrc || "";
+                    optCImg = cols.optioncimage || cols.optcimage || cols.imgc || cols.imgcsrc || "";
+                    optDImg = cols.optiondimage || cols.optdimage || cols.imgd || cols.imgdsrc || "";
+                    
+                    correct = String(cols.correct || cols.answer || cols.correctanswer || cols.ans || "").trim().toUpperCase();
+                    explain = cols.explain || cols.explanation || cols.solution || "";
+                    comment = cols.comment || cols.note || cols.commenttext || "";
+                }
+
+                if (!category || !correct) return null;
+
+                const options = [
+                    { key: "A", val: optA, image: optAImg },
+                    { key: "B", val: optB, image: optBImg },
+                    { key: "C", val: optC, image: optCImg },
+                    { key: "D", val: optD, image: optDImg }
+                ];
+
+                return {
+                    id,
+                    category,
+                    setKey,
+                    qEng,
+                    qHin,
+                    imageUrl: qImg,
+                    imageAlt: "Question Image",
+                    options,
+                    correct,
+                    explain,
+                    comment
+                };
+            }
+
+            // Phase 1: Try parsed named header matching
+            if (!usePositionalFallback) {
+                for (let idx = 1; idx < rows.length; idx++) {
+                    const row = rows[idx];
+                    if (!row || row.length === 0) continue;
+                    const q = parseSingleRow(row, idx, false);
+                    if (q) results.push(q);
+                }
+            }
+
+            // Phase 2: Index positional Fallback if named header didn't align to headers
+            if (results.length === 0) {
+                console.info("Header mapping yielded zero matches. Re-attempting parsing as standard tabular index model.");
+                results = [];
+                
+                let startIdx = 1;
+                const firstCell = String(rows[0][0] || "").trim().toLowerCase();
+                if (firstCell !== "id" && firstCell !== "qid" && !isNaN(parseInt(firstCell))) {
+                    startIdx = 0; 
+                }
+
+                for (let idx = startIdx; idx < rows.length; idx++) {
+                    const row = rows[idx];
+                    if (!row || row.length < 5) continue;
+                    const q = parseSingleRow(row, idx, true);
+                    if (q) results.push(q);
+                }
+            }
+            
+            return results;
+        }
+
+        async function loadQuestionsFromSheet() {
+            const badge = document.getElementById("sheetLoadBadge");
+            const showStatus = (html, cls) => {
+                if (!badge) return;
+                badge.innerHTML = html;
+                badge.className = `text-xs font-bold px-3 py-1 rounded-full border ${cls}`;
+                badge.classList.remove("hidden");
+            };
+
+            if (!CONFIG.QUESTIONS_CSV_URL) {
+                console.info("📋 No question sheet URL configured. Loading empty defaults.");
+                return;
+            }
+
+            try {
+                const csvUrl = CONFIG.QUESTIONS_CSV_URL + "&t=" + Date.now();
+                const response = await fetch(csvUrl);
+                if (!response.ok) throw new Error("Fetch response status: " + response.status);
+
+                const csvText = await response.text();
+                const rows = parseCSV(csvText);
+                const questions = convertSheetRowsToQuestions(rows);
+
+                if (questions.length === 0) {
+                    throw new Error("No parsed questions found. Contact Admin.");
+                }
+
+                mergeQuestionsIntoSets(questions);
+
+                renderSetSelectionButtons();
+                updateSubjectTabsVisibility();
+                initCompleteDatabase();
+                changeExamMode(activeExamMode);
+
+                if (window.MathJax) {
+                    MathJax.typesetPromise().catch(() => {});
+                }
+
+                console.log("✅ Sync'd questions successfully.");
+            } catch (err) {
+                console.error("❌ Questions fetching failed:", err);
+            }
+        }
+
+        function mergeQuestionsIntoSets(questions) {
+            const summary = {};
+            const importedSetKeys = new Set();
+            
+            questions.forEach(q => {
+                const setKey = q.setKey || 'set1';
+                if (!importedSetKeys.has(setKey)) {
+                    importedSetKeys.add(setKey);
+                    const targetSet = ensureExamSetArrays(setKey);
+                    targetSet.math = [];
+                    targetSet.mental = [];
+                    targetSet.hindi = [];
+                    targetSet.gk = [];
+                    targetSet.science = [];
+                }
+            });
+
+            questions.forEach((q) => {
+                const setKey = q.setKey || 'set1';
+                const targetSet = ensureExamSetArrays(setKey);
+                
+                if (q.category === 'mental') targetSet.mental.push(q);
+                else if (q.category === 'hindi') targetSet.hindi.push(q);
+                else if (q.category === 'math') targetSet.math.push(q);
+                else if (q.category === 'gk') targetSet.gk.push(q);
+                else if (q.category === 'science') targetSet.science.push(q);
+                else targetSet.science.push(q);
+
+                summary[setKey] = summary[setKey] || {};
+                summary[setKey][q.category] = (summary[setKey][q.category] || 0) + 1;
+            });
+
+            const activeSet = EXAM_SETS[chosenSetKey] || {};
+            const activeCount = ['math','mental','hindi','gk','science'].reduce((sum, cat) => sum + ((activeSet[cat] || []).length || 0), 0);
+            if (questions.length > 0 && activeCount === 0) {
+                chosenSetKey = importedSetKeys.has('set1') ? 'set1' : [...importedSetKeys][0];
+            }
+            console.info("Spreadsheet Questions merged:", summary);
+            updateSetLabels();
+        }
+
+        // ==================================================================
+        // LEADERBOARD CORE LOGIC (FETCH & POST)
+        // ==================================================================
+        async function fetchLeaderboard() {
+            const statusEl  = document.getElementById('lbStatusMsg');
+            const tableWrap = document.getElementById('lbTableWrap');
+            const setupHint = document.getElementById('lbSetupHint');
+            const refreshIcon = document.getElementById('lbRefreshIcon');
+
+            if (!CONFIG.LEADERBOARD_CSV_URL) {
+                if (statusEl) statusEl.classList.add('hidden');
+                if (tableWrap) tableWrap.classList.add('hidden');
+                if (setupHint) setupHint.classList.remove('hidden');
+                return;
+            }
+
+            if (statusEl) {
+                statusEl.innerHTML = '<i class="fas fa-circle-notch fa-spin text-amber-400 text-xl mb-2 block"></i> Loading leaderboard...';
+                statusEl.classList.remove('hidden');
+            }
+            if (tableWrap) tableWrap.classList.add('hidden');
+            if (setupHint) setupHint.classList.add('hidden');
+            if (refreshIcon) refreshIcon.classList.add('fa-spin');
+
+            try {
+                const csvUrl = CONFIG.LEADERBOARD_CSV_URL + "&t=" + Date.now();
+                const response = await fetch(csvUrl);
+
+                if (!response.ok) throw new Error("Fetch response status: " + response.status);
+
+                const csvText = await response.text();
+                const rows = parseCSV(csvText);
+                const dataRows = rows.slice(1).filter(r => r.length >= 6 && r[2]); 
+
+                if (dataRows.length === 0) {
+                    if (statusEl) {
+                        statusEl.innerHTML = '<i class="fas fa-ghost text-slate-500 text-xl mb-2 block"></i> No entries yet. Be the first to secure a rank!';
+                        statusEl.classList.remove('hidden');
+                    }
+                    if (tableWrap) tableWrap.classList.add('hidden');
+                } else {
+                    const sorted = dataRows
+                        .sort((a, b) => parseFloat(b[5] || 0) - parseFloat(a[5] || 0))
+                        .slice(0, CONFIG.LEADERBOARD_TOP_N);
+
+                    renderLeaderboard(sorted);
+
+                    if (statusEl) statusEl.classList.add('hidden');
+                    if (tableWrap) tableWrap.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error("Leaderboard loading failed:", err);
+                if (statusEl) {
+                    statusEl.innerHTML = `<i class="fas fa-exclamation-triangle text-rose-400 text-xl mb-2 block"></i>
+                        Could not load leaderboard database.<br>
+                        <span class="text-[11px] text-slate-500">Contact Admin.</span>`;
+                    statusEl.classList.remove('hidden');
+                }
+            } finally {
+                if (refreshIcon) refreshIcon.classList.remove('fa-spin');
+            }
+        }
+
+        function renderLeaderboard(rows) {
+            const tbody = document.getElementById('lbTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = "";
+            const medals = ["🥇", "🥈", "🥉"];
+
+            rows.forEach((row, idx) => {
+                const rank      = idx + 1;
+                const name      = (row[1] || "Anonymous").trim();
+                const score     = (row[3] || "0").trim();   
+                const total     = (row[4] || "?").trim();   
+                const pct       = parseFloat(row[5] || "0").toFixed(1); 
+                const mode      = (row[6] || "full").trim(); 
+                const set       = (row[7] || "set1").trim(); 
+                const timestamp = (row[0] || "").trim();    
+
+                let dateStr = "—";
+                if (timestamp) {
+                    try {
+                        const d = new Date(timestamp);
+                        if (!isNaN(d)) {
+                            dateStr = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: '2-digit' });
+                        } else {
+                            dateStr = timestamp.split(",")[0]; 
+                        }
+                    } catch(e) { dateStr = timestamp.substring(0, 10); }
+                }
+
+                const rowClass = rank === 1
+                    ? "border-b border-amber-500/20 bg-amber-500/5"
+                    : rank === 2
+                    ? "border-b border-slate-200/20 bg-slate-500/5"
+                    : rank === 3
+                    ? "border-b border-orange-500/15 bg-orange-500/5"
+                    : "border-b border-slate-100 dark:border-slate-700/40";
+
+                const pctColor = pct >= 70
+                    ? "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10"
+                    : pct >= 45
+                    ? "text-amber-600 dark:text-amber-400 bg-amber-500/10"
+                    : "text-rose-600 dark:text-rose-400 bg-rose-500/10";
+
+                const tr = document.createElement('tr');
+                tr.className = rowClass;
+                tr.innerHTML = `
+                    <td class="py-3 text-center font-black text-lg">${medals[idx] || rank}</td>
+                    <td class="py-3 pl-3">
+                        <div class="font-bold text-slate-800 dark:text-white text-sm">${escapeHtml(name)}</div>
+                    </td>
+                    <td class="py-3 text-center">
+                        <span class="font-black text-slate-800 dark:text-white text-sm">${score}/${total}</span>
+                        <span class="ml-1 text-[11px] font-bold px-1.5 py-0.5 rounded ${pctColor}">${pct}%</span>
+                    </td>
+                    <td class="py-3 text-center">
+                        <span class="text-[10px] font-bold uppercase text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">
+                            ${escapeHtml(mode)} / ${escapeHtml(set)}
+                        </span>
+                    </td>
+                    <td class="py-3 text-center text-[11px] text-slate-400 font-semibold">${escapeHtml(dateStr)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function saveScoreToSheet(resultData) {
+            if (scoreSavedThisSession) {
+                console.info("LEADERBOARD: Score already submitted in this session.");
+                return;
+            }
+
+            if (!resultData.name || resultData.name.trim() === "") {
+                console.warn("LEADERBOARD: Anonymous test skipped score submission.");
+                return;
+            }
+
+            scoreSavedThisSession = true;
+            if (!CONFIG.APPS_SCRIPT_URL) {
+                console.info("LEADERBOARD: Submission endpoint not configured.");
+                return;
+            }
+
+            try {
+                const params = new URLSearchParams({
+                    name:    resultData.name,       
+                    roll:    resultData.roll,        
+                    score:   resultData.correct,     
+                    total:   resultData.total,       
+                    pct:     resultData.percentage,  
+                    mode:    resultData.mode,        
+                    set:     resultData.set,         
+                    correct: resultData.correct,     
+                    wrong:   resultData.wrong,       
+                    skipped: resultData.skipped      
+                });
+
+                const url = CONFIG.APPS_SCRIPT_URL + "?" + params.toString();
+                await fetch(url, { method: "GET", mode: "no-cors" });
+
+                console.info("LEADERBOARD: Score sent to Apps Script.");
+                setTimeout(() => fetchLeaderboard(), 2500);
+            } catch (err) {
+                console.error("LEADERBOARD: score recording failed:", err);
+            }
+        }
+
+        // ==================================================================
+        // INTERACTIVE EXAM GAMEPLAY CONTROLLERS
+        // ==================================================================
+        function getTimeLimitMinutes(mode) {
+            // Compute the number of questions for the given mode
+            const activeSet = EXAM_SETS[chosenSetKey] || {};
+            const total = ['math','mental','hindi','gk','science']
+                .reduce((n, c) => n + ((activeSet[c] || []).length), 0);
+            let qCount;
+            if (mode === 'sprint') qCount = Math.min(30, total);
+            else if (mode === 'math') qCount = Math.min(25, total);
+            else qCount = total; // 'full'
+
+            // Rule: <50 questions → 1 min per question; ≥50 questions → 120 min
+            return qCount < 50 ? Math.max(1, qCount) : 120;
+        }
+
+        function getTimeLimitInSeconds(mode) {
+            return getTimeLimitMinutes(mode) * 60;
+        }
+
+        function updateSubjectTabsVisibility() {
+            const activeSet = EXAM_SETS[chosenSetKey] || {};
+            ['math', 'mental', 'hindi', 'gk', 'science'].forEach((cat) => {
+                const btn = document.getElementById(`secTab-${cat}`);
+                if (!btn) return;
+                const hasCategory = Array.isArray(activeSet[cat]) && activeSet[cat].length > 0;
+                btn.style.display = hasCategory ? 'inline-flex' : 'none';
+            });
+        }
+
+        function initCompleteDatabase() {
+            COMPLETE_200_DATABASE = [];
+            const activeSet = EXAM_SETS[chosenSetKey];
+            if (!activeSet) return;
+            if (activeSet.hindi) COMPLETE_200_DATABASE.push(...activeSet.hindi);
+            if (activeSet.mental) COMPLETE_200_DATABASE.push(...activeSet.mental);
+            if (activeSet.math) COMPLETE_200_DATABASE.push(...activeSet.math);
+            if (activeSet.gk) COMPLETE_200_DATABASE.push(...activeSet.gk);
+            if (activeSet.science) {
+                COMPLETE_200_DATABASE.push(...activeSet.science.map(q => ({ ...q, category: q.category || 'science' })));
+            }
+        }
+
+        function renderSetSelectionButtons() {
+            const container = document.getElementById('setButtonsGrid');
+            if (!container) return;
+            container.innerHTML = "";
+            const setKeys = Object.keys(EXAM_SETS);
+            // Update the count label
+            const countLabel = document.getElementById('setCountLabel');
+            if (countLabel) countLabel.textContent = setKeys.length + ' set' + (setKeys.length !== 1 ? 's' : '') + ' available';
+            setKeys.forEach((setKey) => {
+                const isActive = setKey === chosenSetKey;
+                const s = EXAM_SETS[setKey];
+                const qCount = ['math','mental','hindi','gk','science'].reduce((n,c) => n + ((s[c]||[]).length), 0);
+                const btn = document.createElement('button');
+                btn.onclick = () => selectPracticeSet(setKey);
+                btn.className = `w-full text-left px-3 py-2.5 rounded-lg border-2 transition-all text-sm ${isActive ? 'border-brand-500 bg-brand-500/10 text-brand-400' : 'border-gray-700 bg-premium-dark text-slate-300 hover:border-gray-500'}`;
+                btn.innerHTML = `
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="font-semibold truncate flex-1">${s.label}</span>
+                        <span class="flex items-center gap-1.5 flex-shrink-0">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? 'bg-brand-500/20 text-brand-300' : 'bg-gray-700 text-slate-400'}">${qCount} Qs</span>
+                            ${isActive ? '<i class="fas fa-check-circle text-brand-500 text-xs"></i>' : ''}
+                        </span>
+                    </div>`;
+                container.appendChild(btn);
+            });
+            // Auto-scroll active set into view
+            const active = container.querySelector('.border-brand-500');
+            if (active) active.scrollIntoView({ block: 'nearest' });
+        }
+
+        function selectPracticeSet(setKey) {
+            chosenSetKey = setKey;
+            renderSetSelectionButtons();
+            updateSubjectTabsVisibility();
+            initCompleteDatabase();
+            changeExamMode(activeExamMode);
+            playChime('click');
+        }
+
+        function changeExamMode(mode) {
+            activeExamMode = mode;
+            const totalDisplay = document.getElementById('totalQuestionsDisplay');
+            const timeDisplay = document.getElementById('timeLimitDisplay');
+            initCompleteDatabase();
+            const fullCount = COMPLETE_200_DATABASE.length;
+            if (mode === 'full') {
+                totalDisplay.innerText = fullCount;
+            } else if (mode === 'sprint') {
+                totalDisplay.innerText = Math.min(30, fullCount);
+            } else if (mode === 'math') {
+                totalDisplay.innerText = Math.min(25, fullCount);
+            }
+            timeDisplay.innerText = getTimeLimitMinutes(mode).toString();
+            playChime('click');
+        }
+
+        function launchExam() {
+            const name = document.getElementById('candidateNameInput').value.trim();
+            const roll = document.getElementById('candidateRollInput').value;
+            if (!name) { 
+                showSimpleAlert("Name Required", "Please provide the student's name in profile setup to track progress.", "Okay");
+                return; 
+            }
+            initCompleteDatabase();
+            if (activeExamMode === 'full') {
+                examQuestionsList = [...COMPLETE_200_DATABASE];
+            } else if (activeExamMode === 'sprint') {
+                examQuestionsList = COMPLETE_200_DATABASE.sort(() => 0.5 - Math.random()).slice(0, 30);
+            } else if (activeExamMode === 'math') {
+                examQuestionsList = COMPLETE_200_DATABASE.filter(q => q.category === 'math');
+            }
+
+            if (examQuestionsList.length === 0) {
+                showSimpleAlert("Database Empty", "No active questions found in this set. Please contact Admin.", "Back");
+                return;
+            }
+
+            timeRemainingSeconds = getTimeLimitInSeconds(activeExamMode);
+            document.getElementById('monitorCandidateName').innerText = name;
+            document.getElementById('monitorCandidateRoll').innerText = `Roll: ${roll}`;
+            
+            document.getElementById('lobbyScreen').classList.add('hidden');
+            document.getElementById('examScreen').classList.remove('hidden');
+            
+            currentQuestionIndex = 0; 
+            selectedAnswers = {}; 
+            flaggedQuestions = {}; 
+            isPracticeActive = true;
+            scoreSavedThisSession = false;
+
+            renderCurrentQuestion(); 
+            buildOMRGridSheet(); 
+            updateLiveProgressStrip(); 
+            startTimerCountdown(); 
+            playChime('success');
+        }
+
+        function renderCurrentQuestion() {
+            if (!examQuestionsList.length) return;
+            const q = examQuestionsList[currentQuestionIndex];
+            const questionText = q.qEng || q.question || "";
+            const hindiText = q.qHin || q.questionHindi || "";
+            const category = q.category || 'science';
+            const options = Array.isArray(q.options)
+                ? q.options
+                : Object.entries(q.options || {}).map(([key, val]) => ({ key, val }));
+
+            let imageMarkup = "";
+            if (q.imageUrl) {
+                const imgSrc = toDirectImageUrl(q.imageUrl);
+                imageMarkup = `<div class="my-4 flex justify-center"><div class="q-image-wrap"><img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(q.imageAlt || 'Question Image')}" class="max-h-[300px] max-w-full object-contain rounded-lg" onerror="this.closest('.q-image-wrap').innerHTML='<span class=\\'text-xs text-rose-400 px-2\\'>⚠ Image unavailable</span>'" /></div></div>`;
+            }
+            const commentMarkup = q.comment ? `<div class="text-xs italic text-amber-300 mt-3 border-l-2 border-amber-400 pl-3">Note: ${escapeHtml(q.comment)}</div>` : "";
+
+            document.getElementById('questionCategoryBadge').innerText = category.toUpperCase();
+            document.getElementById('questionCounterHeader').innerText = `Question ${currentQuestionIndex + 1} of ${examQuestionsList.length}`;
+            
+            const qEngEl = document.getElementById('displayQEng');
+            qEngEl.innerHTML = "";
+            if (imageMarkup) { const d = document.createElement('div'); d.innerHTML = imageMarkup; qEngEl.appendChild(d); }
+            const qTxt = document.createElement('span'); qTxt.innerHTML = questionText; qEngEl.appendChild(qTxt);
+            if (commentMarkup) { const d = document.createElement('div'); d.innerHTML = commentMarkup; qEngEl.appendChild(d); }
+            document.getElementById('displayQHin').innerHTML = hindiText;
+
+            const container = document.getElementById('displayOptionsGrid');
+            container.innerHTML = "";
+            const qCard = document.getElementById('questionMainCard');
+            if (qCard) { qCard.classList.remove('question-enter'); void qCard.offsetWidth; qCard.classList.add('question-enter'); }
+            const ans = selectedAnswers[q.id];
+
+            options.forEach((opt) => {
+                const isSelected = ans === opt.key;
+                const btn = document.createElement('button');
+                btn.onclick = () => selectAnsweringOption(opt.key);
+                btn.className = `option-btn w-full text-left p-4 rounded-xl border-2 transition-all flex flex-col sm:flex-row items-start sm:items-center gap-3.5 ${isSelected ? 'selected border-brand-500 bg-brand-950/40 ring-2 ring-brand-500/20 font-bold' : 'border-gray-700 bg-premium-dark hover:bg-gray-800/80'}`;
+                
+                let optionContent = "";
+                if (opt.val && isUrl(opt.val)) {
+                    const imgSrc = toDirectImageUrl(opt.val);
+                    optionContent = `<div class="mt-1 flex-grow"><img src="${escapeHtml(imgSrc)}" class="max-h-28 object-contain rounded bg-white p-1 border border-gray-600 shadow-sm mx-auto sm:mx-0" onerror="this.style.display='none'"></div>`;
+                } else {
+                    optionContent = `<div class="flex-grow"><span class="text-sm text-slate-200 leading-relaxed">${escapeHtml(opt.val || "")}</span>`;
+                    if (opt.image) {
+                        const optImgSrc = toDirectImageUrl(opt.image);
+                        optionContent += `<div class="mt-2"><img src="${escapeHtml(optImgSrc)}" class="max-h-28 object-contain rounded bg-white p-1 border border-gray-600 shadow-sm mx-auto sm:mx-0" onerror="this.style.display='none'"></div>`;
+                    }
+                    optionContent += `</div>`;
+                }
+
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-full text-xs font-black flex items-center justify-center flex-shrink-0 ${isSelected ? 'bg-brand-500 text-white shadow-lg' : 'bg-gray-700 text-slate-300'}">
+                        ${opt.key}
+                    </span>
+                    ${optionContent}
+                `;
+                container.appendChild(btn);
+            });
+
+            // Typeset AFTER options are in the DOM so LaTeX inside options renders correctly
+            if (window.MathJax) MathJax.typesetPromise().catch(err => console.log(err));
+
+            const isFlagged = flaggedQuestions[q.id];
+            document.getElementById('flagIcon').className = isFlagged ? "fas fa-flag text-amber-500" : "far fa-flag";
+            document.getElementById('flagText').innerText = isFlagged ? "Flagged Review" : "Flag Question";
+
+            const prev = document.getElementById('prevBtn');
+            prev.disabled = currentQuestionIndex === 0;
+            prev.style.opacity = currentQuestionIndex === 0 ? "0.4" : "1";
+            document.getElementById('nextBtn').innerHTML = currentQuestionIndex === examQuestionsList.length - 1 ? `Finish Practice <i class="fas fa-check"></i>` : `Next <i class="fas fa-arrow-right"></i>`;
+
+            highlightActiveSubjectTab(category);
+            highlightActiveOMR();
+        }
+
+        // ==================================================================
+        // INTERACTION COMPONENT HANDLERS
+        // ==================================================================
+        function selectAnsweringOption(key) {
+            selectedAnswers[examQuestionsList[currentQuestionIndex].id] = key;
+            renderCurrentQuestion(); 
+            updateOMRSpecificBubble(examQuestionsList[currentQuestionIndex].id); 
+            updateLiveProgressStrip(); 
+            playChime('click');
+        }
+
+        function clearSelectedOption() {
+            delete selectedAnswers[examQuestionsList[currentQuestionIndex].id];
+            renderCurrentQuestion(); 
+            updateOMRSpecificBubble(examQuestionsList[currentQuestionIndex].id); 
+            updateLiveProgressStrip(); 
+            playChime('click');
+        }
+
+        // ==================================================================
+        // EXAM NAVIGATION & WORKFLOW
+        // ==================================================================
+        function toggleFlagCurrentQuestion() {
+            const id = examQuestionsList[currentQuestionIndex].id;
+            flaggedQuestions[id] = !flaggedQuestions[id];
+            renderCurrentQuestion(); 
+            updateOMRSpecificBubble(id); 
+            playChime('click');
+        }
+
+        function stepQuestion(delta) {
+            const target = currentQuestionIndex + delta;
+            if (target >= 0 && target < examQuestionsList.length) { 
+                currentQuestionIndex = target; 
+                renderCurrentQuestion(); 
+                playChime('click'); 
+            } else if (target === examQuestionsList.length) {
+                promptSubmitTest();
+            }
+        }
+
+        function filterExamSection(category) {
+            const idx = examQuestionsList.findIndex(q => q.category === category);
+            if (idx !== -1) { 
+                currentQuestionIndex = idx; 
+                renderCurrentQuestion(); 
+                playChime('click'); 
+            }
+        }
+
+        function highlightActiveSubjectTab(category) {
+            document.querySelectorAll('.exam-sec-btn').forEach(btn => {
+                btn.className = btn.id === `secTab-${category}` ? "exam-sec-btn px-4 py-2 rounded-lg text-xs font-extrabold uppercase bg-brand-500 text-white shadow-md flex-shrink-0" : "exam-sec-btn px-4 py-2 rounded-lg text-xs font-extrabold uppercase bg-gray-800 text-slate-400 flex-shrink-0";
+            });
+        }
+
+        function startTimerCountdown() {
+            clearInterval(countdownTimer);
+            countdownTimer = setInterval(() => {
+                if (timeRemainingSeconds <= 0) { 
+                    clearInterval(countdownTimer); 
+                    autoSubmitExamOnTimeout(); 
+                } else { 
+                    timeRemainingSeconds--; 
+                    syncClockUI(); 
+                }
+            }, 1000);
+        }
+
+        function syncClockUI() {
+            const min = Math.floor(timeRemainingSeconds / 60);
+            const sec = timeRemainingSeconds % 60;
+            const el = document.getElementById('examCountdown');
+            el.innerText = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+            if (timeRemainingSeconds <= 300) el.classList.add('danger');
+            else el.classList.remove('danger');
+        }
+
+        function updateLiveProgressStrip() {
+            const count = Object.keys(selectedAnswers).length;
+            const pct = Math.round((count / examQuestionsList.length) * 100);
+            document.getElementById('progressBarText').innerText = `${count}/${examQuestionsList.length} (${pct}%)`;
+            document.getElementById('progressBarFill').style.width = `${pct}%`;
+        }
+
+        function buildOMRGridSheet() {
+            const grid = document.getElementById('omrBubblesGrid');
+            if (!grid) return;
+            grid.innerHTML = "";
+            examQuestionsList.forEach((q, idx) => {
+                const b = document.createElement('button');
+                b.id = `omrBubble-${q.id}`; 
+                b.innerText = idx + 1;
+                b.onclick = () => { 
+                    currentQuestionIndex = idx; 
+                    renderCurrentQuestion(); 
+                    playChime('click'); 
+                };
+                b.className = `w-9 h-9 rounded-full font-bold text-xs flex items-center justify-center transition-all ${getOMRBubbleStyles(q.id)}`;
+                grid.appendChild(b);
+            });
+            document.getElementById('omrCategoryLabel').innerText = `Active Mode (${examQuestionsList.length})`;
+        }
+
+        function getOMRBubbleStyles(id) {
+            if (flaggedQuestions[id]) return "bg-amber-500 text-white";
+            if (selectedAnswers[id]) return "bg-brand-500 text-white";
+            return "bg-gray-800 text-slate-400 hover:bg-gray-700";
+        }
+
+        function updateOMRSpecificBubble(id) {
+            const b = document.getElementById(`omrBubble-${id}`);
+            if (b) b.className = `w-9 h-9 rounded-full font-bold text-xs flex items-center justify-center transition-all ${getOMRBubbleStyles(id)}`;
+        }
+
+        function highlightActiveOMR() {
+            document.querySelectorAll('#omrBubblesGrid button').forEach((b, idx) => {
+                if (idx === currentQuestionIndex) b.classList.add('omr-active');
+                else b.classList.remove('omr-active', 'ring-2', 'ring-offset-2', 'ring-brand-500', 'scale-110');
+            });
+        }
+
+        // ==================================================================
+        // CONFIRMATION & DIALOGS
+        // ==================================================================
+        function promptSubmitTest() {
+            const count = Object.keys(selectedAnswers).length;
+            const left = examQuestionsList.length - count;
+
+            let promptMsg = `You have answered <strong>${count} of ${examQuestionsList.length}</strong> questions.<br>`;
+            if (left > 0) {
+                promptMsg += `<span class="text-rose-500 font-bold">Warning: ${left} questions are still left blank.</span><br>`;
+            }
+            promptMsg += "Are you ready to submit your responses and trigger instant automatic evaluation?";
+
+            showConfirmModal("Evaluate Answers", promptMsg, "Evaluate Test", triggerPostExamEvaluation, "Keep Practicing");
+        }
+
+        function autoSubmitExamOnTimeout() {
+            triggerPostExamEvaluation();
+            showSimpleAlert("Time limit reached", "Your allotted time has finished completely. All recorded responses have been processed successfully.", "See Report");
+        }
+
+        function triggerPostExamEvaluation() {
+            isPracticeActive = false; 
+            clearInterval(countdownTimer);
+            let correct = 0, wrong = 0, skipped = 0;
+            const catStats = {};
+
+            examQuestionsList.forEach((q) => {
+                const ans = selectedAnswers[q.id];
+                const category = q.category || 'science';
+                const correctAnswer = q.correct || "";
+                if (!catStats[category]) catStats[category] = { correct: 0, total: 0 };
+                catStats[category].total++;
+                if (!ans) {
+                    skipped++;
+                } else if (ans.toUpperCase() === correctAnswer.toUpperCase()) { 
+                    correct++; 
+                    catStats[category].correct++; 
+                } else {
+                    wrong++;
+                }
+            });
+
+            const pct = Math.round((correct / examQuestionsList.length) * 100);
+            document.getElementById('resultTotalScore').innerText = `${correct}/${examQuestionsList.length}`;
+            document.getElementById('resultPercentage').innerText = `Score: ${pct}%`;
+            document.getElementById('scoreProgressCircle').style.strokeDashoffset = 251.2 - (251.2 * pct) / 100;
+            
+            document.getElementById('statCorrect').innerText = correct;
+            document.getElementById('statWrong').innerText = wrong;
+            document.getElementById('statSkipped').innerText = skipped;
+
+            const totalAlloc = getTimeLimitInSeconds(activeExamMode);
+            const spent = totalAlloc - timeRemainingSeconds;
+            document.getElementById('statTime').innerText = `${Math.floor(spent/60)}m ${spent%60}s`;
+
+            const name = document.getElementById('candidateNameInput').value;
+            const roll = document.getElementById('candidateRollInput').value;
+            document.getElementById('resultCandidateLabel').innerHTML = `Candidate: <b>${name}</b> | Roll: <b>${roll}</b>`;
+            const tsEl = document.getElementById('resultTimeStamp');
+            if (tsEl) tsEl.textContent = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            const passBadge = document.getElementById('resultPassBadge');
+            if(pct >= 45) {
+                passBadge.innerText = "PROVISIONALLY PASS / सफल"; 
+                passBadge.className = "text-emerald-400 font-bold text-xs bg-emerald-950 px-3 py-1 rounded-full inline-block border border-emerald-800";
+            } else {
+                passBadge.innerText = "REQUIRES PRACTICE / अभ्यास आवश्यक"; 
+                passBadge.className = "text-rose-400 font-bold text-xs bg-rose-950 px-3 py-1 rounded-full inline-block border border-rose-800";
+            }
+
+            const breakdown = document.getElementById('subjectBreakdownContainer');
+            breakdown.innerHTML = "";
+            Object.keys(catStats).forEach(cat => {
+                const s = catStats[cat];
+                const displayName = SUBJECT_LABELS[cat] || cat.toUpperCase();
+                const acc = Math.round((s.correct / s.total) * 100) || 0;
+                breakdown.innerHTML += `<div class="bg-gray-800 p-3 rounded-xl border border-gray-700">
+                        <div class="text-[10px] text-gray-400 font-bold uppercase">${displayName}</div>
+                        <div class="text-xl font-bold text-white mt-1">${s.correct}/${s.total}</div>
+                        <div class="text-[11px] text-slate-300 mt-1">Out of ${s.total} ${displayName} questions</div>
+                        <div class="text-xs text-brand-400 mt-2">${acc}% Accuracy</div>
+                    </div>`;
+            });
+
+            buildDiagnosticDetailedReview();
+            updateMarkingSchemePanel(correct, wrong, skipped, examQuestionsList.length);
+            document.getElementById('examScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            saveScoreToSheet({
+                name:       name.trim(),
+                roll:       roll.trim(),
+                correct:    correct,
+                wrong:      wrong,
+                skipped:    skipped,
+                total:      examQuestionsList.length,
+                percentage: pct,
+                mode:       activeExamMode,
+                set:        chosenSetKey
+            });
+        }
+
+        function buildDiagnosticDetailedReview() { 
+            renderFilteredReviewCards(); 
+        }
+
+        function changeReviewFilter(filterType) { 
+            currentReviewFilter = filterType; 
+            renderFilteredReviewCards(); 
+            playChime('click'); 
+        }
+
+        function renderFilteredReviewCards() {
+            const container = document.getElementById('diagnosticReviewList');
+            if (!container) return;
+            container.innerHTML = "";
+            
+            document.querySelectorAll('#reviewFilterControls button').forEach(btn => {
+                btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-800 text-slate-300 border border-gray-700";
+            });
+            const actBtn = document.getElementById(`revFilter-${currentReviewFilter}`);
+            if(actBtn) actBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-500 text-white shadow-md border border-brand-500";
+
+            const filtered = examQuestionsList.filter(q => {
+                const ans = selectedAnswers[q.id];
+                const correctAnswer = q.correct || "";
+                if (currentReviewFilter === 'all') return true;
+                if (currentReviewFilter === 'correct') return ans && ans.toUpperCase() === correctAnswer.toUpperCase();
+                if (currentReviewFilter === 'wrong') return ans && ans.toUpperCase() !== correctAnswer.toUpperCase();
+                if (currentReviewFilter === 'skipped') return !ans;
+                return true;
+            });
+
+            if(!filtered.length) {
+                container.innerHTML = `<div class="text-center py-6 text-slate-400 text-sm">No verification questions align to this matrix slice.</div>`; 
+                return;
+            }
+
+            filtered.forEach(q => {
+                const ans = selectedAnswers[q.id];
+                const correctAnswer = q.correct || "";
+                const options = Array.isArray(q.options)
+                    ? q.options
+                    : Object.entries(q.options || {}).map(([key, val]) => ({ key, val }));
+
+                const questionText = q.qEng || q.question || "";
+                const hindiText = q.qHin || q.questionHindi || "";
+                const explanationText = q.explain || q.explanation || "No explanation provided for this question.";
+                const category = q.category || 'science';
+                const commentText = q.comment ? q.comment : "";
+                const isCorrect = ans && ans.toUpperCase() === correctAnswer.toUpperCase();
+                const isSkipped = !ans;
+                
+                let cardBorder = "border-gray-700 bg-premium-darker/40";
+                let statusBadge = `<span class="bg-rose-500/10 text-rose-400 text-[10px] font-black px-2.5 py-1 rounded-full">MISTAKE</span>`;
+                if(isCorrect) {
+                    cardBorder = "border-emerald-900/40 bg-emerald-950/10";
+                    statusBadge = `<span class="bg-emerald-500/10 text-emerald-400 text-[10px] font-black px-2.5 py-1 rounded-full">CORRECT</span>`;
+                } else if(isSkipped) {
+                    cardBorder = "border-amber-900/40 bg-amber-950/10";
+                    statusBadge = `<span class="bg-amber-500/10 text-amber-400 text-[10px] font-black px-2.5 py-1 rounded-full">SKIPPED</span>`;
+                }
+
+                let optHtml = "";
+                options.forEach(o => {
+                    let optBorder = "border-gray-700 bg-premium-dark";
+                    if(o.key.toUpperCase() === correctAnswer.toUpperCase()) {
+                        optBorder = "border-emerald-500 bg-emerald-950/40 text-emerald-400 font-bold";
+                    } else if(ans && o.key.toUpperCase() === ans.toUpperCase()) {
+                        optBorder = "border-rose-500 bg-rose-950/40 text-rose-400 font-bold";
+                    }
+                    
+                    let innerContent = "";
+                    if (o.val && isUrl(o.val)) {
+                        innerContent = `<div class="mt-1"><img src="${escapeHtml(toDirectImageUrl(o.val))}" class="max-h-24 object-contain rounded bg-white p-1" onerror="this.style.display='none'"></div>`;
+                    } else {
+                        innerContent = `<span class="text-xs text-slate-300 leading-relaxed">${escapeHtml(o.val || "")}</span>`;
+                        if (o.image) {
+                            innerContent += `<div class="mt-1"><img src="${escapeHtml(toDirectImageUrl(o.image))}" class="max-h-24 object-contain rounded bg-white p-1" onerror="this.style.display='none'"></div>`;
+                        }
+                    }
+
+                    optHtml += `
+                        <div class="p-3 rounded-xl border text-xs flex items-start gap-2.5 ${optBorder}">
+                            <span class="w-5 h-5 rounded-full bg-gray-800 text-slate-300 text-[10px] flex items-center justify-center font-bold flex-shrink-0">
+                                ${o.key}
+                            </span>
+                            <div class="flex-grow">${innerContent}</div>
+                        </div>
+                    `;
+                });
+
+                const commentBlock = commentText ? `<div class="mt-3 text-[11px] italic text-amber-300 border-l-2 border-amber-400 pl-3">Question note: ${escapeHtml(commentText)}</div>` : "";
+                const imageMarkup = q.imageUrl ? `<div class="my-3 flex justify-center"><img src="${escapeHtml(toDirectImageUrl(q.imageUrl))}" alt="STEM image" class="max-h-48 object-contain rounded border border-gray-700 p-1 bg-white" onerror="this.style.display='none'" /></div>` : "";
+
+                container.innerHTML += `
+                    <div class="p-5 rounded-2xl border ${cardBorder}">
+                        <div class="flex items-center justify-between border-b border-gray-700 pb-2.5 mb-3.5">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs bg-gray-800 text-slate-200 px-2 py-0.5 rounded font-mono font-bold">Q${q.id}</span>
+                                <span class="text-[10px] font-bold uppercase text-slate-400">${category}</span>
+                            </div>
+                            ${statusBadge}
+                        </div>
+                        ${imageMarkup}
+                        <p class="text-sm font-bold text-white mb-1 leading-relaxed">${questionText}</p>
+                        <p class="text-xs text-slate-400 italic mb-4">${hindiText}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">${optHtml}</div>
+                        ${commentBlock}
+                        <div class="p-3.5 bg-premium-dark border border-gray-800 rounded-xl mt-4">
+                            <div class="text-[10px] font-bold text-brand-400 uppercase tracking-wider mb-1">Explanation / समाधान</div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-semibold">${explanationText}</p>
+                        </div>
+                    </div>`;
+            });
+
+            if (window.MathJax) MathJax.typesetPromise().catch(err => console.log(err));
+        }
+
+        function backToLobby() {
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('lobbyScreen').classList.remove('hidden');
+            playChime('click');
+        }
+
+        function retakeExam() {
+            selectedAnswers = {}; 
+            flaggedQuestions = {}; 
+            currentQuestionIndex = 0;
+            scoreSavedThisSession = false;
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('examScreen').classList.remove('hidden');
+            timeRemainingSeconds = getTimeLimitInSeconds(activeExamMode);
+            renderCurrentQuestion(); 
+            buildOMRGridSheet(); 
+            updateLiveProgressStrip(); 
+            startTimerCountdown(); 
+            playChime('success');
+        }
+
+        // ==================================================================
+        // CUSTOM NON-BLOCKING MODAL NOTIFICATIONS
+        // ==================================================================
+        function showConfirmModal(title, text, primaryText, action, secondaryText = "Cancel") {
+            document.getElementById('modalTitle').innerText = title;
+            const body = document.getElementById('modalBodyText');
+            if (typeof text === 'string' && /[<>]/.test(text)) {
+                body.innerHTML = text;
+            } else {
+                body.innerText = text;
+            }
+            const actions = document.getElementById('modalActions');
+            if (!actions) return;
+            actions.innerHTML = "";
+
+            const cBtn = document.createElement('button');
+            cBtn.innerText = secondaryText; 
+            cBtn.className = "px-4 py-2 text-xs font-bold text-slate-400 hover:bg-gray-800 rounded-lg";
+            cBtn.onclick = closeModal;
+            actions.appendChild(cBtn);
+
+            const pBtn = document.createElement('button');
+            pBtn.innerText = primaryText; 
+            pBtn.className = "px-4 py-2 text-xs font-bold text-white bg-brand-500 hover:bg-brand-600 rounded-lg shadow-md";
+            pBtn.onclick = () => { action(); closeModal(); };
+            actions.appendChild(pBtn);
+
+            document.getElementById('modalOverlay').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('modalContainer').classList.remove('scale-95', 'opacity-0'); }, 15);
+        }
+
+        function showSimpleAlert(title, text, actionText = "Okay") {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBodyText').innerText = text;
+            const actions = document.getElementById('modalActions');
+            if (!actions) return;
+            actions.innerHTML = "";
+
+            const btn = document.createElement('button');
+            btn.innerText = actionText; 
+            btn.className = "px-4 py-2 text-xs font-bold text-white bg-brand-500 hover:bg-brand-600 rounded-lg shadow-md";
+            btn.onclick = closeModal;
+            actions.appendChild(btn);
+
+            document.getElementById('modalOverlay').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('modalContainer').classList.remove('scale-95', 'opacity-0'); }, 15);
+        }
+
+        function closeModal() {
+            document.getElementById('modalContainer').classList.add('scale-95', 'opacity-0');
+            setTimeout(() => { document.getElementById('modalOverlay').classList.add('hidden'); }, 200);
+            playChime('click');
+        }
+
+        // ==================================================================
+        // ON LOAD INITIALIZATION CYCLE
+        // ==================================================================
+        document.addEventListener('DOMContentLoaded', async () => {
+            generateCustomRoll();
+            
+            try {
+                const savedSound = localStorage.getItem('rankrush_sound');
+                if (savedSound !== null) soundOn = savedSound === '1';
+            } catch(e) {}
+            updateSoundUI();
+            
+            renderSetSelectionButtons();
+            updateSubjectTabsVisibility();
+            changeExamMode('full');
+
+            // Load resources from spreadsheet
+            await loadQuestionsFromSheet();
+            fetchLeaderboard();
+        });
+
+        // ================================================================
+        // MARKING SCHEME
+        // IGBV: +1 correct, 0 wrong, 0 skipped (no negative marking)
+        // ================================================================
+        function updateMarkingSchemePanel(correct, wrong, skipped, total) {
+            const netScore   = correct;           // +1 per correct, 0 penalty
+            const maxMarks   = total;
+            const pct        = maxMarks > 0 ? Math.round((netScore / maxMarks) * 100) : 0;
+
+            const el = id => document.getElementById(id);
+            if (!el('markCorrectScore')) return;
+
+            el('markCorrectScore').textContent = '+' + correct;
+            el('markWrongScore').textContent   = '0';
+            el('markNetScore').textContent     = netScore;
+            el('markPctLabel').textContent     = pct + '%';
+            el('markPctBar').style.width       = pct + '%';
+
+            // Grade band
+            let grade = '', gradeCls = 'bg-gray-800 text-slate-400';
+            if      (pct >= 85) { grade = '★ Outstanding (85%+)';      gradeCls = 'bg-emerald-900/50 text-emerald-300 border border-emerald-700'; }
+            else if (pct >= 70) { grade = '✔ Good (70–84%)';           gradeCls = 'bg-blue-900/50 text-blue-300 border border-blue-700'; }
+            else if (pct >= 55) { grade = '~ Average (55–69%)';        gradeCls = 'bg-amber-900/50 text-amber-300 border border-amber-700'; }
+            else if (pct >= 45) { grade = '✓ Passing (45–54%)';        gradeCls = 'bg-yellow-900/50 text-yellow-300 border border-yellow-700'; }
+            else                { grade = '✗ Below passing (< 45%)';   gradeCls = 'bg-red-900/50 text-red-300 border border-red-700'; }
+
+            const band = el('markGradeBand');
+            band.textContent = grade;
+            band.className   = 'text-center text-xs font-bold py-2 rounded-xl ' + gradeCls;
+        }
+
+        function toggleMarkingScheme() {
+            const panel   = document.getElementById('markingSchemePanel');
+            const chevron = document.getElementById('markingChevron');
+            const hidden  = panel.classList.toggle('hidden');
+            chevron.style.transform = hidden ? '' : 'rotate(180deg)';
+        }
+const RR_REPORT_CONFIG = {
+  // ── GOOGLE APPS SCRIPT ENDPOINT ─────────────────────────────
+  // Paste your deployed Apps Script Web App URL below.
+  // Get it from: Apps Script → Deploy → New Deployment → Web App
+  // Set "Who has access" to "Anyone"
+  ENDPOINT: "https://script.google.com/macros/s/AKfycbzSXItN_kzSFxfCwGjyuAQGpcp6GtY43TV7doR-jemmjuDBbp2_qal6MqwbD0dpMPg/exec",  // ← PASTE YOUR URL HERE e.g. "https://script.google.com/macros/s/ABC.../exec"
+  EXAM_NAME: 'IGBV Mock Exam',
+  MAX_FILE_SIZE_MB: 5,
+  // Sheet name in the linked spreadsheet where reports are written
+  SHEET_NAME: 'Reports',
+};
+
+let _rrActiveReportData = null;
+let _rrSelectedFile = null;
+
+// ── OPEN MODAL ────────────────────────────────────────────────
+function rrOpenReport() {
+  // Auto-capture context from running exam state
+  const currentQ = (typeof examQuestionsList !== 'undefined' && examQuestionsList.length)
+                  ? examQuestionsList[currentQuestionIndex]
+                  : null;
+  const qId   = currentQ?.id ?? '—';
+  const qNo   = (typeof currentQuestionIndex !== 'undefined' && typeof examQuestionsList !== 'undefined' && examQuestionsList.length)
+                  ? (currentQuestionIndex + 1)
+                  : '—';
+  const ans   = (typeof selectedAnswers !== 'undefined' && qId !== '—')
+                  ? (selectedAnswers[qId] || 'None')
+                  : 'None';
+  const exam  = RR_REPORT_CONFIG.EXAM_NAME;
+  const setKey      = currentQ?.setKey ?? (typeof chosenSetKey !== 'undefined' ? chosenSetKey : '—');
+  const correctAns  = currentQ?.correct ?? '—';
+  const qText       = currentQ?.qEng   ?? '';
+
+  _rrActiveReportData = { qId, qNo, ans, exam, setKey, correctAns, qText };
+
+  // Update context pills
+  const safe = v => String(v).substring(0, 40);
+  document.getElementById('rrCtxQid').textContent     = safe(qId);
+  document.getElementById('rrCtxQno').textContent     = safe(qNo);
+  document.getElementById('rrCtxExam').textContent    = safe(exam);
+  document.getElementById('rrCtxAns').textContent     = safe(ans);
+  document.getElementById('rrCtxSetKey').textContent  = safe(setKey);
+  document.getElementById('rrCtxCorrect').textContent = safe(correctAns);
+
+  // Reset form — clear chips + hidden select + textarea
+  document.getElementById('rrIssueType').value = '';
+  document.querySelectorAll('#rrIssueGrid .rr-issue-chip').forEach(c => {
+    c.classList.remove('rr-chip-active');
+    c.removeAttribute('aria-checked');
+  });
+  const grid = document.getElementById('rrIssueGrid');
+  if (grid) grid.classList.remove('rr-field-error', 'rr-shake');
+  document.getElementById('rrIssueDesc').value = '';
+  rrRemoveFile();
+  document.getElementById('rrFormState').style.display = '';
+  document.getElementById('rrSuccessState').style.display = 'none';
+  rrResetSubmitBtn();
+
+  // Open backdrop + modal
+  const backdrop = document.getElementById('rrReportBackdrop');
+  const modal    = document.getElementById('rrReportModal');
+
+  backdrop.style.display = 'flex';
+  requestAnimationFrame(() => {
+    backdrop.classList.add('rr-visible');
+    modal.classList.add('rr-modal-open');
+  });
+  document.body.style.overflow = 'hidden';
+
+  // Focus first focusable element for a11y
+  setTimeout(() => {
+    const sel = document.getElementById('rrIssueType');
+    if (sel) sel.focus();
+  }, 380);
+}
+
+// ── CLOSE MODAL ───────────────────────────────────────────────
+function rrCloseReport() {
+  const backdrop = document.getElementById('rrReportBackdrop');
+  const modal    = document.getElementById('rrReportModal');
+
+  modal.classList.remove('rr-modal-open');
+  backdrop.classList.remove('rr-visible');
+
+  setTimeout(() => {
+    backdrop.style.display = 'none';
+  }, 320);
+  document.body.style.overflow = '';
+}
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('rrReportModal');
+    if (modal && modal.classList.contains('rr-modal-open')) rrCloseReport();
+  }
+});
+
+// ── FILE HANDLING ─────────────────────────────────────────────
+function rrHandleFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const maxBytes = RR_REPORT_CONFIG.MAX_FILE_SIZE_MB * 1024 * 1024;
+  if (file.size > maxBytes) {
+    alert('Screenshot too large. Max ' + RR_REPORT_CONFIG.MAX_FILE_SIZE_MB + ' MB.');
+    input.value = '';
+    return;
+  }
+  _rrSelectedFile = file;
+  const preview = document.getElementById('rrFilePreview');
+  document.getElementById('rrFileName').textContent = file.name;
+  preview.style.display = 'flex';
+}
+
+function rrRemoveFile() {
+  _rrSelectedFile = null;
+  const input = document.getElementById('rrScreenshot');
+  if (input) input.value = '';
+  document.getElementById('rrFilePreview').style.display = 'none';
+}
+
+// ── SUBMIT REPORT ─────────────────────────────────────────────
+async function rrSubmitReport() {
+  const issueType = document.getElementById('rrIssueType').value;
+  const desc      = document.getElementById('rrIssueDesc').value.trim();
+
+  // Validation — shake the chip grid if nothing selected
+  if (!issueType) {
+    const grid = document.getElementById('rrIssueGrid');
+    if (grid) {
+      grid.classList.add('rr-field-error', 'rr-shake');
+      setTimeout(() => grid.classList.remove('rr-shake'), 400);
+      setTimeout(() => grid.classList.remove('rr-field-error'), 1800);
+    }
+    return;
+  }
+
+  // Build report payload
+  const report = {
+    ref:        'RR-' + Date.now().toString(36).toUpperCase(),
+    timestamp:  new Date().toISOString(),
+    exam:          _rrActiveReportData?.exam        ?? '—',
+    questionId:    _rrActiveReportData?.qId         ?? '—',
+    questionNo:    _rrActiveReportData?.qNo         ?? '—',
+    selected:      _rrActiveReportData?.ans         ?? 'None',
+    setKey:        _rrActiveReportData?.setKey      ?? '—',
+    correctAnswer: _rrActiveReportData?.correctAns  ?? '—',
+    questionText:  _rrActiveReportData?.qText       ?? '',
+    issueType,
+    description: desc || null,
+    hasScreenshot: !!_rrSelectedFile,
+    screenshotName: _rrSelectedFile?.name ?? null,
+    userAgent:  navigator.userAgent.substring(0, 120),
+  };
+
+  // UI: loading state
+  rrSetSubmitLoading(true);
+
+  try {
+    await rrSendReport(report, _rrSelectedFile);
+
+    // ── SUCCESS ──
+    document.getElementById('rrFormState').style.display = 'none';
+    const successEl = document.getElementById('rrSuccessState');
+    successEl.style.display = 'flex';
+    document.getElementById('rrSuccessRef').textContent = 'REF: ' + report.ref;
+
+    // Auto-close after 2.8s
+    setTimeout(() => rrCloseReport(), 2800);
+  } catch (err) {
+    console.error('[RankRush Report]', err);
+    rrSetSubmitLoading(false);
+    // Shake button to indicate error
+    const btn = document.getElementById('rrSubmitBtn');
+    btn.classList.add('rr-shake');
+    const lbl = document.getElementById('rrSubmitLabel');
+    lbl.textContent = 'Failed — Retry';
+    const ico = document.getElementById('rrBtnIcon');
+    ico.textContent = '⚠';
+    setTimeout(() => { btn.classList.remove('rr-shake'); }, 400);
+  }
+}
+
+// ── API SUBMISSION FUNCTION ───────────────────────────────────
+// Async, Firebase/Supabase/MongoDB/Apps Script ready
+// Replace the body of this function with your actual integration
+async function rrSendReport(report, file) {
+  // ══════════════════════════════════════════════════════════
+  // GOOGLE APPS SCRIPT INTEGRATION
+  // Sends report as URL params via GET (no-cors safe, no CORS
+  // preflight needed — same pattern as your score submission).
+  // ══════════════════════════════════════════════════════════
+
+  // Dev mode: store in localStorage and simulate delay
+  if (!RR_REPORT_CONFIG.ENDPOINT) {
+    await new Promise(r => setTimeout(r, 800));
+    try {
+      const existing = JSON.parse(localStorage.getItem('rr_reports') || '[]');
+      existing.unshift(report);
+      localStorage.setItem('rr_reports', JSON.stringify(existing.slice(0, 200)));
+    } catch(e) {}
+    console.info('[RankRush Report] Stored locally (no endpoint set):', report);
+    return; // ← remove this line once you set the ENDPOINT above
+  }
+
+  // Build query params — same pattern your APPS_SCRIPT_URL score submission uses
+  const params = new URLSearchParams({
+    action:        'reportIssue',           // lets you handle multiple actions in one script
+    ref:           report.ref,
+    timestamp:     report.timestamp,
+    exam:          report.exam,
+    questionId:    String(report.questionId),
+    questionNo:    String(report.questionNo),
+    selected:      String(report.selected),
+    setKey:        String(report.setKey),
+    correctAnswer: String(report.correctAnswer),
+    questionText:  String(report.questionText || '').substring(0, 300),
+    issueType:     report.issueType,
+    description:   report.description || '',
+    hasScreenshot: String(report.hasScreenshot),
+    screenshotName: report.screenshotName || '',
+    sheetName:     RR_REPORT_CONFIG.SHEET_NAME,
+    sendMail:      'true',
+  });
+
+  // no-cors GET — same as your existing score submission (mode: "no-cors")
+  await fetch(RR_REPORT_CONFIG.ENDPOINT + '?' + params.toString(), {
+    method: 'GET',
+    mode: 'no-cors',
+  });
+
+  // Note: no-cors means we can't read the response status, but the
+  // Apps Script will have received it. Treat every fetch that doesn't
+  // throw a network error as success (standard pattern for GAS).
+  console.info('[RankRush Report] Sent to Apps Script:', report.ref);
+}
+
+// ── UI HELPERS ────────────────────────────────────────────────
+function rrSetSubmitLoading(loading) {
+  const btn = document.getElementById('rrSubmitBtn');
+  const lbl = document.getElementById('rrSubmitLabel');
+  const ico = document.getElementById('rrBtnIcon');
+  if (loading) {
+    btn.disabled = true;
+    lbl.textContent = 'Submitting…';
+    ico.outerHTML = '<span id="rrBtnIcon" class="rr-spinner"></span>';
+  } else {
+    btn.disabled = false;
+    rrResetSubmitBtn();
+  }
+}
+
+function rrResetSubmitBtn() {
+  const btn = document.getElementById('rrSubmitBtn');
+  if (btn) btn.disabled = false;
+  const lbl = document.getElementById('rrSubmitLabel');
+  if (lbl) lbl.textContent = 'Submit Report';
+  const spinner = document.getElementById('rrBtnIcon');
+  if (spinner) {
+    spinner.className = '';
+    spinner.textContent = '→';
+    spinner.id = 'rrBtnIcon';
+  }
+}
+
+// ── CHIP SELECTOR ─────────────────────────────────────────────
+function rrSelectChip(chip, value) {
+  // Deselect all chips
+  document.querySelectorAll('#rrIssueGrid .rr-issue-chip').forEach(c => {
+    c.classList.remove('rr-chip-active');
+    c.setAttribute('aria-checked', 'false');
+  });
+  // Activate clicked chip
+  chip.classList.add('rr-chip-active');
+  chip.setAttribute('aria-checked', 'true');
+  // Sync hidden native select
+  const sel = document.getElementById('rrIssueType');
+  if (sel) sel.value = value;
+  // Remove error state if present
+  const grid = document.getElementById('rrIssueGrid');
+  if (grid) grid.classList.remove('rr-field-error', 'rr-shake');
+}
+// ══ END REPORT SYSTEM ══
+
+</script>
+
+
+<!-- ══════════════════════════════════════════════════════
+     RANKRUSH PREMIUM REPORT ISSUE SYSTEM
+     ══════════════════════════════════════════════════════ -->
+<div id="rrReportBackdrop" onclick="rrCloseReport()"></div>
+
+<div id="rrReportModal" role="dialog" aria-modal="true" aria-labelledby="rrModalTitle">
+  <div class="rr-modal-drag-pill"></div>
+
+  <!-- Header -->
+  <div class="rr-modal-header">
+    <div class="rr-modal-title-group">
+      <div class="rr-modal-icon">⚠</div>
+      <div>
+        <div class="rr-modal-title" id="rrModalTitle">Report a Question Issue</div>
+        <div class="rr-modal-subtitle">Help us improve quality · RankRush QA</div>
+      </div>
+    </div>
+    <button class="rr-close-btn" onclick="rrCloseReport()" aria-label="Close report modal">✕</button>
+  </div>
+
+  <!-- Auto-captured context pills -->
+  <div class="rr-context-strip" id="rrContextStrip">
+    <div class="rr-ctx-pill"><span>Q.ID</span> <span id="rrCtxQid">—</span></div>
+    <div class="rr-ctx-pill"><span>Q.No</span> <span id="rrCtxQno">—</span></div>
+    <div class="rr-ctx-pill"><span>Exam</span> <span id="rrCtxExam">—</span></div>
+    <div class="rr-ctx-pill"><span>Selected</span> <span id="rrCtxAns">None</span></div>
+    <div class="rr-ctx-pill" style="border-color:rgba(168,85,247,0.25);background:rgba(168,85,247,0.06);"><span style="color:#c084fc;">Set</span> <span id="rrCtxSetKey" style="color:#c084fc;">—</span></div>
+    <div class="rr-ctx-pill" style="border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.06);"><span style="color:#4ade80;">Correct Ans</span> <span id="rrCtxCorrect" style="color:#4ade80;">—</span></div>
+  </div>
+
+  <!-- Form state -->
+  <div id="rrFormState">
+    <div class="rr-modal-body">
+      <!-- Issue type — premium chip grid -->
+      <div>
+        <div class="rr-field-label">Issue Type <span class="rr-required">✱</span></div>
+        <!-- Hidden native select keeps value for form logic -->
+        <select id="rrIssueType" aria-label="Issue type" style="display:none">
+          <option value="">— Select the problem type —</option>
+          <option value="Wrong Answer">Wrong Answer</option>
+          <option value="Typo/Error">Typo / Error</option>
+          <option value="Wrong Translation">Wrong Translation</option>
+          <option value="Image Not Loading">Image Not Loading</option>
+          <option value="Duplicate Question">Duplicate Question</option>
+          <option value="Incorrect Options">Incorrect Options</option>
+          <option value="Out of Syllabus">Out of Syllabus</option>
+          <option value="Other">Other</option>
+        </select>
+        <div class="rr-issue-grid" id="rrIssueGrid" role="radiogroup" aria-label="Issue type">
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Wrong Answer')" data-val="Wrong Answer">
+            <span class="rr-chip-emoji">❌</span>
+            <span class="rr-chip-label">Wrong Answer</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Typo/Error')" data-val="Typo/Error">
+            <span class="rr-chip-emoji">✏️</span>
+            <span class="rr-chip-label">Typo / Error</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Wrong Translation')" data-val="Wrong Translation">
+            <span class="rr-chip-emoji">🌐</span>
+            <span class="rr-chip-label">Wrong Translation</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Image Not Loading')" data-val="Image Not Loading">
+            <span class="rr-chip-emoji">🖼️</span>
+            <span class="rr-chip-label">Image Not Loading</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Duplicate Question')" data-val="Duplicate Question">
+            <span class="rr-chip-emoji">♻️</span>
+            <span class="rr-chip-label">Duplicate Question</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Incorrect Options')" data-val="Incorrect Options">
+            <span class="rr-chip-emoji">🔀</span>
+            <span class="rr-chip-label">Incorrect Options</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Out of Syllabus')" data-val="Out of Syllabus">
+            <span class="rr-chip-emoji">📚</span>
+            <span class="rr-chip-label">Out of Syllabus</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+          <button type="button" class="rr-issue-chip" onclick="rrSelectChip(this,'Other')" data-val="Other">
+            <span class="rr-chip-emoji">💬</span>
+            <span class="rr-chip-label">Other</span>
+            <span class="rr-chip-check">✓</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <div class="rr-field-label">Describe the Issue <span style="color:rgba(148,163,184,0.4);font-size:0.55rem;">(optional)</span></div>
+        <textarea id="rrIssueDesc" placeholder="Describe the issue clearly… e.g. 'Option B should be 48 not 84'" rows="3"></textarea>
+      </div>
+
+      <!-- Screenshot upload -->
+      <div>
+        <div class="rr-field-label">Screenshot <span style="color:rgba(148,163,184,0.4);font-size:0.55rem;">(optional)</span></div>
+        <div class="rr-upload-zone">
+          <input type="file" id="rrScreenshot" accept="image/*" onchange="rrHandleFile(this)" aria-label="Upload screenshot">
+          <div class="rr-upload-icon">📎</div>
+          <div class="rr-upload-text"><strong>Click to attach</strong> or drag a screenshot here<br>PNG, JPG, WEBP — max 5 MB</div>
+        </div>
+        <div id="rrFilePreview">
+          <span class="rr-fp-name" id="rrFileName">file.png</span>
+          <button class="rr-fp-remove" onclick="rrRemoveFile()" aria-label="Remove file">✕</button>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button id="rrSubmitBtn" onclick="rrSubmitReport()">
+        <span id="rrSubmitLabel">Submit Report</span>
+        <span id="rrBtnIcon" style="font-size:0.9rem;">→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Success state -->
+  <div id="rrSuccessState">
+    <div class="rr-success-ring">✅</div>
+    <div class="rr-success-title">Report Submitted!</div>
+    <div class="rr-success-sub">Thanks for helping improve <strong style="color:#f0f6ff;">RankRush</strong>. Our team reviews every report to maintain exam quality.</div>
+    <div class="rr-success-meta" id="rrSuccessRef">REF: —</div>
+  </div>
+</div>
+<!-- ══ END REPORT SYSTEM ══ -->
+
+    </script>
+</body>
+</html>
