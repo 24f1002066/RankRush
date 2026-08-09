@@ -90,7 +90,7 @@ const RKMS_SUBJECTS = [
    A "#" placeholder opens nothing and is clearly marked TODO in the UI.
 ------------------------------------------------------------------ */
 const RKMS_STUDY_MATERIALS = [
-  { subject: "hindi", topic: "संधि", type: "notes", level: "Class 5-6", title: "संधि — नियम एवं उदाहरण", fileUrl: "#" },
+  { subject: "hindi", topic: "संधि", type: "notes", level: "Class 5-6", title: "संधि — नियम एवं उदाहरण", fileUrl: "https://drive.google.com/file/d/1p4zgdJrnhVLlRDsP-XFbuxWRkJH9EJOm/view?usp=drive_link" },
   { subject: "hindi", topic: "मुहावरे एवं लोकोक्तियाँ", type: "important", level: "Class 5-6", title: "50 प्रमुख मुहावरे — Important Questions", fileUrl: "#" },
   { subject: "hindi", topic: "अपठित गद्यांश", type: "practice", level: "Class 5-6", title: "अपठित गद्यांश — Practice Set", fileUrl: "#" },
   { subject: "english", topic: "Grammar", type: "concept", level: "Class 5-6", title: "Tenses — Concept Explanation", fileUrl: "#" },
