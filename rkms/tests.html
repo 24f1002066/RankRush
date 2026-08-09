@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RKMS Deoghar Test Arena | Mock Tests & Daily Challenge | RankRush</title>
+<meta name="description" content="Attempt RKMS Deoghar foundation tests, subject tests, advanced tests and full mock exams. Timed, scored and reviewed instantly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/rkms.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-1); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+  /* ── Engine-specific styles (scoped, mirrors netarhat.html engine visually) ── */
+  .rk-engine { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: clamp(1.25rem, 3vw, 2rem); margin-top: 2rem; display: none; }
+  .rk-engine.show { display: block; }
+  .rk-lobby-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .rk-lobby-stat { flex: 1 1 140px; text-align: center; background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1rem; }
+  .rk-lobby-stat b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; color: var(--rk-saffron); }
+  .rk-name-input {
+    width: 100%; max-width: 360px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text-1); padding: 12px 14px; font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem; outline: none; margin-bottom: 1.25rem;
+  }
+  .rk-name-input:focus { border-color: var(--rk-saffron-b); }
+  .rk-name-hint { font-size: 0.72rem; color: var(--text-3); margin-top: -1rem; margin-bottom: 1.1rem; }
+  .rk-lobby-instructions { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1.1rem; margin-bottom: 1.25rem; font-size: 0.8rem; color: var(--text-2); line-height: 1.7; }
+  .rk-lobby-instructions b { color: var(--text-1); display: block; margin-bottom: 0.3rem; }
+  .rk-exam-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem; position: sticky; top: 64px; z-index: 20; background: var(--bg-2); padding: 0.6rem 0.75rem; border-radius: 12px; border: 1px solid var(--border); }
+  .rk-exam-progress-track { flex: 1 1 200px; height: 8px; border-radius: 999px; background: rgba(148,163,184,0.12); overflow: hidden; }
+  .rk-exam-progress-fill { height: 100%; background: linear-gradient(90deg, var(--rk-saffron), var(--gold)); transition: width 0.3s; }
+  .rk-timer { font-family: 'Fira Code', monospace; font-weight: 700; color: var(--rk-saffron); font-size: 1.1rem; white-space: nowrap; }
+  .rk-timer.low-time { color: var(--red); animation: rkPulse 1s ease-in-out infinite; }
+  @keyframes rkPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .rk-question-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; min-height: 220px; }
+  .rk-q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; font-size: 0.78rem; color: var(--text-2); flex-wrap: wrap; gap: 0.5rem; }
+  .rk-q-badge { background: rgba(224,138,30,0.14); color: var(--rk-saffron); padding: 3px 10px; border-radius: 999px; font-family: 'Fira Code', monospace; font-size: 0.65rem; text-transform: uppercase; }
+  .rk-q-text { font-size: 1.02rem; line-height: 1.6; margin-bottom: 0.5rem; }
+  .rk-q-hin { font-size: 0.92rem; color: var(--text-2); font-style: italic; border-left: 3px solid var(--rk-saffron-b); padding-left: 0.75rem; margin-bottom: 1.25rem; }
+  .rk-options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; margin-top: 1rem; }
+  .rk-option {
+    text-align: left; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.02); color: var(--text-1); cursor: pointer; font-size: 0.9rem;
+    transition: all 0.18s; display: flex; align-items: center; gap: 10px; width: 100%; font-family: inherit;
+  }
+  .rk-option:hover { border-color: var(--rk-saffron-b); }
+  .rk-option:focus-visible { outline: 2px solid var(--rk-saffron); outline-offset: 2px; }
+  .rk-option.selected { border-color: var(--rk-saffron); background: rgba(224,138,30,0.1); }
+  .rk-option .letter { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; flex-shrink: 0; }
+  .rk-option.selected .letter { background: var(--rk-saffron); border-color: var(--rk-saffron); color: #10060a; }
+  .rk-option.correct { border-color: var(--green); background: rgba(74,222,128,0.1); }
+  .rk-option.wrong { border-color: var(--red); background: rgba(248,113,113,0.1); }
+  .rk-nav-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.25rem; flex-wrap: wrap; }
+  .rk-flag-btn { background: none; border: 1px solid var(--border); color: var(--text-2); padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; font-family: inherit; }
+  .rk-flag-btn.flagged { border-color: var(--gold); color: var(--gold); }
+  .rk-omr-legend { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.1rem; font-size: 0.7rem; color: var(--text-2); }
+  .rk-omr-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .rk-omr-legend i.dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; border: 1px solid var(--border); }
+  .rk-omr-legend .dot.answered { background: rgba(74,222,128,0.25); border-color: var(--green); }
+  .rk-omr-legend .dot.unanswered { background: rgba(255,255,255,0.03); border-color: var(--border); }
+  .rk-omr-legend .dot.flagged { background: rgba(212,175,55,0.25); border-color: var(--gold); }
+  .rk-omr-legend .dot.current { background: transparent; border: 2px solid var(--rk-saffron); }
+  .rk-omr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(34px, 1fr)); gap: 6px; margin-top: 0.6rem; max-height: 180px; overflow-y: auto; }
+  .rk-omr-bubble {
+    aspect-ratio: 1; border-radius: 8px; border: 1px solid var(--border); background: rgba(255,255,255,0.02);
+    display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-family: 'Fira Code', monospace;
+    cursor: pointer; color: var(--text-2); font-weight: 600;
+  }
+  .rk-omr-bubble:focus-visible { outline: 2px solid var(--rk-saffron); outline-offset: 1px; }
+  .rk-omr-bubble.answered { background: rgba(74,222,128,0.14); border-color: var(--green); color: var(--green); }
+  .rk-omr-bubble.flagged { background: rgba(212,175,55,0.14); border-color: var(--gold); color: var(--gold); }
+  .rk-omr-bubble.current { outline: 2px solid var(--rk-saffron); }
+  .rk-review-item { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 0.8rem; }
+  .rk-review-tag { font-size: 0.65rem; padding: 2px 8px; border-radius: 999px; font-family: 'Fira Code', monospace; text-transform: uppercase; flex-shrink: 0; }
+  .rk-review-details summary { cursor: pointer; font-size: 0.78rem; color: var(--rk-saffron); margin-top: 0.5rem; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+  .rk-review-details summary::-webkit-details-marker { display: none; }
+  .rk-review-details summary::before { content: '\25B8'; transition: transform 0.2s; display: inline-block; }
+  .rk-review-details[open] summary::before { transform: rotate(90deg); }
+  .rk-review-details p { font-size: 0.78rem; color: var(--text-3); margin-top: 0.4rem; line-height: 1.6; }
+  .rk-modal-overlay { position: fixed; inset: 0; background: rgba(2,4,8,0.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 400; padding: 1.5rem; }
+  .rk-modal-overlay.open { display: flex; }
+  .rk-modal-box { background: var(--bg-2); border: 1px solid var(--border-b); border-radius: 16px; padding: 1.75rem; max-width: 400px; width: 100%; }
+  .rk-demo-note { font-size: 0.76rem; border-radius: 10px; padding: 0.7rem 0.9rem; margin-bottom: 1rem; line-height: 1.55; display: flex; gap: 0.6rem; align-items: flex-start; }
+  .rk-demo-note.mode-live { color: var(--green); background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.3); }
+  .rk-demo-note.mode-demo { color: var(--gold); background: rgba(212,175,55,0.08); border: 1px solid var(--gold-b); }
+  .rk-demo-note.mode-insufficient { color: var(--red); background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.3); margin-top: -0.5rem; }
+  .rk-source-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; font-family: 'Fira Code', monospace; }
+  .rk-source-badge.live { background: rgba(74,222,128,0.14); color: var(--green); }
+  .rk-source-badge.demo { background: rgba(212,175,55,0.14); color: var(--gold); }
+
+  /* ── Subject filter chips (inside "Subject Tests" category) ── */
+  .rk-subject-filter-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: -0.9rem 0 1.5rem; }
+  .rk-subject-filter-row .rk-tab-btn { padding: 6px 14px; font-size: 0.72rem; }
+
+  /* ── Resume banner ── */
+  .rk-resume-banner {
+    display: none; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    background: linear-gradient(135deg, rgba(14,165,233,0.1), rgba(168,85,247,0.06));
+    border: 1px solid var(--border-b); border-radius: 16px; padding: 1.1rem 1.4rem; margin-bottom: 2rem;
+  }
+  .rk-resume-banner.show { display: flex; }
+  .rk-resume-banner b { font-family: 'Space Grotesk', sans-serif; }
+
+  /* ── Result screen hierarchy ── */
+  .rk-result-header { text-align: center; margin-bottom: 1.75rem; }
+  .rk-result-header .headline { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .rk-result-header .sub { color: var(--text-2); font-size: 0.85rem; }
+  .rk-result-score-row { display: flex; align-items: baseline; justify-content: center; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+  .rk-result-score-big { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: clamp(2.4rem, 8vw, 3.6rem); color: var(--rk-saffron); line-height: 1; }
+  .rk-result-score-big span { font-size: 0.4em; color: var(--text-2); font-weight: 500; }
+  .rk-result-accuracy-pill { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; padding: 8px 18px; border-radius: 999px; background: rgba(74,222,128,0.12); color: var(--green); }
+  .rk-result-interpretation { background: rgba(224,138,30,0.06); border: 1px solid var(--rk-saffron-b); border-radius: 14px; padding: 1rem 1.25rem; font-size: 0.88rem; line-height: 1.65; color: var(--text-1); margin-bottom: 1.75rem; }
+
+  @media (max-width: 640px) {
+    .rk-nav-row { flex-direction: column; align-items: stretch; }
+    .rk-nav-row > div { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+    .rk-nav-row .btn-ghost, .rk-nav-row .btn-primary, .rk-nav-row .btn-rk { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body class="rk">
+<div class="rk-ambient"></div>
+
+<nav class="rr-nav" id="rr-nav">
+  <a href="../index.html" class="rr-logo"><div class="rr-logo-icon" style="position:relative;overflow:hidden;"><img src="../rankrush.png" alt="RankRush Logo" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:2;background:var(--bg-1);" onerror="this.style.display=&#39;none&#39;;this.parentElement.textContent=&#39;RR&#39;;"></div><span class="rr-logo-text">RANKRUSH</span><span class="rk-nav-tag">RKMS</span></a>
+  <ul class="rr-nav-links">
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="study-material.html">Study Material</a></li>
+    <li><a href="tests.html" class="active" aria-current="page">Test Arena</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="progress.html">My Progress</a></li>
+  </ul>
+  <button class="rr-hamburger" id="rr-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="rr-mobile-menu" id="rr-mobile-menu">
+  <a href="../index.html"><i class="fas fa-house" style="margin-right:8px;color:var(--blue);"></i>RankRush Home</a>
+  <a href="index.html"><i class="fas fa-compass" style="margin-right:8px;color:var(--rk-saffron);"></i>Overview</a>
+  <a href="study-material.html"><i class="fas fa-book" style="margin-right:8px;color:var(--cyan);"></i>Study Material</a>
+  <a href="tests.html"><i class="fas fa-pen" style="margin-right:8px;color:var(--purple);"></i>Test Arena</a>
+  <a href="gallery.html"><i class="fas fa-images" style="margin-right:8px;color:var(--gold);"></i>Gallery</a>
+  <a href="progress.html"><i class="fas fa-chart-line" style="margin-right:8px;color:var(--green);"></i>My Progress</a>
+</div>
+
+<section class="rk-section" style="padding-top:120px;">
+  <div class="rk-container">
+
+    <!-- ═══════ RESUME BANNER (shown only if an unfinished attempt exists) ═══════ -->
+    <div class="rk-resume-banner" id="rkResumeBanner" role="region" aria-label="Resume unfinished test">
+      <div>
+        <b><i class="fas fa-clock-rotate-left" style="color:var(--cyan);margin-right:6px;"></i>Unfinished test found</b>
+        <div style="font-size:0.82rem;color:var(--text-2);margin-top:0.3rem;" id="rkResumeInfo"></div>
+      </div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <button class="btn-rk btn-sm" id="rkResumeBtn"><i class="fas fa-play"></i> Resume Test</button>
+        <button class="btn-ghost btn-sm" id="rkResumeDiscardBtn"><i class="fas fa-trash"></i> Discard</button>
+      </div>
+    </div>
+
+    <!-- ═══════ DAILY CHALLENGE BANNER ═══════ -->
+    <div class="rk-tip-card rk-reveal" style="max-width:100%;margin-bottom:2.5rem;">
+      <div class="rk-tip-icon">⚡</div>
+      <div style="flex:1;">
+        <div class="rk-tip-label">Today's RKMS Challenge</div>
+        <div class="rk-tip-text" style="font-style:normal;">10 Questions · 10 Minutes — Can you beat today's challenge?</div>
+        <div id="rkStreakLine" style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-2);"></div>
+      </div>
+      <button class="btn-rk btn-sm" id="rkDailyBtn">Start Challenge</button>
+    </div>
+
+    <div class="rk-section-head rk-reveal" style="margin-bottom:2rem;">
+      <div class="rk-eyebrow">📝 Test Arena</div>
+      <h1 class="rk-section-title">RKMS Test Series</h1>
+      <p class="rk-section-sub">Foundation → Subject → Advanced → Full Mock. Pick a category and start.</p>
+    </div>
+
+    <div class="rk-tab-row rk-reveal" id="rkCategoryTabs" role="tablist" aria-label="Test categories"></div>
+    <div class="rk-subject-filter-row" id="rkSubjectFilterRow" style="display:none;" role="tablist" aria-label="Filter subject tests"></div>
+    <div class="rk-test-grid" id="rkTestGrid"></div>
+
+    <!-- ═══════ TEST ENGINE (reused pattern from netarhat.html) ═══════ -->
+    <div class="rk-engine" id="rkEngine">
+
+      <!-- LOBBY -->
+      <div id="rkLobbyScreen">
+        <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:1rem;">
+          <h3 style="font-family:'Space Grotesk',sans-serif;" id="rkLobbyTitle">Test</h3>
+          <span class="rk-source-badge" id="rkLobbySourceBadge" style="display:none;"></span>
+        </div>
+        <div class="rk-lobby-row">
+          <div class="rk-lobby-stat"><b id="rkLobbyQCount">0</b>Questions</div>
+          <div class="rk-lobby-stat"><b id="rkLobbyTime">0</b>Minutes</div>
+          <div class="rk-lobby-stat"><b id="rkLobbyDifficulty">—</b>Difficulty</div>
+          <div class="rk-lobby-stat"><b id="rkLobbyBest">—</b>Your Best</div>
+        </div>
+        <label for="rkCandidateName" style="display:block;font-size:0.78rem;color:var(--text-2);margin-bottom:0.5rem;">Your name (for the result sheet)</label>
+        <input type="text" id="rkCandidateName" class="rk-name-input" placeholder="e.g. Aakash Kumar" maxlength="60" autocomplete="name">
+        <div class="rk-name-hint">Used only for your result sheet and (if configured) the leaderboard. Stored on this device only.</div>
+        <div id="rkDemoNotice" class="rk-demo-note" style="display:none;"></div>
+        <div class="rk-lobby-instructions">
+          <b>Before you begin:</b>
+          Read each question carefully · You can mark questions for review and revisit them anytime before submitting · Use the question palette to jump to any question · The test will automatically submit when time expires.
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button class="btn-rk" id="rkLaunchBtn"><i class="fas fa-play"></i> Launch Test</button>
+          <button class="btn-ghost" onclick="closeEngine()"><i class="fas fa-arrow-left"></i> Back to Test Arena</button>
+        </div>
+      </div>
+
+      <!-- EXAM -->
+      <div id="rkExamScreen" style="display:none;">
+        <div class="rk-exam-top">
+          <div style="font-size:0.85rem;color:var(--text-2);display:flex;align-items:center;gap:8px;flex-wrap:wrap;" id="rkExamCandidate"></div>
+          <div class="rk-exam-progress-track" role="progressbar" aria-label="Test progress" aria-valuemin="0" aria-valuemax="100" id="rkExamProgressTrack"><div class="rk-exam-progress-fill" id="rkExamProgressFill" style="width:0%"></div></div>
+          <div class="rk-timer" id="rkExamTimer" role="timer" aria-live="off">00:00</div>
+        </div>
+        <div class="rk-question-card">
+          <div class="rk-q-header">
+            <span class="rk-q-badge" id="rkQCategoryBadge">GENERAL</span>
+            <span id="rkQCounter" aria-live="polite">Question 1 of 10</span>
+          </div>
+          <div class="rk-q-text" id="rkQTextEng"></div>
+          <div class="rk-q-hin" id="rkQTextHin"></div>
+          <div class="rk-options-grid" id="rkOptionsGrid" role="radiogroup" aria-label="Answer options"></div>
+        </div>
+        <div class="rk-nav-row">
+          <button class="rk-flag-btn" id="rkFlagBtn" onclick="toggleFlag()"><i class="far fa-flag"></i> Flag for review</button>
+          <div style="display:flex;gap:0.6rem;">
+            <button class="btn-ghost btn-sm" onclick="stepQuestion(-1)"><i class="fas fa-chevron-left"></i> Previous</button>
+            <button class="btn-primary btn-sm" id="rkNextBtn" onclick="stepQuestion(1)">Next <i class="fas fa-chevron-right"></i></button>
+            <button class="btn-rk btn-sm" onclick="confirmSubmit()"><i class="fas fa-flag-checkered"></i> Submit Test</button>
+          </div>
+        </div>
+        <div class="rk-omr-grid" id="rkOmrGrid" role="group" aria-label="Question palette"></div>
+        <div class="rk-omr-legend">
+          <span><i class="dot answered"></i> Answered</span>
+          <span><i class="dot unanswered"></i> Unanswered</span>
+          <span><i class="dot flagged"></i> Marked for Review</span>
+          <span><i class="dot current"></i> Current</span>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div id="rkResultScreen" style="display:none;">
+        <div class="rk-result-header">
+          <div class="headline">Test Completed 🎉</div>
+          <div class="sub" id="rResultMeta"></div>
+        </div>
+        <div class="rk-result-score-row">
+          <div class="rk-result-score-big" id="rStatScoreBig">0<span>/0</span></div>
+          <div class="rk-result-accuracy-pill" id="rStatAccuracy">0% Accuracy</div>
+        </div>
+        <div class="rk-stat-grid" style="margin-bottom:1.5rem;">
+          <div class="rk-stat-card"><div class="rk-stat-num" id="rStatCorrect">0</div><div class="rk-stat-label">Correct</div></div>
+          <div class="rk-stat-card"><div class="rk-stat-num" id="rStatWrong">0</div><div class="rk-stat-label">Incorrect</div></div>
+          <div class="rk-stat-card"><div class="rk-stat-num" id="rStatSkipped">0</div><div class="rk-stat-label">Skipped</div></div>
+          <div class="rk-stat-card"><div class="rk-stat-num" id="rStatTime">0:00</div><div class="rk-stat-label">Time Taken</div></div>
+        </div>
+        <div class="rk-result-interpretation" id="rResultInterpretation"></div>
+        <div id="rSubjectBreakdown" style="margin-bottom:1.5rem;"></div>
+        <h4 style="font-family:'Space Grotesk',sans-serif;margin-bottom:0.8rem;">Question-wise Analysis</h4>
+        <div id="rReviewList"></div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.5rem;">
+          <button class="btn-rk" onclick="closeEngine()"><i class="fas fa-arrow-left"></i> Back to Test Arena</button>
+          <button class="btn-ghost" onclick="rkRetake()"><i class="fas fa-rotate-right"></i> Retake</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ LEADERBOARD ═══════ -->
+<section class="rk-section" id="leaderboard">
+  <div class="rk-container">
+    <div class="rk-section-head rk-reveal">
+      <div class="rk-eyebrow">🏆 RKMS Warriors</div>
+      <h2 class="rk-section-title">Leaderboard</h2>
+      <div id="rkLeaderSourceNote" style="font-size:0.75rem;color:var(--text-3);margin-top:0.5rem;"></div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="rk-leader-table rk-reveal">
+        <thead><tr><th>Rank</th><th>Student</th><th>Tests</th><th>Avg Score</th><th>Best Score</th></tr></thead>
+        <tbody id="rkLeaderBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="rk-modal-overlay" id="rkModalOverlay">
+  <div class="rk-modal-box" role="dialog" aria-modal="true" aria-labelledby="rkModalTitle">
+    <h4 style="font-family:'Space Grotesk',sans-serif;margin-bottom:0.75rem;" id="rkModalTitle">Confirm</h4>
+    <p style="font-size:0.88rem;color:var(--text-2);margin-bottom:1.25rem;" id="rkModalText">Are you sure?</p>
+    <div style="display:flex;gap:0.75rem;justify-content:flex-end;">
+      <button class="btn-ghost btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-rk btn-sm" id="rkModalConfirmBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<footer class="rr-footer">
+  <div class="rr-footer-inner">
+    <div class="rr-footer-brand">RANKRUSH</div>
+    <div class="rr-footer-links">
+      <a href="../index.html">Home</a><a href="index.html">RKMS Overview</a><a href="study-material.html">Study Material</a><a href="gallery.html">Gallery</a><a href="progress.html">My Progress</a>
+    </div>
+    <div class="rr-footer-copy">© 2026 RANKRUSH. Built for students of Bihar & Jharkhand.</div>
+  </div>
+</footer>
+
+<script src="../js/rkms-data.js"></script>
+<script src="../js/rkms-common.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   RKMS TEST ENGINE
+   Same conceptual pattern as netarhat.html / jnvst.html / igbv.html:
+   CONFIG holds a published Google Sheet CSV URL for real questions
+   and an Apps Script URL for leaderboard submission. Leave these
+   blank to run fully on the bundled RKMS_DEMO_QUESTIONS instead.
+   ══════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  QUESTIONS_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRhhGw5QStrjjBctDdYFWcqdSNjX5m6CMMRvDR0_fu_GTcvsOj2HAU8YHgs4mS5_aKG_AOtIfx4FOyE/pub?gid=0&single=true&output=csv",   // e.g. a published Google Sheet CSV, same format as netarhat.html
+  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzgYp9PkYAGG9T9BBkSVPb1TCAZ6Wk7r_nd5BgC_gn-JP9b_3A2EoGvJwAvgtxrMG4a/exec",      // e.g. a Google Apps Script Web App URL for score submission
+  LEADERBOARD_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSocaVI_SxIJC028tN-FX2ynwVYLPLWeQyrTLr8aXiPug2aNFdVIHrh-hUgkZQmwV94v23CMeu4ceJ_/pub?gid=1474725052&single=true&output=csv"  // TODO: paste your published "Leaderboard" tab CSV link here (Name, Tests, Avg, Best columns)
+};
+
+const RESUME_KEY = 'rkmsActiveAttemptV1';
+
+/* ── Engine state ── */
+let activeTest = null;
+let engineQuestions = [];
+let currentIndex = 0;
+let selectedAnswers = {};
+let flaggedQs = {};
+let timerInterval = null;
+let secondsLeft = 0;
+let examEndTime = null;      // wall-clock timestamp the exam ends at (drift-proof timer)
+let examStartTime = null;
+let usingDemoQuestions = false;
+let questionSourceInfo = {}; // { source: 'live'|'demo', requested, available, insufficient }
+let submissionLocked = false;
+let examScreenActive = false; // true only while the exam (not lobby/result) is on screen
+let candidateName = '';
+
+/* ── Original bundled demo bank kept untouched as a true fallback.
+   (Previously the live-sheet loader overwrote RKMS_DEMO_QUESTIONS in
+   place, which permanently destroyed the bundled demo questions for
+   the rest of the session the moment the sheet loaded once.) ── */
+const RKMS_DEMO_BANK = RKMS_DEMO_QUESTIONS.slice();
+let liveQuestions = []; // populated separately from the sheet; never mutates RKMS_DEMO_BANK
+
+/* ── Small utilities ── */
+function escapeHtml(str) {
+  return String(str == null ? '' : str)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function formatMMSS(totalSeconds) {
+  const s = Math.max(0, Math.round(totalSeconds));
+  const m = Math.floor(s / 60).toString().padStart(2, '0');
+  return `${m}:${(s % 60).toString().padStart(2, '0')}`;
+}
+function sanitizeCandidateName(raw) {
+  let name = (raw || '').replace(/[\u0000-\u001F\u007F<>]/g, '').replace(/\s+/g, ' ').trim();
+  if (!name) return 'Guest Student';
+  if (name.length > 60) name = name.slice(0, 60).trim();
+  return name;
+}
+function dedupeQuestions(list) {
+  const seen = new Set();
+  const out = [];
+  list.forEach(q => {
+    const key = (q.qEng || '').trim().toLowerCase();
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    out.push(q);
+  });
+  return out;
+}
+function shuffledCopy(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ── Render category tabs + test cards ── */
+let activeCategoryId = RKMS_TEST_CATEGORIES[0].id;
+let activeSubjectFilter = null; // e.g. "maths" — only meaningful inside the "subject" category
+
+function renderCategoryTabs() {
+  const el = document.getElementById('rkCategoryTabs');
+  el.innerHTML = RKMS_TEST_CATEGORIES.map(c =>
+    `<button class="rk-tab-btn ${c.id === activeCategoryId ? 'active' : ''}" data-cat="${c.id}" role="tab" aria-selected="${c.id === activeCategoryId}">${escapeHtml(c.label)}</button>`
+  ).join('');
+  el.querySelectorAll('.rk-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCategoryId = btn.dataset.cat;
+      activeSubjectFilter = null;
+      el.querySelectorAll('.rk-tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      renderSubjectFilterRow();
+      renderTestGrid();
+    });
+  });
+  renderSubjectFilterRow();
+}
+
+/* Subject sub-filter, shown only inside "Subject Tests" so a deep link
+   like tests.html?subject=maths can land on exactly the right test. */
+function renderSubjectFilterRow() {
+  const row = document.getElementById('rkSubjectFilterRow');
+  const category = RKMS_TEST_CATEGORIES.find(c => c.id === activeCategoryId);
+  if (!category || category.id !== 'subject') { row.style.display = 'none'; row.innerHTML = ''; return; }
+
+  const availableSubjectIds = new Set(category.tests.map(t => t.setKey.replace(/^sub-/, '')));
+  const subjectsForRow = (typeof RKMS_SUBJECTS !== 'undefined' ? RKMS_SUBJECTS : [])
+    .filter(s => availableSubjectIds.has(s.id) || availableSubjectIds.has(s.id.slice(0, 3)));
+
+  const chips = [{ id: null, name: 'All Subjects' }].concat(
+    category.tests.map(t => ({ id: t.setKey.replace(/^sub-/, ''), name: (subjectsForRow.find(s => s.id === t.setKey.replace(/^sub-/, '')) || {}).name || t.title }))
+  );
+
+  row.style.display = 'flex';
+  row.innerHTML = chips.map(c =>
+    `<button class="rk-tab-btn" data-sub="${c.id === null ? '' : c.id}" role="tab" aria-selected="${activeSubjectFilter === c.id}">${escapeHtml(c.name)}</button>`
+  ).join('');
+  row.querySelectorAll('.rk-tab-btn').forEach((btn, i) => {
+    if (chips[i].id === activeSubjectFilter) btn.classList.add('active');
+    btn.addEventListener('click', () => {
+      activeSubjectFilter = btn.dataset.sub || null;
+      row.querySelectorAll('.rk-tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      renderTestGrid();
+    });
+  });
+}
+
+function renderTestGrid() {
+  const category = RKMS_TEST_CATEGORIES.find(c => c.id === activeCategoryId) || RKMS_TEST_CATEGORIES[0];
+  const progress = rkGetProgress();
+  const grid = document.getElementById('rkTestGrid');
+
+  let tests = category.tests;
+  if (category.id === 'subject' && activeSubjectFilter) {
+    tests = tests.filter(t => t.setKey === `sub-${activeSubjectFilter}`);
+  }
+
+  if (!tests.length) {
+    grid.innerHTML = `<div class="rk-empty-state" style="grid-column:1/-1;">No tests found for this filter yet.</div>`;
+    return;
+  }
+
+  grid.innerHTML = tests.map(t => {
+    const hist = progress.history.filter(h => h.setKey === t.setKey);
+    const best = hist.length ? Math.max(...hist.map(h => h.scorePct)) + '%' : '—';
+    const attempted = hist.length > 0;
+    return `
+    <div class="rk-test-card rk-reveal">
+      <span class="rk-test-badge ${category.badgeClass}">${escapeHtml(category.label)}</span>
+      <div class="rk-test-title">${escapeHtml(t.title)}</div>
+      <div class="rk-test-meta">
+        <span><i class="fas fa-list-ol"></i> ${t.questions} Qs</span>
+        <span><i class="fas fa-clock"></i> ${t.minutes} min</span>
+        <span><i class="fas fa-gauge"></i> ${escapeHtml(t.difficulty)}</span>
+      </div>
+      <div class="rk-test-foot">
+        <span>${attempted ? 'Attempted' : 'Not attempted'}</span>
+        <span class="rk-best-score">Best: ${best}</span>
+      </div>
+      <button class="btn-rk btn-sm btn-block" data-setkey="${escapeHtml(t.setKey)}">${attempted ? 'Retake' : 'Start Test'} <i class="fas fa-arrow-right"></i></button>
+    </div>`;
+  }).join('');
+
+  // Event delegation via data-setkey avoids fragile inline-JSON onclick attributes
+  // (a title containing a backtick or quote could previously break the markup).
+  grid.querySelectorAll('[data-setkey]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const test = findTestBySetKey(btn.dataset.setkey);
+      if (test) startTest(test);
+    });
+  });
+
+  rkInitScrollReveal();
+}
+
+function findTestBySetKey(setKey) {
+  for (const cat of RKMS_TEST_CATEGORIES) {
+    const t = cat.tests.find(x => x.setKey === setKey);
+    if (t) return t;
+  }
+  return null;
+}
+
+const DAILY_TEST = { setKey: 'daily', title: 'Daily Challenge', questions: 10, minutes: 10, difficulty: 'Mixed' };
+document.getElementById('rkDailyBtn').addEventListener('click', () => startTest(DAILY_TEST));
+
+/* ── Streak line on daily challenge banner ── */
+function paintStreakInline() {
+  const p = rkGetProgress();
+  const el = document.getElementById('rkStreakLine');
+  if (el) el.innerHTML = p.streak > 0 ? `🔥 ${p.streak} Day Streak` : `Attempt today's challenge to start your streak.`;
+}
+paintStreakInline();
+
+/* ── Lobby → Launch ── */
+function startTest(test) {
+  activeTest = test;
+  document.getElementById('rkEngine').classList.add('show');
+  document.getElementById('rkLobbyScreen').style.display = 'block';
+  document.getElementById('rkExamScreen').style.display = 'none';
+  document.getElementById('rkResultScreen').style.display = 'none';
+
+  document.getElementById('rkLobbyTitle').textContent = test.title;
+  document.getElementById('rkLobbyQCount').textContent = test.questions;
+  document.getElementById('rkLobbyTime').textContent = test.minutes;
+  document.getElementById('rkLobbyDifficulty').textContent = test.difficulty || '—';
+
+  const progress = rkGetProgress();
+  const hist = progress.history.filter(h => h.setKey === test.setKey);
+  document.getElementById('rkLobbyBest').textContent = hist.length ? Math.max(...hist.map(h => h.scorePct)) + '%' : '—';
+
+  const savedName = localStorage.getItem('rkmsCandidateName') || '';
+  document.getElementById('rkCandidateName').value = savedName;
+
+  // Preview which source this test would use, so the lobby notice is accurate
+  // even before the student clicks Launch.
+  const preview = pickQuestionSource(test);
+  paintLobbySourceInfo(preview);
+
+  document.getElementById('rkEngine').scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' });
+
+  document.getElementById('rkLaunchBtn').onclick = () => launchExam(test);
+}
+
+function paintLobbySourceInfo(info) {
+  const badge = document.getElementById('rkLobbySourceBadge');
+  const notice = document.getElementById('rkDemoNotice');
+  badge.style.display = 'inline-flex';
+  badge.className = 'rk-source-badge ' + (info.source === 'live' ? 'live' : 'demo');
+  badge.innerHTML = info.source === 'live' ? '<i class="fas fa-satellite-dish"></i> Live Test' : '<i class="fas fa-flask"></i> Demo / Practice';
+
+  let html = '';
+  if (info.source === 'live') {
+    html = '<i class="fas fa-circle-check" style="margin-top:2px;"></i><div><b>LIVE TEST.</b> Questions are loaded from the official question bank.</div>';
+    notice.className = 'rk-demo-note mode-live';
+  } else {
+    html = '<i class="fas fa-circle-info" style="margin-top:2px;"></i><div><b>DEMO / PRACTICE MODE.</b> Live question data could not be loaded (or is not yet published) for this test. You are currently viewing bundled practice questions, not the official set.</div>';
+    notice.className = 'rk-demo-note mode-demo';
+  }
+  if (info.insufficient) {
+    html += `</div><div class="rk-demo-note mode-insufficient" style="display:flex;gap:0.6rem;"><i class="fas fa-triangle-exclamation" style="margin-top:2px;"></i><div>This test currently has only <b>${info.available}</b> valid question${info.available === 1 ? '' : 's'} available (requested ${info.requested}). You will be given ${info.available} unique question${info.available === 1 ? '' : 's'} — none will repeat.</div>`;
+  }
+  notice.innerHTML = html;
+  notice.style.display = 'flex';
+}
+
+function closeEngine() {
+  document.getElementById('rkEngine').classList.remove('show');
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+/* ── Decide which question pool a test should draw from, without ever
+   silently duplicating questions to "pad out" an advertised count. ── */
+function pickQuestionSource(test) {
+  const liveMatch = dedupeQuestions(liveQuestions.filter(q => q.set === test.setKey));
+  if (liveQuestionsLoaded && liveMatch.length) {
+    return { source: 'live', pool: liveMatch, requested: test.questions, available: liveMatch.length, insufficient: liveMatch.length < test.questions };
+  }
+  let demoMatch = dedupeQuestions(RKMS_DEMO_BANK.filter(q => q.set === test.setKey));
+  if (!demoMatch.length) demoMatch = dedupeQuestions(RKMS_DEMO_BANK); // last-resort mixed demo pool so the card stays clickable
+  return { source: 'demo', pool: demoMatch, requested: test.questions, available: demoMatch.length, insufficient: demoMatch.length < test.questions };
+}
+
+/* ── Build the actual (unique, non-repeating) question set for a test ── */
+function buildQuestionSet(test) {
+  const info = pickQuestionSource(test);
+  const count = Math.min(test.questions, info.pool.length);
+  const pool = info.pool.length > count ? shuffledCopy(info.pool) : info.pool;
+  const selected = pool.slice(0, count);
+
+  usingDemoQuestions = info.source === 'demo';
+  questionSourceInfo = { source: info.source, requested: info.requested, available: info.available, insufficient: info.insufficient };
+  return selected;
+}
+
+function launchExam(test) {
+  candidateName = sanitizeCandidateName(document.getElementById('rkCandidateName').value);
+  localStorage.setItem('rkmsCandidateName', candidateName);
+
+  engineQuestions = buildQuestionSet(test);
+  if (!engineQuestions.length) {
+    showModal('No questions available', 'This test has no valid questions available right now (live sheet and demo bank both empty for this set). Please try another test or check back later.', () => {});
+    return;
+  }
+
+  currentIndex = 0;
+  selectedAnswers = {};
+  flaggedQs = {};
+  examStartTime = Date.now();
+  submissionLocked = false;
+  startExamScreen(test);
+  startTimer(test.minutes * 60);
+  saveAttemptState();
+}
+
+function startExamScreen(test) {
+  paintExamDemoNotice();
+  document.getElementById('rkLobbyScreen').style.display = 'none';
+  document.getElementById('rkExamScreen').style.display = 'block';
+  document.getElementById('rkResultScreen').style.display = 'none';
+  document.getElementById('rkExamCandidate').innerHTML =
+    `<span>${escapeHtml(candidateName)} · ${escapeHtml(test.title)}</span>` +
+    `<span class="rk-source-badge ${usingDemoQuestions ? 'demo' : 'live'}">${usingDemoQuestions ? 'DEMO' : 'LIVE'}</span>`;
+  examScreenActive = true;
+
+  buildOmrGrid();
+  renderQuestion();
+}
+
+function paintExamDemoNotice() {
+  // The demo/live distinction is shown in the exam header badge (see startExamScreen);
+  // nothing else needed here besides making sure state is consistent before render.
+}
+
+/* ── Timer: computed from a fixed wall-clock end time rather than a
+   naively-decremented counter, so it stays accurate even if the tab
+   is backgrounded/throttled (a plain setInterval tick is not
+   guaranteed to fire exactly once per second). ── */
+function startTimer(durationSec, resumeEndTime) {
+  clearInterval(timerInterval);
+  examEndTime = resumeEndTime || (Date.now() + durationSec * 1000);
+  tickTimer();
+  timerInterval = setInterval(tickTimer, 250);
+}
+function tickTimer() {
+  const remaining = Math.round((examEndTime - Date.now()) / 1000);
+  secondsLeft = Math.max(remaining, 0);
+  updateTimerUI();
+  if (remaining <= 0) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    submitTest(true);
+  }
+}
+function updateTimerUI() {
+  const el = document.getElementById('rkExamTimer');
+  el.textContent = formatMMSS(secondsLeft);
+  el.classList.toggle('low-time', secondsLeft <= 60);
+  el.setAttribute('aria-live', secondsLeft <= 60 ? 'polite' : 'off');
+}
+
+function renderQuestion() {
+  const q = engineQuestions[currentIndex];
+  document.getElementById('rkQCategoryBadge').textContent = (q.category || 'general').toUpperCase();
+  document.getElementById('rkQCounter').textContent = `Question ${currentIndex + 1} of ${engineQuestions.length}`;
+  document.getElementById('rkQTextEng').textContent = q.qEng;
+  document.getElementById('rkQTextHin').textContent = q.qHin || '';
+
+  const grid = document.getElementById('rkOptionsGrid');
+  grid.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'rk-option' + (selectedAnswers[currentIndex] === i ? ' selected' : '');
+    btn.setAttribute('role', 'radio');
+    btn.setAttribute('aria-checked', selectedAnswers[currentIndex] === i ? 'true' : 'false');
+    btn.dataset.i = i;
+
+    const letterSpan = document.createElement('span');
+    letterSpan.className = 'letter';
+    letterSpan.textContent = letters[i];
+    btn.appendChild(letterSpan);
+    // Option text may originate from an externally-editable Google Sheet —
+    // appended as a text node (not innerHTML) so it can never inject markup.
+    btn.appendChild(document.createTextNode(' ' + opt));
+
+    btn.addEventListener('click', () => {
+      selectedAnswers[currentIndex] = i;
+      renderQuestion();
+      updateOmr();
+      updateProgress();
+      saveAttemptState();
+    });
+    grid.appendChild(btn);
+  });
+
+  document.getElementById('rkFlagBtn').classList.toggle('flagged', !!flaggedQs[currentIndex]);
+  document.getElementById('rkNextBtn').innerHTML = currentIndex === engineQuestions.length - 1
+    ? 'Finish <i class="fas fa-flag-checkered"></i>' : 'Next <i class="fas fa-chevron-right"></i>';
+  updateProgress();
+  updateOmr();
+}
+
+function updateProgress() {
+  const answered = Object.keys(selectedAnswers).length;
+  const pct = Math.round((answered / engineQuestions.length) * 100);
+  document.getElementById('rkExamProgressFill').style.width = `${pct}%`;
+  document.getElementById('rkExamProgressTrack').setAttribute('aria-valuenow', String(pct));
+}
+
+function toggleFlag() {
+  flaggedQs[currentIndex] = !flaggedQs[currentIndex];
+  renderQuestion();
+  saveAttemptState();
+}
+
+function stepQuestion(delta) {
+  if (currentIndex === engineQuestions.length - 1 && delta === 1) { confirmSubmit(); return; }
+  currentIndex = Math.min(Math.max(currentIndex + delta, 0), engineQuestions.length - 1);
+  renderQuestion();
+  saveAttemptState();
+}
+
+function buildOmrGrid() {
+  const grid = document.getElementById('rkOmrGrid');
+  grid.innerHTML = engineQuestions.map((_, i) =>
+    `<button type="button" class="rk-omr-bubble" data-i="${i}" aria-label="Go to question ${i + 1}">${i + 1}</button>`
+  ).join('');
+  grid.querySelectorAll('.rk-omr-bubble').forEach(b => {
+    b.addEventListener('click', () => { currentIndex = parseInt(b.dataset.i, 10); renderQuestion(); saveAttemptState(); });
+  });
+}
+function updateOmr() {
+  document.querySelectorAll('.rk-omr-bubble').forEach((b, i) => {
+    b.classList.toggle('answered', selectedAnswers[i] !== undefined);
+    b.classList.toggle('flagged', !!flaggedQs[i]);
+    b.classList.toggle('current', i === currentIndex);
+  });
+}
+
+/* ── Keyboard navigation during the exam: 1-4 select an option,
+   Left/Right move between questions, F toggles flag. Ignored while
+   typing in the candidate-name field or any other text input. ── */
+document.addEventListener('keydown', (e) => {
+  if (!examScreenActive) return;
+  const tag = (e.target && e.target.tagName || '').toLowerCase();
+  if (tag === 'input' || tag === 'textarea') return;
+
+  if (['1', '2', '3', '4'].includes(e.key)) {
+    const i = parseInt(e.key, 10) - 1;
+    const q = engineQuestions[currentIndex];
+    if (q && q.options[i] !== undefined) {
+      selectedAnswers[currentIndex] = i;
+      renderQuestion(); updateOmr(); updateProgress(); saveAttemptState();
+    }
+  } else if (e.key === 'ArrowLeft') { stepQuestion(-1); }
+  else if (e.key === 'ArrowRight' && currentIndex < engineQuestions.length - 1) { stepQuestion(1); }
+  else if (e.key.toLowerCase() === 'f') { toggleFlag(); }
+});
+
+/* ── Submit flow ── */
+function confirmSubmit() {
+  if (submissionLocked) return;
+  const answered = Object.keys(selectedAnswers).length;
+  const remaining = engineQuestions.length - answered;
+  const flaggedCount = Object.values(flaggedQs).filter(Boolean).length;
+  showModal(
+    'Submit Test?',
+    `You have answered ${answered} of ${engineQuestions.length} questions. ${remaining} unanswered${flaggedCount ? `, ${flaggedCount} marked for review` : ''}. This cannot be undone.`,
+    () => submitTest(false)
+  );
+}
+
+function submitTest(isAutoSubmit) {
+  if (submissionLocked) return; // guards against double-submit (double click, or timer + manual clash)
+  submissionLocked = true;
+
+  clearInterval(timerInterval);
+  timerInterval = null;
+  examScreenActive = false;
+  const timeSec = Math.max(0, Math.round((Date.now() - examStartTime) / 1000));
+
+  let correct = 0, wrong = 0, skipped = 0;
+  const subjectTally = {};
+  engineQuestions.forEach((q, i) => {
+    const cat = q.category || 'general';
+    subjectTally[cat] = subjectTally[cat] || { correct: 0, total: 0 };
+    subjectTally[cat].total++;
+    if (selectedAnswers[i] === undefined) { skipped++; return; }
+    if (selectedAnswers[i] === q.answer) { correct++; subjectTally[cat].correct++; }
+    else wrong++;
+  });
+
+  const total = engineQuestions.length;
+  const scorePct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+  document.getElementById('rkExamScreen').style.display = 'none';
+  document.getElementById('rkResultScreen').style.display = 'block';
+  document.getElementById('rResultMeta').textContent = `${candidateName} · ${activeTest.title}${isAutoSubmit ? ' · Auto-submitted (time expired)' : ''}`;
+  document.getElementById('rStatScoreBig').innerHTML = `${correct}<span>/${total}</span>`;
+  document.getElementById('rStatAccuracy').textContent = `${scorePct}% Accuracy`;
+  document.getElementById('rStatCorrect').textContent = correct;
+  document.getElementById('rStatWrong').textContent = wrong;
+  document.getElementById('rStatSkipped').textContent = skipped;
+  document.getElementById('rStatTime').textContent = formatMMSS(timeSec);
+  document.getElementById('rResultInterpretation').textContent = buildInterpretation(scorePct, skipped, total);
+
+  document.getElementById('rSubjectBreakdown').innerHTML = Object.entries(subjectTally).map(([cat, s]) => {
+    const pct = s.total > 0 ? Math.round((s.correct / s.total) * 100) : 0;
+    return `
+    <div style="margin-bottom:0.7rem;">
+      <div class="rk-progress-row"><span>${escapeHtml(cat.toUpperCase())}</span><span>${s.correct}/${s.total} (${pct}%)</span></div>
+      <div class="rk-progress-track"><div class="rk-progress-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('rReviewList').innerHTML = engineQuestions.map((q, i) => {
+    const given = selectedAnswers[i];
+    const status = given === undefined ? 'skipped' : (given === q.answer ? 'correct' : 'wrong');
+    const tagStyle = { correct: 'background:rgba(74,222,128,0.14);color:var(--green);', wrong: 'background:rgba(248,113,113,0.14);color:var(--red);', skipped: 'background:rgba(148,163,184,0.14);color:var(--text-2);' }[status];
+    const explanation = q.explanation ? `<details class="rk-review-details"><summary>View Explanation</summary><p>${escapeHtml(q.explanation)}</p></details>` : '';
+    return `
+    <div class="rk-review-item">
+      <div style="display:flex;justify-content:space-between;gap:0.5rem;margin-bottom:0.5rem;">
+        <b style="font-size:0.85rem;">Q${i + 1}. ${escapeHtml(q.qEng)}</b>
+        <span class="rk-review-tag" style="${tagStyle}">${status}</span>
+      </div>
+      <div style="font-size:0.8rem;color:var(--text-2);">Correct answer: <b style="color:var(--green);">${escapeHtml(q.options[q.answer])}</b>${given !== undefined && given !== q.answer ? ` · Your answer: <b style="color:var(--red);">${escapeHtml(q.options[given])}</b>` : ''}</div>
+      ${explanation}
+    </div>`;
+  }).join('');
+
+  const subjectKey = activeTest && activeTest.setKey && activeTest.setKey.startsWith('sub-') ? activeTest.setKey.replace('sub-', '') : null;
+  rkRecordTestResult({ setKey: activeTest.setKey, subject: subjectKey, scorePct, correct, wrong, skipped, timeSec });
+
+  // Optional: submit score to a Google Apps Script leaderboard, same
+  // no-cors GET pattern used in netarhat.html — only runs if configured.
+  if (CONFIG.APPS_SCRIPT_URL) {
+    const params = new URLSearchParams({ name: candidateName, setKey: activeTest.setKey, scorePct, correct, wrong, skipped, timeSec });
+    fetch(CONFIG.APPS_SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' }).catch(() => {});
+  }
+
+  clearAttemptState();
+  renderTestGrid();
+  paintStreakInline();
+}
+
+function buildInterpretation(scorePct, skipped, total) {
+  let tier;
+  if (scorePct >= 85) tier = 'Excellent performance — your accuracy is strong.';
+  else if (scorePct >= 70) tier = 'Good performance — you are close to the top band.';
+  else if (scorePct >= 50) tier = 'Fair performance — there is clear room to improve with focused revision.';
+  else tier = 'This attempt shows several weak areas — revisit the topics below before your next attempt.';
+
+  const skipNote = skipped > 0
+    ? ` You left ${skipped} question${skipped === 1 ? '' : 's'} unanswered — attempting every question (even a guess) usually helps your score more than leaving it blank.`
+    : ' You attempted every question — good discipline on time management.';
+
+  return tier + skipNote;
+}
+
+function rkRetake() { if (activeTest) startTest(activeTest); }
+
+/* ── Prevent accidental loss of an in-progress test ── */
+window.addEventListener('beforeunload', (e) => {
+  if (!examScreenActive) return;
+  e.preventDefault();
+  e.returnValue = '';
+});
+
+/* ── Lightweight resume support: snapshot enough state to restore the
+   exact same question set (not re-fetch, which could differ if the
+   sheet changes), answers, flags and the true remaining time. ── */
+function saveAttemptState() {
+  if (!examScreenActive) return;
+  try {
+    const snapshot = {
+      test: activeTest, engineQuestions, currentIndex, selectedAnswers, flaggedQs,
+      examEndTime, examStartTime, candidateName, usingDemoQuestions, questionSourceInfo,
+      savedAt: Date.now()
+    };
+    localStorage.setItem(RESUME_KEY, JSON.stringify(snapshot));
+  } catch (e) { /* storage unavailable or full — resume simply won't be offered */ }
+}
+function clearAttemptState() {
+  try { localStorage.removeItem(RESUME_KEY); } catch (e) {}
+  document.getElementById('rkResumeBanner').classList.remove('show');
+}
+
+function checkForResumableAttempt() {
+  let saved;
+  try {
+    const raw = localStorage.getItem(RESUME_KEY);
+    if (!raw) return;
+    saved = JSON.parse(raw);
+  } catch (e) { clearAttemptState(); return; }
+
+  if (!saved || !saved.test || !Array.isArray(saved.engineQuestions) || !saved.engineQuestions.length) { clearAttemptState(); return; }
+  if (!saved.examEndTime || saved.examEndTime <= Date.now()) { clearAttemptState(); return; } // time already ran out while away
+
+  const banner = document.getElementById('rkResumeBanner');
+  const info = document.getElementById('rkResumeInfo');
+  const remaining = formatMMSS((saved.examEndTime - Date.now()) / 1000);
+  info.textContent = `${saved.test.title} · Question ${saved.currentIndex + 1} of ${saved.engineQuestions.length} · ${remaining} left`;
+  banner.classList.add('show');
+
+  document.getElementById('rkResumeBtn').onclick = () => resumeAttempt(saved);
+  document.getElementById('rkResumeDiscardBtn').onclick = () => { clearAttemptState(); };
+}
+
+function resumeAttempt(saved) {
+  activeTest = saved.test;
+  engineQuestions = saved.engineQuestions;
+  currentIndex = Math.min(saved.currentIndex || 0, engineQuestions.length - 1);
+  selectedAnswers = saved.selectedAnswers || {};
+  flaggedQs = saved.flaggedQs || {};
+  examStartTime = saved.examStartTime || Date.now();
+  candidateName = saved.candidateName || 'Guest Student';
+  usingDemoQuestions = !!saved.usingDemoQuestions;
+  questionSourceInfo = saved.questionSourceInfo || {};
+  submissionLocked = false;
+
+  document.getElementById('rkEngine').classList.add('show');
+  startExamScreen(activeTest);
+  startTimer(null, saved.examEndTime);
+  document.getElementById('rkResumeBanner').classList.remove('show');
+  document.getElementById('rkEngine').scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' });
+}
+
+/* ── Simple confirm modal ── */
+function showModal(title, text, onConfirm) {
+  document.getElementById('rkModalTitle').textContent = title;
+  document.getElementById('rkModalText').textContent = text;
+  const btn = document.getElementById('rkModalConfirmBtn');
+  const newBtn = btn.cloneNode(true);
+  btn.parentNode.replaceChild(newBtn, btn);
+  newBtn.addEventListener('click', () => { closeModal(); onConfirm(); });
+  document.getElementById('rkModalOverlay').classList.add('open');
+}
+function closeModal() { document.getElementById('rkModalOverlay').classList.remove('open'); }
+
+/* ── Proper CSV parser (RFC4180-aware): handles quoted fields, commas
+   inside quotes, and escaped quotes — a naive split(',') breaks the
+   moment any cell (a question, option, or explanation) contains a
+   comma, which is why sheet content can silently fail to load. ── */
+function parseCSVText(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], next = text[i + 1];
+    if (inQuotes) {
+      if (c === '"' && next === '"') { field += '"'; i++; }
+      else if (c === '"') { inQuotes = false; }
+      else { field += c; }
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\r') { /* ignore, \n handles the line break */ }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else field += c;
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(cell => cell.trim() !== '')); // drop blank rows
+}
+
+/* ── Optional: load real questions from a published Google Sheet CSV,
+   same convention as netarhat.html. Runs only if CONFIG is filled in.
+   Loaded rows are kept in `liveQuestions`, completely separate from
+   the bundled demo bank, so demo fallback stays available even after
+   a successful (or partial) live load. ── */
+let liveQuestionsLoaded = false; // tracks whether the sheet actually loaded (for the Demo banner)
+
+async function loadQuestionsFromSheetIfConfigured() {
+  if (!CONFIG.QUESTIONS_CSV_URL) {
+    console.log('RKMS: QUESTIONS_CSV_URL is empty — using bundled demo questions.');
+    return;
+  }
+  try {
+    // Cache-bust so we don't get a stale cached copy of the CSV from Google's CDN
+    const bustUrl = CONFIG.QUESTIONS_CSV_URL + (CONFIG.QUESTIONS_CSV_URL.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+    const res = await fetch(bustUrl);
+    if (!res.ok) throw new Error(`Sheet request failed with status ${res.status}`);
+    const text = await res.text();
+
+    const allRows = parseCSVText(text);
+    if (!allRows.length) throw new Error('Sheet returned no rows.');
+    const dataRows = allRows.slice(1); // drop header row
+    console.log(`RKMS: fetched ${dataRows.length} question row(s) from sheet.`);
+
+    // Expected CSV columns: set, category, qEng, qHin, option1, option2, option3, option4, answer(1-4), explanation
+    const parsed = dataRows
+      .map(r => ({
+        set: (r[0] || '').trim(),
+        category: (r[1] || '').trim(),
+        qEng: (r[2] || '').trim(),
+        qHin: (r[3] || '').trim(),
+        options: [r[4], r[5], r[6], r[7]].map(o => (o || '').trim()),
+        answer: parseInt(r[8], 10) - 1,
+        explanation: (r[9] || '').trim()
+      }))
+      // drop malformed rows (missing set, question text, any empty option, or an out-of-range answer index)
+      .filter(q => q.set && q.qEng && q.options.every(o => o) && q.answer >= 0 && q.answer <= 3);
+
+    if (dataRows.length && !parsed.length) {
+      console.error('RKMS: sheet returned rows but none parsed correctly — check column order and that "answer" is 1-4, not the option text.');
+    }
+
+    // Warn (non-fatally) about set IDs in the sheet that don't match any
+    // configured test — almost always a typo in the sheet's "set" column.
+    const knownSetKeys = new Set(RKMS_TEST_CATEGORIES.flatMap(c => c.tests.map(t => t.setKey)));
+    const unknownSets = [...new Set(parsed.filter(q => !knownSetKeys.has(q.set)).map(q => q.set))];
+    if (unknownSets.length) {
+      console.warn('RKMS: sheet contains rows for set ID(s) not defined in RKMS_TEST_CATEGORIES:', unknownSets.join(', '));
+    }
+
+    if (parsed.length) {
+      liveQuestions = parsed;
+      liveQuestionsLoaded = true;
+      console.log(`RKMS: loaded ${parsed.length} valid question(s) from the live sheet.`);
+    }
+  } catch (e) {
+    console.warn('RKMS: could not load question sheet, using bundled demo questions. Reason:', e);
+  }
+}
+
+/* Loads the Leaderboard from a published Google Sheet CSV if configured
+   (see CONFIG.LEADERBOARD_CSV_URL above), otherwise shows the bundled
+   demo standings so the page never looks broken or empty. */
+async function loadLeaderboard() {
+  const sourceNote = document.getElementById('rkLeaderSourceNote');
+  if (!CONFIG.LEADERBOARD_CSV_URL) {
+    rkRenderLeaderboard('rkLeaderBody'); // demo data fallback
+    if (sourceNote) sourceNote.textContent = 'Showing demo standings — live leaderboard is not configured yet.';
+    return;
+  }
+  if (sourceNote) sourceNote.textContent = 'Loading live leaderboard…';
+  try {
+    const bustUrl = CONFIG.LEADERBOARD_CSV_URL + (CONFIG.LEADERBOARD_CSV_URL.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+    const res = await fetch(bustUrl);
+    if (!res.ok) throw new Error(`Leaderboard request failed with status ${res.status}`);
+    const text = await res.text();
+    const rows = parseCSVText(text).slice(1);
+    const data = rows
+      .filter(r => r[0])
+      .map(r => ({
+        name: r[0],
+        tests: parseInt(r[1], 10) || 0,
+        avg: Math.round(parseFloat(r[2])) || 0,
+        best: Math.round(parseFloat(r[3])) || 0
+      }));
+    if (!data.length) {
+      rkRenderLeaderboard('rkLeaderBody', []);
+      if (sourceNote) sourceNote.textContent = 'Live leaderboard is connected but has no entries yet.';
+      return;
+    }
+    rkRenderLeaderboard('rkLeaderBody', data);
+    if (sourceNote) sourceNote.textContent = 'Live standings.';
+  } catch (e) {
+    console.warn('RKMS: could not load live leaderboard, showing demo data.', e);
+    rkRenderLeaderboard('rkLeaderBody');
+    if (sourceNote) sourceNote.textContent = 'Live leaderboard is temporarily unavailable — showing demo standings.';
+  }
+}
+
+// rkRenderLeaderboard (from rkms-common.js) doesn't itself handle a
+// deliberately-empty live result, so give it a small empty-state here.
+const _origRkRenderLeaderboard = rkRenderLeaderboard;
+rkRenderLeaderboard = function (bodyId, rows) {
+  if (Array.isArray(rows) && rows.length === 0) {
+    const el = document.getElementById(bodyId);
+    if (el) { el.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-2);padding:2rem;">No attempts recorded yet. Be the first on the board!</td></tr>`; }
+    return;
+  }
+  return _origRkRenderLeaderboard(bodyId, rows);
+};
+
+/* ── Init ── */
+renderCategoryTabs();
+renderTestGrid();
+loadLeaderboard();
+loadQuestionsFromSheetIfConfigured();
+checkForResumableAttempt();
+
+// Pre-select a subject's tests if arriving from a subject card (?subject=maths)
+// and jump straight into the Daily Challenge lobby for ?mode=daily, matching
+// what the "Start Challenge" button itself does (previously this param only
+// scrolled to the leaderboard, which didn't match its name).
+(function preselectFromQuery() {
+  const params = new URLSearchParams(location.search);
+  const subject = params.get('subject');
+  if (subject) {
+    const knownIds = new Set(RKMS_TEST_CATEGORIES.find(c => c.id === 'subject').tests.map(t => t.setKey.replace(/^sub-/, '')));
+    activeCategoryId = 'subject';
+    activeSubjectFilter = knownIds.has(subject) ? subject : null;
+    if (!knownIds.has(subject)) console.warn(`RKMS: ?subject=${subject} does not match a known subject test; showing all subject tests.`);
+    renderCategoryTabs();
+    renderTestGrid();
+    document.getElementById('rkTestGrid').scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' });
+  }
+  if (params.get('mode') === 'daily') {
+    startTest(DAILY_TEST);
+  }
+})();
+</script>
+</body>
+</html>
