@@ -372,7 +372,7 @@ function dedupeQuestions(list) {
   const seen = new Set();
   const out = [];
   list.forEach(q => {
-    const key = (q.qEng || '').trim().toLowerCase();
+    const key = ((q.qEng || '') + '___' + (q.options || []).join('___')).trim().toLowerCase();
     if (!key || seen.has(key)) return;
     seen.add(key);
     out.push(q);
